@@ -76,11 +76,6 @@ class Spaceship {
 
     explode() {
         this.spaceshipImage.src = 'images/explosion.gif';
-        setTimeout(this.retry,1000)
-    }
-
-    retry() {
-        this.spaceshipImage.src = 'images/ship.png';
     }
 
     public getRectangle() {

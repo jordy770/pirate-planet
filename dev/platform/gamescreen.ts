@@ -13,6 +13,17 @@ class GameScreen{
         this.bomb = new Bomb()
         this.platform = new Platform()
         this.player = new Player(this)
+
+        // // get container
+        // let container = document.getElementsByTagName("container")[0]
+
+        // // append bg to container
+        // let background = document.createElement("background")
+        // container.appendChild(background)
+
+        // // append foreground to container
+        // let foreground = document.createElement("foreground")
+        // container.appendChild(foreground)
     
         this.foreground = document.getElementsByTagName("foreground")[0] as HTMLElement
     }

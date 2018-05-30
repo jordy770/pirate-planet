@@ -1,6 +1,7 @@
 "use strict";
 var Game = (function () {
     function Game() {
+        var container = document.getElementsByTagName("container")[0];
         this.currentscreen = new StartScreen(this);
         this.gameLoop();
     }
@@ -10,8 +11,8 @@ var Game = (function () {
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };
     Game.prototype.emptyScreen = function () {
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.innerHTML = "";
+        var container = document.getElementsByTagName("container")[0];
+        container.innerHTML = "";
     };
     Game.prototype.showScreen = function (screen) {
         this.currentscreen = screen;
@@ -413,18 +414,29 @@ var StartScreen = (function () {
         var _this = this;
         this.addNumbers(2, 3);
         this.game = g;
-        this.textfield = document.createElement("textfield");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.textfield);
-        this.textfield.addEventListener("click", function () { return _this.switchScreens(); });
+        this.startbtn = document.createElement("startbtn");
+        this.startmodal = document.createElement("startmodal");
+        this.starttext = document.createElement("starttext");
+        var container = document.getElementsByTagName("container")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        foreground.appendChild(this.startmodal);
+        this.startmodal.appendChild(this.startbtn);
+        this.startmodal.appendChild(this.starttext);
+        this.startbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
     StartScreen.prototype.addNumbers = function (a, b) {
         console.log(a + b);
     };
     StartScreen.prototype.update = function () {
-        this.textfield.innerHTML = "START THE GAME - dit is het startscreen";
+        this.startbtn.innerHTML = "START GAME";
+        console.log('startscreen updating');
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunes. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {
+        console.log('switch to gamescreen');
         this.game.emptyScreen();
         this.game.showScreen(new GameScreen(this.game));
     };

@@ -1,8 +1,12 @@
 class Game {
 
     private currentscreen : StartScreen | GameScreen | SpaceGame | GameOver
+    // width: number = 1280;
+    // height: number = 720;
 
     constructor() {
+        let container = document.getElementsByTagName("container")[0]
+        
         this.currentscreen = new StartScreen(this)
         this.gameLoop()
     }
@@ -13,8 +17,8 @@ class Game {
     }
 
     public emptyScreen() {
-        let foreground = document.getElementsByTagName("foreground")[0]
-        foreground.innerHTML = ""
+        let container = document.getElementsByTagName("container")[0]
+        container.innerHTML = ""
     }
 
     public showScreen(screen : StartScreen | GameScreen| SpaceGame | GameOver ) {

@@ -3,14 +3,8 @@ body {
     color:white;
     overflow:hidden;
     margin:0px; padding:0px;
-    background-color:#333;
-    font-family: 'Press Start 2P', cursive;
-}
-
-game {
-    width:100vw; height:100vh;
-    background-color:black;
-    overflow:hidden;
+    /* background-color:#333; */
+    /* font-family: 'Press Start 2P', cursive; */
 }
 
 game * {
@@ -20,6 +14,21 @@ game * {
     box-sizing: border-box;
     background-repeat: no-repeat;
 }
+
+game {
+    position:absolute;
+    width:1280px;
+    height:720px;
+    background-color:black;
+    overflow:hidden;
+}
+
+container {
+    width:1280px;
+    height:720px;
+}
+
+
 
 car {
     width:224px; height:138px;
@@ -136,4 +145,41 @@ textfield {
     font-family: 'Press Start 2P', cursive;
     text-shadow: 0px 4px 0px rgba(0,0,0,0.5);
     font-size: 1.4em;
+}
+
+
+startmodal {
+    position:absolute;
+    top:30vh;
+    left:400px;
+    width:400px;
+    height:300px;
+    background-color:#efefef;
+    text-align:center;
+}
+
+    /* STARTSCREEN STYLING */
+startbtn {
+    margin-left: 140px;
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:20px;
+    position:absolute;
+    bottom:20px;
+    width: 120px;
+    background-color:#313131;
+    color:#fff;
+    padding:20px;
+    cursor:pointer;
+}
+
+startbtn:hover {
+    background-color:#efefef;
+    border:2px solid #313131;
+    color: #313131
+}
+
+starttext {
+    font-family:"Trebuchet MS", Helvetica, sans-serif;
+    font-size:20px;
+    margin:40px;
 }

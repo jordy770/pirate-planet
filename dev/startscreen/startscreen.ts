@@ -1,7 +1,10 @@
 class StartScreen {
 
-    private textfield: HTMLElement
+    // private textfield: HTMLElement
     private game : Game
+    private startbtn : HTMLElement
+    private startmodal : HTMLElement
+    private starttext : HTMLElement
 
     private addNumbers(a:number, b:number){
         console.log( a + b )
@@ -9,22 +12,45 @@ class StartScreen {
 
     constructor(g:Game) {
         this.addNumbers(2,3)
-        // hi
 
         this.game = g
-        this.textfield = document.createElement("textfield")
-        // create a container for all startscreen elements
         
-        let foreground = document.getElementsByTagName("foreground")[0]
-        foreground.appendChild(this.textfield)
-        this.textfield.addEventListener("click", ()=> this.switchScreens())
+        this.startbtn = document.createElement("startbtn")
+        this.startmodal = document.createElement("startmodal")
+        this.starttext = document.createElement("starttext")
+
+        // get container
+        let container = document.getElementsByTagName("container")[0]
+        
+        // append bg to container
+        let background = document.createElement("background")
+        container.appendChild(background)
+        
+        // append foreground to container
+        let foreground = document.createElement("foreground")
+        container.appendChild(foreground)
+
+        // append modal to container
+        foreground.appendChild(this.startmodal)
+        this.startmodal.appendChild(this.startbtn)
+        this.startmodal.appendChild(this.starttext)
+
+        
+
+
+        // this.textfield = document.createElement("textfield")
+        // foreground.appendChild(this.textfield)
+        this.startbtn.addEventListener("click", ()=> this.switchScreens())
     }
 
     public update() {
-        this.textfield.innerHTML = "START THE GAME - dit is het startscreen"
+        this.startbtn.innerHTML = "START GAME"
+        console.log('startscreen updating')
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunes. Ga op reis om de schat te vinden!"
     }
 
     private switchScreens(){
+        console.log('switch to gamescreen')
         this.game.emptyScreen()
         this.game.showScreen(new GameScreen(this.game))
     }

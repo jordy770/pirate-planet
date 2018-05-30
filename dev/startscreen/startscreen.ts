@@ -9,6 +9,7 @@ class StartScreen {
 
     constructor(g:Game) {
         this.addNumbers(2,3)
+        // hi
 
         this.game = g
         this.textfield = document.createElement("textfield")

@@ -1,1 +1,1 @@
-# pirate-planet
+# typeBasicGood

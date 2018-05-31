@@ -10,6 +10,10 @@ class SpaceGame {
     private game:Game
     private foreground:Element
 
+    public get Time() : number {
+        return this.time
+    }
+
     constructor(g:Game){
         this.game = g
         this.background = new Background() //create background
@@ -18,8 +22,6 @@ class SpaceGame {
         this.foreground = document.getElementsByTagName("foreground")[0]
         this.textfield = document.createElement("textfield")
         this.foreground.appendChild(this.textfield);
-
-        this.textfield.innerHTML="Hi!"
 
         this.asteroids = []
         this.lasers = []

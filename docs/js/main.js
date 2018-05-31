@@ -277,7 +277,6 @@ var SpaceGame = (function () {
         this.foreground = document.getElementsByTagName("foreground")[0];
         this.textfield = document.createElement("textfield");
         this.foreground.appendChild(this.textfield);
-        this.textfield.innerHTML = "Hi!";
         this.asteroids = [];
         this.lasers = [];
         for (var i = 0; i < 6; i++) {
@@ -286,6 +285,13 @@ var SpaceGame = (function () {
             asteroid.update();
         }
     }
+    Object.defineProperty(SpaceGame.prototype, "Time", {
+        get: function () {
+            return this.time;
+        },
+        enumerable: true,
+        configurable: true
+    });
     SpaceGame.prototype.update = function () {
         this.spaceship.update();
         this.textfield.innerHTML = "LEVENS: " + this.levens;
@@ -402,10 +408,6 @@ var Spaceship = (function () {
     };
     Spaceship.prototype.explode = function () {
         this.spaceshipImage.src = 'images/explosion.gif';
-        setTimeout(this.retry, 1000);
-    };
-    Spaceship.prototype.retry = function () {
-        this.spaceshipImage.src = 'images/ship.png';
     };
     Spaceship.prototype.getRectangle = function () {
         return this.hitbox.getBoundingClientRect();

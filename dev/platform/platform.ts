@@ -1,8 +1,8 @@
 class Platform{
 
     private div: HTMLElement
-    private x: number = 800
-    private y: number = 800
+    private x: number = 500
+    private y: number = 500
 
     constructor(){
         this.div = document.createElement("platform")

@@ -45,7 +45,6 @@ class StartScreen {
 
     public update() {
         this.startbtn.innerHTML = "START GAME"
-        console.log('startscreen updating')
         this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunes. Ga op reis om de schat te vinden!"
     }
 

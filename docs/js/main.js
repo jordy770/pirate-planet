@@ -1,7 +1,6 @@
 "use strict";
 var Game = (function () {
     function Game() {
-        var container = document.getElementsByTagName("container")[0];
         this.currentscreen = new StartScreen(this);
         this.gameLoop();
     }
@@ -30,41 +29,27 @@ var GameOver = (function () {
     };
     return GameOver;
 }());
-var Bomb = (function () {
-    function Bomb() {
-        this.element = document.createElement("bomb");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.element);
-        this.x = window.innerWidth - this.getRectangle().width;
-        this.y = window.innerHeight - this.getRectangle().height;
-    }
-    Bomb.prototype.scrollLeft = function (pos) {
-        this.x += pos;
-    };
-    Bomb.prototype.update = function () {
-        this.element.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    Bomb.prototype.getRectangle = function () {
-        return this.element.getBoundingClientRect();
-    };
-    return Bomb;
-}());
 var GameScreen = (function () {
     function GameScreen(g) {
         this.hitByBomb = 0;
         this.game = g;
-        this.bomb = new Bomb();
+        var container = document.getElementsByTagName("container")[0];
+        console.log("hallo");
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        this.ship = new Ship();
         this.platform = new Platform();
         this.player = new Player(this);
-        this.foreground = document.getElementsByTagName("foreground")[0];
     }
     GameScreen.prototype.scrollLevel = function (pos) {
-        this.bomb.scrollLeft(pos);
+        this.ship.scrollLeft(pos);
         this.platform.scrollLeft(pos);
     };
     GameScreen.prototype.update = function () {
         this.player.update();
-        this.bomb.update();
+        this.ship.update();
         this.platform.update();
         if (this.checkCollision(this.player.getRectangle(), this.platform.getRectangle())) {
             this.player.hitPlat();
@@ -72,7 +57,7 @@ var GameScreen = (function () {
         else {
             this.player.gravity = 10;
         }
-        if (this.checkCollision(this.player.getRectangle(), this.bomb.getRectangle())) {
+        if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitByBomb++;
             if (this.hitByBomb > 0) {
                 this.game.emptyScreen();
@@ -90,8 +75,8 @@ var GameScreen = (function () {
 }());
 var Platform = (function () {
     function Platform() {
-        this.x = 800;
-        this.y = 800;
+        this.x = 500;
+        this.y = 500;
         this.div = document.createElement("platform");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -111,15 +96,14 @@ var Player = (function () {
     function Player(b) {
         var _this = this;
         this.levelposition = 0;
-        this.y = window.innerHeight - 150;
+        this.y = 10;
         this.speedLeft = 0;
         this.speedRight = 0;
         this.speedUp = 0;
         this.gamescreen = b;
-        this.element = document.createElement("player");
-        var game = document.getElementsByTagName("game")[0];
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.element);
+        this.player = document.createElement("player");
+        var background = document.getElementsByTagName("background")[0];
+        background.appendChild(this.player);
         this.gravity = 10;
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
         window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
@@ -157,14 +141,33 @@ var Player = (function () {
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         var newY = this.y - this.speedUp + this.gravity;
-        if (newY > 0 && newY + 150 < window.innerHeight)
+        if (newY > 0 && newY + 150 < 720)
             this.y = newY;
-        this.element.style.transform = "translate(200px, " + this.y + "px)";
+        this.player.style.transform = "translate(200px, " + this.y + "px)";
     };
     Player.prototype.getRectangle = function () {
-        return this.element.getBoundingClientRect();
+        return this.player.getBoundingClientRect();
     };
     return Player;
+}());
+var Ship = (function () {
+    function Ship() {
+        this.ship = document.createElement("ship");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.ship);
+        this.x = 1280 - this.getRectangle().width;
+        this.y = 720 - this.getRectangle().height;
+    }
+    Ship.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
+    Ship.prototype.update = function () {
+        this.ship.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Ship.prototype.getRectangle = function () {
+        return this.ship.getBoundingClientRect();
+    };
+    return Ship;
 }());
 var Asteroid = (function () {
     function Asteroid(g) {
@@ -432,7 +435,6 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.update = function () {
         this.startbtn.innerHTML = "START GAME";
-        console.log('startscreen updating');
         this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunes. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {

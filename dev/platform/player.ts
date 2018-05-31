@@ -1,22 +1,25 @@
 class Player  {
     
-    private element:HTMLElement
+    private player:HTMLElement
     private levelposition:number = 0
-    private y:number = window.innerHeight - 150
+    private y:number = 10
     private speedLeft: number = 0
     private speedRight: number = 0
     private speedUp: number = 0
     private gamescreen:GameScreen
+    
 
     public gravity: number
          
     constructor(b:GameScreen) {
         this.gamescreen = b
-        this.element = document.createElement("player")
-        let game = document.getElementsByTagName("game")[0]
+        this.player = document.createElement("player")  
 
-        let foreground = document.getElementsByTagName("foreground")[0]
-        foreground.appendChild(this.element)
+        //let container = document.getElementsByTagName("container")[0]
+  //      let game = document.getElementsByTagName("Back")[0]
+
+        let background = document.getElementsByTagName("background")[0]
+        background.appendChild(this.player)
 
         this.gravity = 10
 
@@ -65,15 +68,15 @@ class Player  {
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight)
 
         let newY = this.y - this.speedUp + this.gravity
-        if (newY > 0 && newY + 150 < window.innerHeight) this.y = newY
+        if (newY > 0 && newY + 150 < 720) this.y = newY
         
         // positie van auto kan je veranderen met x y
-        this.element.style.transform = `translate(200px, ${this.y}px)`
+        this.player.style.transform = `translate(200px, ${this.y}px)`
 
         
     }  
 
     public getRectangle() {
-        return this.element.getBoundingClientRect()
+        return this.player.getBoundingClientRect()
     }
 }

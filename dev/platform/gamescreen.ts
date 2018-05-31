@@ -1,44 +1,46 @@
 class GameScreen{
 
     private player:Player
-    private bomb:Bomb
+    private ship:Ship
     private platform:Platform
-    private foreground:HTMLElement
+    // private foreground:HTMLElement
     private game:Game
     private hitByBomb:number = 0
     
 
     constructor(g:Game){
         this.game = g
-        this.bomb = new Bomb()
+       
+
+        // get container
+        let container = document.getElementsByTagName("container")[0]
+        console.log("hallo")
+
+        // append bg to container
+        let background = document.createElement("background")
+        container.appendChild(background)
+
+        // append foreground to container
+        let foreground = document.createElement("foreground")
+        container.appendChild(foreground)
+    
+        // this.foreground = document.getElementsByTagName("foreground")[0] as HTMLElement
+        this.ship = new Ship()
         this.platform = new Platform()
         this.player = new Player(this)
-
-        // // get container
-        // let container = document.getElementsByTagName("container")[0]
-
-        // // append bg to container
-        // let background = document.createElement("background")
-        // container.appendChild(background)
-
-        // // append foreground to container
-        // let foreground = document.createElement("foreground")
-        // container.appendChild(foreground)
-    
-        this.foreground = document.getElementsByTagName("foreground")[0] as HTMLElement
     }
 
     public scrollLevel(pos:number){
         //this.foreground.style.transform = `translateX(${pos}px)`
         // dirty fix
-        this.bomb.scrollLeft(pos)
+        this.ship.scrollLeft(pos)
         this.platform.scrollLeft(pos)
     }   
 
     public update():void {
 
         this.player.update()
-        this.bomb.update() // doet op zich niks
+        this.ship.update() // doet op zich niks
         this.platform.update()
 
         if (this.checkCollision(this.player.getRectangle(), this.platform.getRectangle())) {
@@ -47,7 +49,7 @@ class GameScreen{
             this.player.gravity = 10
         }
         
-        if (this.checkCollision(this.player.getRectangle(), this.bomb.getRectangle())) {
+        if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitByBomb++
             if(this.hitByBomb > 0){
                 this.game.emptyScreen()

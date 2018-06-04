@@ -43,6 +43,6 @@ class GameOver {
     private switchScreens(){
         console.log('switch to gamescreen')
         this.game.emptyScreen()
-        this.game.showScreen(new GameScreen(this.game))
+        this.game.showScreen(new SpaceGame(this.game))
     }
 }

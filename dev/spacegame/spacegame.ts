@@ -49,7 +49,6 @@ class SpaceGame {
                 asteroid.reset()
                 if(this.levens > 0) {
                     this.levens--
-                    this.time = 0
                 }
                 console.log("ship hits asteroid")
             }
@@ -64,9 +63,11 @@ class SpaceGame {
         }
 
         if (this.levens == 0){
-            this.textfield.innerHTML = "GAME OVER"
-            this.textfield.setAttribute("style", "font-size:4em")
-            this.spaceship.explode()        
+            // this.textfield.innerHTML = "GAME OVER"
+            // this.textfield.setAttribute("style", "font-size:4em")
+            // this.spaceship.explode()        
+            this.game.emptyScreen()
+            this.game.showScreen(new GameOver(this.game))
         }
 
         if (this.time == 2000){

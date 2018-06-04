@@ -45,7 +45,7 @@ var GameOver = (function () {
     GameOver.prototype.switchScreens = function () {
         console.log('switch to gamescreen');
         this.game.emptyScreen();
-        this.game.showScreen(new GameScreen(this.game));
+        this.game.showScreen(new SpaceGame(this.game));
     };
     return GameOver;
 }());
@@ -322,7 +322,6 @@ var SpaceGame = (function () {
                 asteroid.reset();
                 if (this.levens > 0) {
                     this.levens--;
-                    this.time = 0;
                 }
                 console.log("ship hits asteroid");
             }
@@ -336,9 +335,8 @@ var SpaceGame = (function () {
             }
         }
         if (this.levens == 0) {
-            this.textfield.innerHTML = "GAME OVER";
-            this.textfield.setAttribute("style", "font-size:4em");
-            this.spaceship.explode();
+            this.game.emptyScreen();
+            this.game.showScreen(new GameOver(this.game));
         }
         if (this.time == 2000) {
             this.textfield.innerHTML = "GEHAALD";

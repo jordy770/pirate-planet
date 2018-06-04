@@ -9,6 +9,8 @@ class Laser{
         this.x = x - 0.5 * this.laserWidth
         this.laser = new Image(this.laserWidth, this.laserHeight);       
         this.laser.setAttribute('style', 'left:'+this.x+'px;top:0px;');
+        this.laser.classList.add('laser');
+
         this.laser.src = 'images/laser.png';
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.laser);

@@ -42,8 +42,11 @@ class Spaceship {
             this.speed = 10
             break
         case 32: // SPACEBAR KEY
-            let laser : Laser = new Laser(this.x + 0.5 * this.width)
-            this.spacegame.addLaser(laser)
+            let laserAmount = document.getElementsByClassName('laser').length;
+            if(laserAmount < 4){
+                let laser : Laser = new Laser(this.x + 0.5 * this.width)
+                this.spacegame.addLaser(laser)
+            }
             break
         }
     }
@@ -76,6 +79,10 @@ class Spaceship {
 
     explode() {
         this.spaceshipImage.src = 'images/explosion.gif';
+    }
+
+    retry() {
+        alert("Hello")    
     }
 
     public getRectangle() {

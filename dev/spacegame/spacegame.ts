@@ -9,6 +9,7 @@ class SpaceGame {
     private time:number = 0
     private game:Game
     private foreground:Element
+    private afstand:number = 200000000
 
     public get Time() : number {
         return this.time
@@ -35,8 +36,8 @@ class SpaceGame {
 
     public update():void{
         this.spaceship.update()
-        this.textfield.innerHTML = "LEVENS: " + this.levens
-
+        this.textfield.innerHTML = "LEVENS: " +this.levens + " -  AFSTAND: " +this.afstand + "km"
+        this.textfield.setAttribute("style", "font-size:30px;width:1000px;")
         for(let l of this.lasers) { // loop door alle asteroids in de array - roep update aan
             l.update()
         }
@@ -62,20 +63,18 @@ class SpaceGame {
             }
         }
 
-        if (this.levens == 0){
-            // this.textfield.innerHTML = "GAME OVER"
-            // this.textfield.setAttribute("style", "font-size:4em")
-            // this.spaceship.explode()        
+        if (this.levens == 0){    
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
         }
 
         if (this.time == 2000){
             this.textfield.innerHTML = "GEHAALD"
-            this.textfield.setAttribute("style", "font-size:4em")
+            this.textfield.setAttribute("style", "font-size:30px")
         }
 
         this.time++
+        this.afstand = this.afstand - 20000
         this.background.loop()      
     }
 

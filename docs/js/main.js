@@ -272,6 +272,7 @@ var Laser = (function () {
         this.x = x - 0.5 * this.laserWidth;
         this.laser = new Image(this.laserWidth, this.laserHeight);
         this.laser.setAttribute('style', 'left:' + this.x + 'px;top:0px;');
+        this.laser.classList.add('laser');
         this.laser.src = 'images/laser.png';
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.laser);
@@ -297,6 +298,7 @@ var SpaceGame = (function () {
     function SpaceGame(g) {
         this.levens = 3;
         this.time = 0;
+        this.afstand = 200000000;
         this.game = g;
         this.background = new Background();
         this.spaceship = new Spaceship(this);
@@ -320,7 +322,8 @@ var SpaceGame = (function () {
     });
     SpaceGame.prototype.update = function () {
         this.spaceship.update();
-        this.textfield.innerHTML = "LEVENS: " + this.levens;
+        this.textfield.innerHTML = "LEVENS: " + this.levens + " -  AFSTAND: " + this.afstand + "km";
+        this.textfield.setAttribute("style", "font-size:30px;width:1000px;");
         for (var _i = 0, _a = this.lasers; _i < _a.length; _i++) {
             var l = _a[_i];
             l.update();
@@ -350,9 +353,10 @@ var SpaceGame = (function () {
         }
         if (this.time == 2000) {
             this.textfield.innerHTML = "GEHAALD";
-            this.textfield.setAttribute("style", "font-size:4em");
+            this.textfield.setAttribute("style", "font-size:30px");
         }
         this.time++;
+        this.afstand = this.afstand - 20000;
         this.background.loop();
     };
     SpaceGame.prototype.addLaser = function (l) {
@@ -401,8 +405,11 @@ var Spaceship = (function () {
                 this.speed = 10;
                 break;
             case 32:
-                var laser = new Laser(this.x + 0.5 * this.width);
-                this.spacegame.addLaser(laser);
+                var laserAmount = document.getElementsByClassName('laser').length;
+                if (laserAmount < 4) {
+                    var laser = new Laser(this.x + 0.5 * this.width);
+                    this.spacegame.addLaser(laser);
+                }
                 break;
         }
     };
@@ -432,6 +439,9 @@ var Spaceship = (function () {
     };
     Spaceship.prototype.explode = function () {
         this.spaceshipImage.src = 'images/explosion.gif';
+    };
+    Spaceship.prototype.retry = function () {
+        alert("Hello");
     };
     Spaceship.prototype.getRectangle = function () {
         return this.hitbox.getBoundingClientRect();

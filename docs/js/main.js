@@ -28,11 +28,7 @@ var GameOver = (function () {
         this.restartbtn = document.createElement("startbtn");
         this.restartmodal = document.createElement("startmodal");
         this.restarttext = document.createElement("starttext");
-        var container = document.getElementsByTagName("container")[0];
-        var background = document.createElement("background");
-        container.appendChild(background);
-        var foreground = document.createElement("foreground");
-        container.appendChild(foreground);
+        var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.restartmodal);
         this.restartmodal.appendChild(this.restartbtn);
         this.restartmodal.appendChild(this.restarttext);
@@ -439,9 +435,6 @@ var Spaceship = (function () {
     };
     Spaceship.prototype.explode = function () {
         this.spaceshipImage.src = 'images/explosion.gif';
-    };
-    Spaceship.prototype.retry = function () {
-        alert("Hello");
     };
     Spaceship.prototype.getRectangle = function () {
         return this.hitbox.getBoundingClientRect();

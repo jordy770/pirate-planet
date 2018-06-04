@@ -13,9 +13,7 @@ class GameOver {
         this.restarttext = document.createElement("starttext")
 
         // get container
-        let container = document.getElementsByTagName("container")[0]
         let foreground = document.getElementsByTagName("foreground")[0]
-        
 
         // append modal to container
         foreground.appendChild(this.restartmodal)

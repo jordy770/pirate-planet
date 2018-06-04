@@ -6,25 +6,21 @@ class GameScreen{
     // private foreground:HTMLElement
     private game:Game
     private hitByBomb:number = 0
+    private interface : Interface
     
 
     constructor(g:Game){
         this.game = g
-       
+        
+        this.interface = new Interface(this.game)
 
         // get container
         let container = document.getElementsByTagName("container")[0]
         console.log("hallo")
 
-        // append bg to container
-        // let background = document.createElement("background")
-        // container.appendChild(background)
+        
 
-        // append foreground to container
-        // let foreground = document.createElement("foreground")
-        // container.appendChild(foreground)
     
-        // this.foreground = document.getElementsByTagName("foreground")[0] as HTMLElement
         this.ship = new Ship()
         this.platform = new Platform()
         this.player = new Player(this)

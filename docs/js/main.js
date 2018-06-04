@@ -48,11 +48,23 @@ var GameOver = (function () {
 }());
 var Interface = (function () {
     function Interface(g) {
+        this.planetWidth = 400;
+        this.planetHeight = 100;
         this.game = g;
-        var container = document.getElementsByTagName("container")[0];
+        console.log('ik ben de interface bitches');
         var foreground = document.getElementsByTagName("foreground")[0];
+        this.interface = document.createElement("interface");
+        foreground.appendChild(this.interface);
+        this.updateInterface();
     }
     Interface.prototype.update = function () {
+    };
+    Interface.prototype.updateInterface = function () {
+        this.planetImage = new Image(this.planetWidth, this.planetHeight);
+        this.planetImage.setAttribute('style', 'left:400px;top:20px;');
+        this.planetImage.src = 'images/planet1.png';
+        this.interface.appendChild(this.planetImage);
+        console.log('updating interface');
     };
     return Interface;
 }());
@@ -60,6 +72,7 @@ var GameScreen = (function () {
     function GameScreen(g) {
         this.hitByBomb = 0;
         this.game = g;
+        this.interface = new Interface(this.game);
         var container = document.getElementsByTagName("container")[0];
         console.log("hallo");
         this.ship = new Ship();

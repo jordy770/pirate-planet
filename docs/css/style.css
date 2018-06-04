@@ -148,7 +148,7 @@ textfield {
 }
 
 
-startmodal {
+startmodal, restartmodal {
     position:absolute;
     top:30vh;
     left:400px;
@@ -159,7 +159,7 @@ startmodal {
 }
 
     /* STARTSCREEN STYLING */
-startbtn {
+startbtn, restartbtn {
     margin-left: 140px;
     font-family:"Trebuchet MS", Helvetica, sans-serif;
     font-size:20px;
@@ -170,15 +170,17 @@ startbtn {
     color:#fff;
     padding:20px;
     cursor:pointer;
+    transition:  0.5s ease;
 }
 
-startbtn:hover {
+startbtn:hover, restartbtn:hover {
     background-color:#efefef;
     border:2px solid #313131;
     color: #313131
 }
 
-starttext {
+starttext, restarttext {
+    color: #313131;
     font-family:"Trebuchet MS", Helvetica, sans-serif;
     font-size:20px;
     margin:40px;

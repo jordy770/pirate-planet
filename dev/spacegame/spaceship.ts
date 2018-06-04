@@ -81,9 +81,6 @@ class Spaceship {
         this.spaceshipImage.src = 'images/explosion.gif';
     }
 
-    retry() {
-        alert("Hello")    
-    }
 
     public getRectangle() {
         return this.hitbox.getBoundingClientRect()

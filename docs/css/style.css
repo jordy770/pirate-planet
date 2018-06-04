@@ -45,7 +45,6 @@ textfield {
     width:530px;
     text-shadow: 0px 4px 0px rgba(0,0,0,0.5);
     transform: translate(20px, 20px);
-    cursor:pointer;
 }
 
 fire {

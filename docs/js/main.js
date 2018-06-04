@@ -46,6 +46,16 @@ var GameOver = (function () {
     };
     return GameOver;
 }());
+var Interface = (function () {
+    function Interface(g) {
+        this.game = g;
+        var container = document.getElementsByTagName("container")[0];
+        var foreground = document.getElementsByTagName("foreground")[0];
+    }
+    Interface.prototype.update = function () {
+    };
+    return Interface;
+}());
 var GameScreen = (function () {
     function GameScreen(g) {
         this.hitByBomb = 0;

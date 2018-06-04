@@ -27,7 +27,6 @@ class GameOver {
         // foreground.appendChild(this.textfield)
         this.restartbtn.addEventListener("click", ()=> this.switchScreens())
 
-
     }
     public update() {    
         this.restartbtn.innerHTML = "RESTART GAME"

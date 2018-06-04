@@ -6,7 +6,7 @@ class Game {
 
     constructor() {
        // let container = document.getElementsByTagName("container")[0]
-        
+
         this.currentscreen = new StartScreen(this)
         this.gameLoop()
     }

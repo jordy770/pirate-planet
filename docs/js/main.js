@@ -29,7 +29,10 @@ var GameOver = (function () {
         this.restartmodal = document.createElement("startmodal");
         this.restarttext = document.createElement("starttext");
         var container = document.getElementsByTagName("container")[0];
-        var foreground = document.getElementsByTagName("foreground")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
         foreground.appendChild(this.restartmodal);
         this.restartmodal.appendChild(this.restartbtn);
         this.restartmodal.appendChild(this.restarttext);
@@ -327,8 +330,9 @@ var SpaceGame = (function () {
             asteroid.update();
             if (this.checkCollision(this.spaceship.getRectangle(), asteroid.getRectangle())) {
                 asteroid.reset();
-                this.levens--;
-                this.time = 0;
+                if (this.levens > 0) {
+                    this.levens--;
+                }
                 console.log("ship hits asteroid");
             }
             for (var _d = 0, _e = this.lasers; _d < _e.length; _d++) {
@@ -341,17 +345,12 @@ var SpaceGame = (function () {
             }
         }
         if (this.levens == 0) {
-            this.textfield.innerHTML = "GAME OVER";
-            this.textfield.setAttribute("style", "font-size:4em");
-            this.spaceship.explode();
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
-            return;
         }
         if (this.time == 2000) {
             this.textfield.innerHTML = "GEHAALD";
             this.textfield.setAttribute("style", "font-size:4em");
-            return;
         }
         this.time++;
         this.background.loop();

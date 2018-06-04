@@ -1,6 +1,6 @@
 class Interface {
     private game : Game
-    private planets : Array
+    //private planets : Array
 
 
     constructor(g:Game) {

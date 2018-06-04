@@ -14,8 +14,14 @@ class GameOver {
 
         // get container
         let container = document.getElementsByTagName("container")[0]
-        let foreground = document.getElementsByTagName("foreground")[0]
         
+        // append bg to container
+        let background = document.createElement("background")
+        container.appendChild(background)
+        
+        // append foreground to container
+        let foreground = document.createElement("foreground")
+        container.appendChild(foreground)
 
         // append modal to container
         foreground.appendChild(this.restartmodal)

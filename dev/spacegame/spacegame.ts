@@ -47,8 +47,9 @@ class SpaceGame {
            
             if (this.checkCollision(this.spaceship.getRectangle(), asteroid.getRectangle())) {
                 asteroid.reset()
-                this.levens--
-                this.time = 0
+                if(this.levens > 0) {
+                    this.levens--
+                }
                 console.log("ship hits asteroid")
             }
 
@@ -62,18 +63,16 @@ class SpaceGame {
         }
 
         if (this.levens == 0){
-            this.textfield.innerHTML = "GAME OVER"
-            this.textfield.setAttribute("style", "font-size:4em")
-            this.spaceship.explode()
+            // this.textfield.innerHTML = "GAME OVER"
+            // this.textfield.setAttribute("style", "font-size:4em")
+            // this.spaceship.explode()        
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
-            return;
         }
 
         if (this.time == 2000){
             this.textfield.innerHTML = "GEHAALD"
             this.textfield.setAttribute("style", "font-size:4em")
-            return;
         }
 
         this.time++

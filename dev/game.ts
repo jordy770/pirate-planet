@@ -18,7 +18,9 @@ class Game {
 
     public emptyScreen() {
         let foreground = document.getElementsByTagName("foreground")[0]
+        let background = document.getElementsByTagName("background")[0]
         foreground.innerHTML = ""
+        background.innerHTML = ""
     }
 
     public showScreen(screen : StartScreen | GameScreen| SpaceGame | GameOver ) {

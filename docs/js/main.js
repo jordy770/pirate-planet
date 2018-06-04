@@ -10,8 +10,10 @@ var Game = (function () {
         requestAnimationFrame(function () { return _this.gameLoop(); });
     };
     Game.prototype.emptyScreen = function () {
-        var container = document.getElementsByTagName("container")[0];
-        container.innerHTML = "";
+        var foreground = document.getElementsByTagName("foreground")[0];
+        var background = document.getElementsByTagName("background")[0];
+        foreground.innerHTML = "";
+        background.innerHTML = "";
     };
     Game.prototype.showScreen = function (screen) {
         this.currentscreen = screen;
@@ -20,12 +22,30 @@ var Game = (function () {
 }());
 window.addEventListener("load", function () { return new Game(); });
 var GameOver = (function () {
-    function GameOver() {
-        this.textfield = document.createElement("textfield");
-        document.body.appendChild(this.textfield);
+    function GameOver(g) {
+        var _this = this;
+        this.game = g;
+        this.restartbtn = document.createElement("startbtn");
+        this.restartmodal = document.createElement("startmodal");
+        this.restarttext = document.createElement("starttext");
+        var container = document.getElementsByTagName("container")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        foreground.appendChild(this.restartmodal);
+        this.restartmodal.appendChild(this.restartbtn);
+        this.restartmodal.appendChild(this.restarttext);
+        this.restartbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
     GameOver.prototype.update = function () {
-        this.textfield.innerHTML = "GAME OVER, MAN!";
+        this.restartbtn.innerHTML = "RESTART GAME";
+        this.restarttext.innerHTML = "OEPS! Je schip heeft te veel schade gehad. Probeer het opnieuw.";
+    };
+    GameOver.prototype.switchScreens = function () {
+        console.log('switch to gamescreen');
+        this.game.emptyScreen();
+        this.game.showScreen(new GameScreen(this.game));
     };
     return GameOver;
 }());
@@ -35,10 +55,6 @@ var GameScreen = (function () {
         this.game = g;
         var container = document.getElementsByTagName("container")[0];
         console.log("hallo");
-        var background = document.createElement("background");
-        container.appendChild(background);
-        var foreground = document.createElement("foreground");
-        container.appendChild(foreground);
         this.ship = new Ship();
         this.platform = new Platform();
         this.player = new Player(this);

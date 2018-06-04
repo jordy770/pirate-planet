@@ -17,12 +17,12 @@ class GameScreen{
         console.log("hallo")
 
         // append bg to container
-        let background = document.createElement("background")
-        container.appendChild(background)
+        // let background = document.createElement("background")
+        // container.appendChild(background)
 
         // append foreground to container
-        let foreground = document.createElement("foreground")
-        container.appendChild(foreground)
+        // let foreground = document.createElement("foreground")
+        // container.appendChild(foreground)
     
         // this.foreground = document.getElementsByTagName("foreground")[0] as HTMLElement
         this.ship = new Ship()

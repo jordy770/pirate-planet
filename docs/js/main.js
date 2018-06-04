@@ -29,10 +29,7 @@ var GameOver = (function () {
         this.restartmodal = document.createElement("startmodal");
         this.restarttext = document.createElement("starttext");
         var container = document.getElementsByTagName("container")[0];
-        var background = document.createElement("background");
-        container.appendChild(background);
-        var foreground = document.createElement("foreground");
-        container.appendChild(foreground);
+        var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.restartmodal);
         this.restartmodal.appendChild(this.restartbtn);
         this.restartmodal.appendChild(this.restarttext);
@@ -45,7 +42,7 @@ var GameOver = (function () {
     GameOver.prototype.switchScreens = function () {
         console.log('switch to gamescreen');
         this.game.emptyScreen();
-        this.game.showScreen(new GameScreen(this.game));
+        this.game.showScreen(new SpaceGame(this.game));
     };
     return GameOver;
 }());
@@ -337,6 +334,8 @@ var SpaceGame = (function () {
             this.textfield.innerHTML = "GAME OVER";
             this.textfield.setAttribute("style", "font-size:4em");
             this.spaceship.explode();
+            this.game.emptyScreen();
+            this.game.showScreen(new GameOver(this.game));
             return;
         }
         if (this.time == 2000) {

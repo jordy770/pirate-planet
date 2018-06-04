@@ -65,6 +65,8 @@ class SpaceGame {
             this.textfield.innerHTML = "GAME OVER"
             this.textfield.setAttribute("style", "font-size:4em")
             this.spaceship.explode()
+            this.game.emptyScreen()
+            this.game.showScreen(new GameOver(this.game))
             return;
         }
 

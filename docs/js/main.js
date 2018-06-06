@@ -135,8 +135,14 @@ var Player = (function () {
         this.speedLeft = 0;
         this.speedRight = 0;
         this.speedUp = 0;
+        this.frames = 4;
+        this.frame = 0;
+        this.offsetframe = 10;
+        this.framewidth = 170;
+        this.speedcounter = 0;
         this.gamescreen = b;
         this.player = document.createElement("player");
+        this.frame = 0;
         var background = document.getElementsByTagName("background")[0];
         background.appendChild(this.player);
         this.gravity = 10;
@@ -146,12 +152,15 @@ var Player = (function () {
     Player.prototype.onKeyDown = function (event) {
         switch (event.key) {
             case "ArrowLeft":
+            case "a":
                 this.speedLeft = 10;
                 break;
             case "ArrowRight":
+            case "d":
                 this.speedRight = 10;
                 break;
             case "ArrowUp":
+            case "w":
                 this.speedUp = 50;
                 break;
         }
@@ -159,12 +168,15 @@ var Player = (function () {
     Player.prototype.onKeyUp = function (event) {
         switch (event.key) {
             case "ArrowLeft":
+            case "a":
                 this.speedLeft = 0;
                 break;
             case "ArrowRight":
+            case "d":
                 this.speedRight = 0;
                 break;
             case "ArrowUp":
+            case "w":
                 this.speedUp = 0;
                 break;
         }
@@ -173,10 +185,17 @@ var Player = (function () {
         this.gravity = 0;
     };
     Player.prototype.update = function () {
+        this.speedcounter++;
+        if (this.speedcounter % 4 == 0)
+            this.frame++;
+        if (this.frame >= this.frames)
+            this.frame = 0;
+        var pos = 0 - (this.frame * this.framewidth);
+        this.player.style.backgroundPosition = pos + 'px -270px';
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         var newY = this.y - this.speedUp + this.gravity;
-        if (newY > 0 && newY + 150 < 720)
+        if (newY > 0 && newY + 200 < 720)
             this.y = newY;
         this.player.style.transform = "translate(200px, " + this.y + "px)";
     };

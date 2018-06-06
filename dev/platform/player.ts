@@ -55,11 +55,7 @@ class Player  {
         }
     }
 
-    public hitPlat(){
-        // this.downSpeed = 0
-        // this.speedUp = 0
-         this.gravity = 0
-     }
+
 
     public update():void 
     {

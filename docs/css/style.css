@@ -3,8 +3,7 @@ body {
     color:white;
     overflow:hidden;
     margin:0px; padding:0px;
-    /* background-color:#333; */
-    /* font-family: 'Press Start 2P', cursive; */
+
 }
 
 game * {
@@ -13,6 +12,7 @@ game * {
     margin:0px; padding:0px;
     box-sizing: border-box;
     background-repeat: no-repeat;
+
 }
 
 game {
@@ -26,13 +26,7 @@ game {
 container {
     width:1280px;
     height:720px;
-}
-
-
-
-car {
-    width:224px; height:138px;
-    background-image: url(../images/car.png);
+    overflow: hidden;
 }
 
 player{
@@ -47,34 +41,9 @@ textfield {
     transform: translate(20px, 20px);
 }
 
-fire {
-    width:120px; height:150px;
-    background-image: url(../images/fire.png);
-}
-
-health {
-    width:140px; height:145px;
-    background-image: url(../images/health.png);
-}
-
 ship {
     width:390px; height:634px;
     background-image: url(../images/boat_without_fire.png);
-}
-
-cloud {
-    background-image: url(../images/cloud.png);
-    width:277px; height: 109px;
-    animation: movecloud 8s linear infinite;
-}
-
-@keyframes movecloud {
-    from {
-        transform:translate(-30vw, 50px);
-    }
-    to {
-        transform:translate(100vw, 50px);   
-    }
 }
 
 explosion {
@@ -90,11 +59,10 @@ background {
     background-position: bottom;
 
 }
-/* foreground {
-    height:100vh;
-    width:4000px;
-    border:3px solid yellow;
-} */
+foreground {
+    height:1280px;
+    width:720px;
+}
 
 platform {
     position: absolute; 
@@ -129,7 +97,7 @@ spaceship {
 }
 
 hitbox {
-    /* border: 2px solid green;*/
+ /* border: 2px solid green; */
     transform: translate(20px,10px);
     display: inline-block;
 }

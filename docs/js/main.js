@@ -75,22 +75,39 @@ var GameScreen = (function () {
         var container = document.getElementsByTagName("container")[0];
         console.log("hallo");
         this.ship = new Ship();
-        this.platform = new Platform();
+        this.platforms = new Array();
+        var platformCoordinates = [
+            { x: 100, y: 200 },
+            { x: 150, y: 500 },
+            { x: 500, y: 550 },
+            { x: 1000, y: 300 },
+            { x: 1500, y: 600 },
+        ];
+        for (var _i = 0, platformCoordinates_1 = platformCoordinates; _i < platformCoordinates_1.length; _i++) {
+            var coords = platformCoordinates_1[_i];
+            this.platforms.push(new Platform(coords.x, coords.y));
+        }
         this.player = new Player(this);
     }
     GameScreen.prototype.scrollLevel = function (pos) {
         this.ship.scrollLeft(pos);
-        this.platform.scrollLeft(pos);
+        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
+            var platform = _a[_i];
+            platform.scrollLeft(pos);
+        }
     };
     GameScreen.prototype.update = function () {
         this.player.update();
         this.ship.update();
-        this.platform.update();
-        if (this.checkCollision(this.player.getRectangle(), this.platform.getRectangle())) {
-            this.player.hitPlat();
-        }
-        else {
-            this.player.gravity = 10;
+        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
+            var platform = _a[_i];
+            platform.update();
+            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
+                this.player.hitPlat();
+            }
+            else {
+                this.player.gravity = 10;
+            }
         }
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitByBomb++;
@@ -108,10 +125,28 @@ var GameScreen = (function () {
     };
     return GameScreen;
 }());
+var Jerrycan = (function () {
+    function Jerrycan() {
+        this.div = document.createElement("jerrycan");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.div);
+        this.speed = 4 + Math.random() * 8;
+        this.x = Math.random() * (window.innerWidth - 200);
+        this.y = -400 - (Math.random() * 450);
+    }
+    Jerrycan.prototype.update = function () {
+        this.y += this.speed;
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Jerrycan.prototype.getRectangle = function () {
+        return this.div.getBoundingClientRect();
+    };
+    return Jerrycan;
+}());
 var Platform = (function () {
-    function Platform() {
-        this.x = 500;
-        this.y = 500;
+    function Platform(x, y) {
+        this.x = x;
+        this.y = y;
         this.div = document.createElement("platform");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -135,14 +170,8 @@ var Player = (function () {
         this.speedLeft = 0;
         this.speedRight = 0;
         this.speedUp = 0;
-        this.frames = 4;
-        this.frame = 0;
-        this.offsetframe = 10;
-        this.framewidth = 170;
-        this.speedcounter = 0;
         this.gamescreen = b;
         this.player = document.createElement("player");
-        this.frame = 0;
         var background = document.getElementsByTagName("background")[0];
         background.appendChild(this.player);
         this.gravity = 10;
@@ -185,17 +214,10 @@ var Player = (function () {
         this.gravity = 0;
     };
     Player.prototype.update = function () {
-        this.speedcounter++;
-        if (this.speedcounter % 4 == 0)
-            this.frame++;
-        if (this.frame >= this.frames)
-            this.frame = 0;
-        var pos = 0 - (this.frame * this.framewidth);
-        this.player.style.backgroundPosition = pos + 'px -270px';
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         var newY = this.y - this.speedUp + this.gravity;
-        if (newY > 0 && newY + 200 < 720)
+        if (newY > 0 && newY + 150 < 720)
             this.y = newY;
         this.player.style.transform = "translate(200px, " + this.y + "px)";
     };
@@ -209,7 +231,7 @@ var Ship = (function () {
         this.ship = document.createElement("ship");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.ship);
-        this.x = 1280 - this.getRectangle().width;
+        this.x = 3000 - this.getRectangle().width;
         this.y = 720 - this.getRectangle().height;
     }
     Ship.prototype.scrollLeft = function (pos) {

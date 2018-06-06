@@ -12,7 +12,7 @@ class Ship {
 
         foreground.appendChild(this.ship)
 
-        this.x = 1280 - this.getRectangle().width
+        this.x = 3000 - this.getRectangle().width
         this.y = 720 - this.getRectangle().height
     }
 

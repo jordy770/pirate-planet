@@ -7,11 +7,10 @@ class Player  {
     private speedRight: number = 0
     private speedUp: number = 0
     private gamescreen:GameScreen
-    private frames = 4
-    private frame = 0
-    private offsetframe = 10
-    private framewidth = 170
-    private speedcounter = 0
+    // private frames = 4
+    // private frame = 0
+    // private framewidth = 255
+    // private speedcounter = 0
 
     
 
@@ -21,7 +20,7 @@ class Player  {
         this.gamescreen = b
         this.player = document.createElement("player")  
 
-        this.frame = 0
+        // this.frame = 0
 
         let background = document.getElementsByTagName("background")[0]
         background.appendChild(this.player)
@@ -75,14 +74,14 @@ class Player  {
     public update():void 
     {
 
-        // go to the next drawing after X animationframes (the FPS)
-        this.speedcounter++
-        if(this.speedcounter%4 == 0) this.frame++
-        // check if this frame exists or go to frame 0
-        if(this.frame >= this.frames) this.frame = 0
-        // position of the spritesheet image
-        let pos = 0 - (this.frame*this.framewidth)
-        this.player.style.backgroundPosition = pos + 'px -270px'
+        // // go to the next drawing after X animationframes (the FPS)
+        // this.speedcounter++
+        // if(this.speedcounter%4 == 0) this.frame++
+        // // check if this frame exists or go to frame 0
+        // if(this.frame >= this.frames) this.frame = 0
+        // // position of the spritesheet image
+        // let pos = 0 - (this.frame*this.framewidth)
+        // this.player.style.backgroundPosition = pos + 'px 0px'
 
         // update 60 times per second
        // requestAnimationFrame(()=>this.update())
@@ -91,7 +90,7 @@ class Player  {
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight)
 
         let newY = this.y - this.speedUp + this.gravity
-        if (newY > 0 && newY + 200 < 720) this.y = newY
+        if (newY > 0 && newY + 150 < 720) this.y = newY
         
         // positie van auto kan je veranderen met x y
         this.player.style.transform = `translate(200px, ${this.y}px)`

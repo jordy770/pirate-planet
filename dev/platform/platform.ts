@@ -1,10 +1,13 @@
 class Platform{
 
     private div: HTMLElement
-    private x: number = 500
-    private y: number = 500
+    private x: number
+    private y: number
 
-    constructor(){
+    constructor(x:number, y:number){
+        this.x = x
+        this.y = y
+
         this.div = document.createElement("platform")
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.div)

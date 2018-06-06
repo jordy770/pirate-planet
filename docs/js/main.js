@@ -323,7 +323,7 @@ var SpaceGame = (function () {
     function SpaceGame(g) {
         this.levens = 3;
         this.time = 0;
-        this.afstand = 100000000;
+        this.afstand = 2452800;
         this.game = g;
         this.background = new Background();
         this.spaceship = new Spaceship(this);
@@ -377,12 +377,15 @@ var SpaceGame = (function () {
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
         }
-        if (this.time == 1000) {
-            this.textfield.innerHTML = "GEHAALD";
-            this.textfield.setAttribute("style", "font-size:30px");
+        if (this.time == 1400) {
+            this.spaceship.removeSpaceship();
+            this.game.emptyScreen();
+            this.game.showScreen(new GameScreen(this.game));
         }
         this.time++;
-        this.afstand = this.afstand - 10000;
+        this.afstand = this.afstand - 1752;
+        console.log(this.time);
+        console.log(this.afstand);
         this.background.loop();
     };
     SpaceGame.prototype.addLaser = function (l) {

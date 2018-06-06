@@ -30,7 +30,7 @@ class GameScreen{
             {x: 150, y: 500},
             {x: 500, y: 550},
             {x: 1000, y: 300},
-            {x: 1500, y: 600},
+            {x: 1500, y: 600}
         ]
 
         for(let coords of platformCoordinates){
@@ -54,14 +54,18 @@ class GameScreen{
 
         this.player.update()
         this.ship.update() // doet op zich niks
-        
+
         for(let platform of this.platforms){
             platform.update()
+        }
+        
+        for(let platform of this.platforms){
 
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.hitPlat()
+                this.player.setFalling(false)
+                break
              } else {
-                 this.player.gravity = 10
+                 this.player.setFalling(true)
              }
         }
 

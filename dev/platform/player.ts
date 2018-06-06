@@ -11,10 +11,9 @@ class Player  {
     // private frame = 0
     // private framewidth = 255
     // private speedcounter = 0
+    private falling:boolean = true
 
-    
-
-    public gravity: number
+    private gravity: number
          
     constructor(b:GameScreen) {
         this.gamescreen = b
@@ -65,10 +64,8 @@ class Player  {
         }
     }
 
-    public hitPlat(){
-        // this.downSpeed = 0
-        // this.speedUp = 0
-         this.gravity = 0
+    public setFalling(b:boolean){
+        this.falling = b
      }
 
     public update():void 
@@ -89,8 +86,15 @@ class Player  {
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight)
 
+        this.gravity = (this.falling) ? 10 : 0 
+
         let newY = this.y - this.speedUp + this.gravity
-        if (newY > 0 && newY + 150 < 720) this.y = newY
+        if (newY > 0 && newY + 150 < 720) {
+            this.y = newY
+        } 
+        // TODO ALS OP DE GROND GRAVITY 0
+
+        // TODO ALLEEN SPRINGEN ALS GRAVITY 0
         
         // positie van auto kan je veranderen met x y
         this.player.style.transform = `translate(200px, ${this.y}px)`

@@ -81,7 +81,7 @@ var GameScreen = (function () {
             { x: 150, y: 500 },
             { x: 500, y: 550 },
             { x: 1000, y: 300 },
-            { x: 1500, y: 600 },
+            { x: 1500, y: 600 }
         ];
         for (var _i = 0, platformCoordinates_1 = platformCoordinates; _i < platformCoordinates_1.length; _i++) {
             var coords = platformCoordinates_1[_i];
@@ -102,11 +102,15 @@ var GameScreen = (function () {
         for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
             var platform = _a[_i];
             platform.update();
+        }
+        for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
+            var platform = _c[_b];
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.hitPlat();
+                this.player.setFalling(false);
+                break;
             }
             else {
-                this.player.gravity = 10;
+                this.player.setFalling(true);
             }
         }
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
@@ -170,6 +174,7 @@ var Player = (function () {
         this.speedLeft = 0;
         this.speedRight = 0;
         this.speedUp = 0;
+        this.falling = true;
         this.gamescreen = b;
         this.player = document.createElement("player");
         var background = document.getElementsByTagName("background")[0];
@@ -210,15 +215,17 @@ var Player = (function () {
                 break;
         }
     };
-    Player.prototype.hitPlat = function () {
-        this.gravity = 0;
+    Player.prototype.setFalling = function (b) {
+        this.falling = b;
     };
     Player.prototype.update = function () {
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
+        this.gravity = (this.falling) ? 10 : 0;
         var newY = this.y - this.speedUp + this.gravity;
-        if (newY > 0 && newY + 150 < 720)
+        if (newY > 0 && newY + 150 < 720) {
             this.y = newY;
+        }
         this.player.style.transform = "translate(200px, " + this.y + "px)";
     };
     Player.prototype.getRectangle = function () {

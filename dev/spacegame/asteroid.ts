@@ -1,27 +1,50 @@
 class Asteroid{
 
-    spacegame : SpaceGame
+    private spacegame : SpaceGame
     private asteroidImage: HTMLImageElement;
     private hitbox: HTMLElement
     private asteroid : HTMLElement
     private asteroidSize: number
     private speed:number
-    private availableWidth : number
     private y: number
     private x: number
 
     constructor(g:SpaceGame){
         this.spacegame = g
         let foreground = document.getElementsByTagName("foreground")[0]
-        this.asteroidSize = Math.floor((Math.random() * 250) + 50);
         this.asteroidImage = new Image(this.asteroidSize, this.asteroidSize);       
         this.asteroidImage.src = 'images/asteroid.png';
-        this.speed = Math.floor((Math.random() * 5) + 3);
-        this.availableWidth = 1280 - this.asteroidSize;
-        this.x = Math.floor((Math.random() * this.availableWidth) + 1);
-        this.y = 0 - this.asteroidSize
+        this.asteroid = document.createElement("asteroid")
 
         this.hitbox = document.createElement("hitbox")
+   
+        foreground.appendChild(this.asteroid);
+        this.asteroid.appendChild(this.asteroidImage)
+        this.asteroid.appendChild(this.hitbox)
+
+        this.reset()
+
+        console.log('Created asteroid')
+    }
+
+    public update(){
+        this.y += this.speed
+        this.asteroid.style.transform = `translate(${this.x}px,${this.y}px)`
+
+        if(this.y > 720 + this.asteroidSize) {
+            this.reset()
+        }
+    }
+
+    public reset(){
+        this.speed = Math.floor((Math.random() * 5) + 3);
+        this.asteroidSize = Math.floor((Math.random() * 250) + 50);
+        this.x = Math.floor((Math.random() * 1280 - this.asteroidSize) + 1);
+        this.asteroidImage.src = 'images/asteroid.png';
+        this.y = 0 - this.asteroidSize
+        this.asteroidImage.width = this.asteroidSize
+        this.asteroidImage.height = this.asteroidSize
+
         this.hitbox.style.height = this.asteroidSize + "px"
         this.hitbox.style.width = this.asteroidSize + "px"
 
@@ -39,32 +62,6 @@ class Asteroid{
             this.hitbox.style.left = "-15px"
             this.hitbox.style.top = "-15px"
         }
-
-        this.asteroid = document.createElement("asteroid")
-
-        foreground.appendChild(this.asteroid);
-        this.asteroid.appendChild(this.asteroidImage)
-        this.asteroid.appendChild(this.hitbox)
-
-        console.log('Created asteroid')
-    }
-
-    public update(){
-        this.y += this.speed
-        this.asteroid.style.transform = `translate(${this.x}px,${this.y}px)`
-
-        if(this.y > 720 + this.asteroidSize) {
-            this.reset()
-        }
-    }
-
-    public reset(){
-        this.speed = Math.floor((Math.random() * 5) + 3);
-        this.asteroidSize = Math.floor((Math.random() * 250) + 50);
-        this.availableWidth = 1280 - this.asteroidSize;
-        this.x = Math.floor((Math.random() * this.availableWidth) + 1);
-        this.asteroidImage.src = 'images/asteroid.png';
-        this.y = 0 - this.asteroidSize
     }    
 
     public getRectangle() {

@@ -249,14 +249,31 @@ var Asteroid = (function () {
     function Asteroid(g) {
         this.spacegame = g;
         var foreground = document.getElementsByTagName("foreground")[0];
-        this.asteroidSize = Math.floor((Math.random() * 250) + 50);
         this.asteroidImage = new Image(this.asteroidSize, this.asteroidSize);
         this.asteroidImage.src = 'images/asteroid.png';
-        this.speed = Math.floor((Math.random() * 5) + 3);
-        this.availableWidth = 1280 - this.asteroidSize;
-        this.x = Math.floor((Math.random() * this.availableWidth) + 1);
-        this.y = 0 - this.asteroidSize;
+        this.asteroid = document.createElement("asteroid");
         this.hitbox = document.createElement("hitbox");
+        foreground.appendChild(this.asteroid);
+        this.asteroid.appendChild(this.asteroidImage);
+        this.asteroid.appendChild(this.hitbox);
+        this.reset();
+        console.log('Created asteroid');
+    }
+    Asteroid.prototype.update = function () {
+        this.y += this.speed;
+        this.asteroid.style.transform = "translate(" + this.x + "px," + this.y + "px)";
+        if (this.y > 720 + this.asteroidSize) {
+            this.reset();
+        }
+    };
+    Asteroid.prototype.reset = function () {
+        this.speed = Math.floor((Math.random() * 5) + 3);
+        this.asteroidSize = Math.floor((Math.random() * 250) + 50);
+        this.x = Math.floor((Math.random() * 1280 - this.asteroidSize) + 1);
+        this.asteroidImage.src = 'images/asteroid.png';
+        this.y = 0 - this.asteroidSize;
+        this.asteroidImage.width = this.asteroidSize;
+        this.asteroidImage.height = this.asteroidSize;
         this.hitbox.style.height = this.asteroidSize + "px";
         this.hitbox.style.width = this.asteroidSize + "px";
         if (this.asteroidSize > 40) {
@@ -271,26 +288,6 @@ var Asteroid = (function () {
             this.hitbox.style.left = "-15px";
             this.hitbox.style.top = "-15px";
         }
-        this.asteroid = document.createElement("asteroid");
-        foreground.appendChild(this.asteroid);
-        this.asteroid.appendChild(this.asteroidImage);
-        this.asteroid.appendChild(this.hitbox);
-        console.log('Created asteroid');
-    }
-    Asteroid.prototype.update = function () {
-        this.y += this.speed;
-        this.asteroid.style.transform = "translate(" + this.x + "px," + this.y + "px)";
-        if (this.y > 720 + this.asteroidSize) {
-            this.reset();
-        }
-    };
-    Asteroid.prototype.reset = function () {
-        this.speed = Math.floor((Math.random() * 5) + 3);
-        this.asteroidSize = Math.floor((Math.random() * 250) + 50);
-        this.availableWidth = 1280 - this.asteroidSize;
-        this.x = Math.floor((Math.random() * this.availableWidth) + 1);
-        this.asteroidImage.src = 'images/asteroid.png';
-        this.y = 0 - this.asteroidSize;
     };
     Asteroid.prototype.getRectangle = function () {
         return this.hitbox.getBoundingClientRect();
@@ -348,7 +345,7 @@ var SpaceGame = (function () {
     function SpaceGame(g) {
         this.levens = 3;
         this.time = 0;
-        this.afstand = 200000000;
+        this.afstand = 2452800;
         this.game = g;
         this.background = new Background();
         this.spaceship = new Spaceship(this);
@@ -398,15 +395,19 @@ var SpaceGame = (function () {
             }
         }
         if (this.levens == 0) {
+            this.spaceship.removeSpaceship();
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
         }
-        if (this.time == 2000) {
-            this.textfield.innerHTML = "GEHAALD";
-            this.textfield.setAttribute("style", "font-size:30px");
+        if (this.time == 1400) {
+            this.spaceship.removeSpaceship();
+            this.game.emptyScreen();
+            this.game.showScreen(new GameScreen(this.game));
         }
         this.time++;
-        this.afstand = this.afstand - 20000;
+        this.afstand = this.afstand - 1752;
+        console.log(this.time);
+        console.log(this.afstand);
         this.background.loop();
     };
     SpaceGame.prototype.addLaser = function (l) {
@@ -427,7 +428,8 @@ var Spaceship = (function () {
         this.height = 150;
         this.x = 0.5 * 1280 - 0.5 * this.width;
         this.y = 720 - this.height - 50;
-        this.speed = 0;
+        this.speedLeft = 0;
+        this.speedRight = 0;
         this.spacegame = g;
         this.spaceshipImage = new Image(this.width, this.height);
         this.spaceshipImage.src = 'images/ship.png';
@@ -440,19 +442,23 @@ var Spaceship = (function () {
         this.spaceship.appendChild(this.hitbox);
         this.hitbox.style.height = '130px';
         this.hitbox.style.width = '60px';
-        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
+        this.keydownlistener = function (e) { return _this.onKeyDown(e); };
+        this.keyuplistener = function (e) { return _this.onKeyUp(e); };
+        window.addEventListener("keydown", this.keydownlistener);
+        window.addEventListener("keyup", this.keyuplistener);
         console.log('Created spaceship');
     }
-    Spaceship.prototype.onKeyDown = function (event) {
+    Spaceship.prototype.onKeyDown = function (e) {
+        var event = e;
+        console.log("ship keydown called!!!");
         switch (event.keyCode) {
             case 37:
             case 65:
-                this.speed = -10;
+                this.speedLeft = -10;
                 break;
             case 39:
             case 68:
-                this.speed = 10;
+                this.speedRight = 10;
                 break;
             case 32:
                 var laserAmount = document.getElementsByClassName('laser').length;
@@ -463,22 +469,25 @@ var Spaceship = (function () {
                 break;
         }
     };
-    Spaceship.prototype.onKeyUp = function (event) {
+    Spaceship.prototype.onKeyUp = function (e) {
+        console.log("ship calls keyup");
+        var event = e;
         switch (event.keyCode) {
             case 37:
             case 65:
-                this.speed = 0;
+                this.speedLeft = 0;
                 break;
             case 39:
             case 68:
-                this.speed = 0;
+                this.speedRight = 0;
                 break;
             case 32:
                 break;
         }
     };
     Spaceship.prototype.update = function () {
-        this.x += this.speed;
+        this.x += this.speedLeft;
+        this.x += this.speedRight;
         if (this.x <= 0) {
             this.x = 0;
         }
@@ -492,6 +501,11 @@ var Spaceship = (function () {
     };
     Spaceship.prototype.getRectangle = function () {
         return this.hitbox.getBoundingClientRect();
+    };
+    Spaceship.prototype.removeSpaceship = function () {
+        console.log("removing the spaceship");
+        window.removeEventListener("keydown", this.keydownlistener);
+        window.removeEventListener("keyup", this.keyuplistener);
     };
     return Spaceship;
 }());

@@ -26,9 +26,9 @@ game {
 container {
     width:1280px;
     height:720px;
+    margin: auto;
+    overflow: hidden;
 }
-
-
 
 car {
     width:224px; height:138px;
@@ -36,8 +36,10 @@ car {
 }
 
 player{
-    width:72px; height:121px;
-    background-image: url(../images/test1.png);
+    width:125px; height:200px;
+    display:block;
+    background-repeat:no-repeat;
+    background-image: url(../images/Sprite_Character.png);    
 }
 
 textfield {

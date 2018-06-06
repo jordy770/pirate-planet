@@ -2,31 +2,41 @@ class GameScreen{
 
     private player:Player
     private ship:Ship
-    private platform:Platform
+    private platforms:Array<Platform>
     // private foreground:HTMLElement
     private game:Game
     private hitByBomb:number = 0
+    private interface : Interface
     
 
     constructor(g:Game){
         this.game = g
-       
+        
+        this.interface = new Interface(this.game)
 
         // get container
         let container = document.getElementsByTagName("container")[0]
         console.log("hallo")
 
-        // append bg to container
-        let background = document.createElement("background")
-        container.appendChild(background)
+        
 
-        // append foreground to container
-        let foreground = document.createElement("foreground")
-        container.appendChild(foreground)
     
-        // this.foreground = document.getElementsByTagName("foreground")[0] as HTMLElement
         this.ship = new Ship()
-        this.platform = new Platform()
+        //this.platform = new Platform()
+
+        this.platforms = new Array()
+        let platformCoordinates = [
+            {x: 100, y: 200},
+            {x: 150, y: 500},
+            {x: 500, y: 550},
+            {x: 1000, y: 300},
+            {x: 1500, y: 600}
+        ]
+
+        for(let coords of platformCoordinates){
+            this.platforms.push(new Platform(coords.x, coords.y))
+        }
+
         this.player = new Player(this)
     }
 
@@ -34,20 +44,31 @@ class GameScreen{
         //this.foreground.style.transform = `translateX(${pos}px)`
         // dirty fix
         this.ship.scrollLeft(pos)
-        this.platform.scrollLeft(pos)
+        
+        for(let platform of this.platforms){
+            platform.scrollLeft(pos)
+        }
     }   
 
     public update():void {
 
         this.player.update()
         this.ship.update() // doet op zich niks
-        this.platform.update()
 
-        if (this.checkCollision(this.player.getRectangle(), this.platform.getRectangle())) {
-           this.player.hitPlat()
-        } else {
-            this.player.gravity = 10
+        for(let platform of this.platforms){
+            platform.update()
         }
+        
+        for(let platform of this.platforms){
+
+            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
+                this.player.setFalling(false)
+                break
+             } else {
+                 this.player.setFalling(true)
+             }
+        }
+
         
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitByBomb++

@@ -6,7 +6,7 @@ class Game {
 
     constructor() {
        // let container = document.getElementsByTagName("container")[0]
-        
+
         this.currentscreen = new StartScreen(this)
         this.gameLoop()
     }
@@ -17,8 +17,10 @@ class Game {
     }
 
     public emptyScreen() {
-        let container = document.getElementsByTagName("container")[0]
-        container.innerHTML = ""
+        let foreground = document.getElementsByTagName("foreground")[0]
+        let background = document.getElementsByTagName("background")[0]
+        foreground.innerHTML = ""
+        background.innerHTML = ""
     }
 
     public showScreen(screen : StartScreen | GameScreen| SpaceGame | GameOver ) {

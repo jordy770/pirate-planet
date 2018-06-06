@@ -8,7 +8,10 @@ class Spaceship {
     height : number = 150;
     x : number = 0.5 * 1280 - 0.5 * this.width;
     y : number = 720 - this.height - 50;
-    speed : number = 0;
+    speedLeft : number = 0;
+    speedRight : number = 0;
+    keydownlistener:EventListener
+    keyuplistener:EventListener
     
     constructor(g:SpaceGame){
         this.spacegame = g
@@ -25,38 +28,48 @@ class Spaceship {
         this.hitbox.style.height = '130px'
         this.hitbox.style.width = '60px'
 
-        window.addEventListener("keydown", (e:KeyboardEvent) => this.onKeyDown(e))
-        window.addEventListener("keyup", (e:KeyboardEvent) => this.onKeyUp(e))
+        this.keydownlistener =  (e:Event) => this.onKeyDown(e)
+        this.keyuplistener = (e:Event) => this.onKeyUp(e)
+
+        window.addEventListener("keydown", this.keydownlistener)
+        window.addEventListener("keyup", this.keyuplistener)
         
         console.log('Created spaceship')
     }
 
-    onKeyDown(event:KeyboardEvent):void {
+    onKeyDown(e:Event):void {
+        let event = e as KeyboardEvent
+        console.log("ship keydown called!!!")
         switch(event.keyCode){
         case 37: // LEFT ARROW KEY
         case 65: // 'A' KEY
-            this.speed = -10
+            this.speedLeft = -10
             break
         case 39: // RIGHT ARROW KEY
         case 68: // 'D' KEY
-            this.speed = 10
+            this.speedRight = 10
             break
         case 32: // SPACEBAR KEY
-            let laser : Laser = new Laser(this.x + 0.5 * this.width)
-            this.spacegame.addLaser(laser)
+            let laserAmount = document.getElementsByClassName('laser').length;
+            if(laserAmount < 4){
+                let laser : Laser = new Laser(this.x + 0.5 * this.width)
+                this.spacegame.addLaser(laser)
+            }
             break
         }
     }
     
-    onKeyUp(event:KeyboardEvent):void {
+    onKeyUp(e:Event):void {
+        console.log("ship calls keyup")
+        let event = e as KeyboardEvent
         switch(event.keyCode){
         case 37:// LEFT ARROW KEY
         case 65: // 'A' KEY
-            this.speed = 0
+            this.speedLeft = 0
             break
         case 39: // RIGHT ARROW KEY
         case 68: // 'D' KEY
-            this.speed = 0
+            this.speedRight = 0
             break
         case 32: // SPACEBAR KEY
             //
@@ -65,7 +78,8 @@ class Spaceship {
     }
 
     update(){ 
-        this.x += this.speed 
+        this.x += this.speedLeft
+        this.x += this.speedRight
         if(this.x <= 0){
             this.x = 0
         }else if(this.x >= 1280 - this.width) {
@@ -78,7 +92,15 @@ class Spaceship {
         this.spaceshipImage.src = 'images/explosion.gif';
     }
 
+
     public getRectangle() {
         return this.hitbox.getBoundingClientRect()
+    }
+
+    public removeSpaceship(){
+        console.log("removing the spaceship");
+        window.removeEventListener("keydown", this.keydownlistener)
+        window.removeEventListener("keyup", this.keyuplistener)
+        
     }
 }

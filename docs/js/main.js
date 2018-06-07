@@ -69,12 +69,20 @@ var Interface = (function () {
 }());
 var GameScreen = (function () {
     function GameScreen(g) {
-        this.hitByBomb = 0;
+        this.score = 0;
+        this.hitShip = 0;
         this.game = g;
         this.interface = new Interface(this.game);
         var container = document.getElementsByTagName("container")[0];
         console.log("hallo");
         this.ship = new Ship();
+        this.jerrycans = new Array();
+        var jerrycanCoordinates = [
+            { x: 300, y: 550 },
+            { x: 400, y: 500 },
+            { x: 300, y: 500 },
+            { x: 300, y: 500 }
+        ];
         this.platforms = new Array();
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -83,28 +91,40 @@ var GameScreen = (function () {
             { x: 1000, y: 300 },
             { x: 1500, y: 600 }
         ];
-        for (var _i = 0, platformCoordinates_1 = platformCoordinates; _i < platformCoordinates_1.length; _i++) {
-            var coords = platformCoordinates_1[_i];
+        for (var _i = 0, jerrycanCoordinates_1 = jerrycanCoordinates; _i < jerrycanCoordinates_1.length; _i++) {
+            var jcoords = jerrycanCoordinates_1[_i];
+            this.jerrycans.push(new Jerrycan(jcoords.x, jcoords.y));
+        }
+        for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
+            var coords = platformCoordinates_1[_a];
             this.platforms.push(new Platform(coords.x, coords.y));
         }
         this.player = new Player(this);
     }
     GameScreen.prototype.scrollLevel = function (pos) {
         this.ship.scrollLeft(pos);
-        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
-            var platform = _a[_i];
+        for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
+            var jerrycan = _a[_i];
+            jerrycan.scrollLeft(pos);
+        }
+        for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
+            var platform = _c[_b];
             platform.scrollLeft(pos);
         }
     };
     GameScreen.prototype.update = function () {
         this.player.update();
         this.ship.update();
-        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
-            var platform = _a[_i];
-            platform.update();
+        for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
+            var jerrycan = _a[_i];
+            jerrycan.update();
         }
         for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
             var platform = _c[_b];
+            platform.update();
+        }
+        for (var _d = 0, _e = this.platforms; _d < _e.length; _d++) {
+            var platform = _e[_d];
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
                 this.player.setFalling(false);
                 break;
@@ -114,8 +134,8 @@ var GameScreen = (function () {
             }
         }
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
-            this.hitByBomb++;
-            if (this.hitByBomb > 0) {
+            this.hitShip++;
+            if (this.hitShip > 0) {
                 this.game.emptyScreen();
                 this.game.showScreen(new SpaceGame(this.game));
             }
@@ -130,16 +150,17 @@ var GameScreen = (function () {
     return GameScreen;
 }());
 var Jerrycan = (function () {
-    function Jerrycan() {
+    function Jerrycan(x, y) {
+        this.x = x;
+        this.y = y;
         this.div = document.createElement("jerrycan");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
-        this.speed = 4 + Math.random() * 8;
-        this.x = Math.random() * (window.innerWidth - 200);
-        this.y = -400 - (Math.random() * 450);
     }
+    Jerrycan.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
     Jerrycan.prototype.update = function () {
-        this.y += this.speed;
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
     Jerrycan.prototype.getRectangle = function () {

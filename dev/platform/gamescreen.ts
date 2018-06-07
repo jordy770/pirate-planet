@@ -3,9 +3,11 @@ class GameScreen{
     private player:Player
     private ship:Ship
     private platforms:Array<Platform>
+    private jerrycans:Array<Jerrycan>
     // private foreground:HTMLElement
     private game:Game
-    private hitByBomb:number = 0
+    private score:number = 0
+    private hitShip:number = 0
     private interface : Interface
     
 
@@ -18,11 +20,16 @@ class GameScreen{
         let container = document.getElementsByTagName("container")[0]
         console.log("hallo")
 
-        
-
-    
         this.ship = new Ship()
         //this.platform = new Platform()
+
+        this.jerrycans = new Array()
+        let jerrycanCoordinates = [
+            {x: 300, y: 550},
+            {x: 400, y: 500},
+            {x: 300, y: 500},
+            {x: 300, y: 500}
+        ]
 
         this.platforms = new Array()
         let platformCoordinates = [
@@ -32,6 +39,10 @@ class GameScreen{
             {x: 1000, y: 300},
             {x: 1500, y: 600}
         ]
+
+        for(let jcoords of jerrycanCoordinates){
+            this.jerrycans.push(new Jerrycan(jcoords.x, jcoords.y))
+        }
 
         for(let coords of platformCoordinates){
             this.platforms.push(new Platform(coords.x, coords.y))
@@ -44,17 +55,37 @@ class GameScreen{
         //this.foreground.style.transform = `translateX(${pos}px)`
         // dirty fix
         this.ship.scrollLeft(pos)
+
+        for(let jerrycan of this.jerrycans){
+            jerrycan.scrollLeft(pos)
+        }
         
         for(let platform of this.platforms){
             platform.scrollLeft(pos)
         }
     }   
 
+   
+
+               
+
     public update():void {
 
         this.player.update()
-        this.ship.update() // doet op zich niks
+     
+        this.ship.update()
 
+        for(let jerrycan of this.jerrycans){
+            jerrycan.update()
+
+            // if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
+            //     this.score++
+            //     if(this.score > 4){
+            //     }
+            // }
+        }
+
+        
         for(let platform of this.platforms){
             platform.update()
         }
@@ -71,8 +102,8 @@ class GameScreen{
 
         
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
-            this.hitByBomb++
-            if(this.hitByBomb > 0){
+            this.hitShip++
+            if(this.hitShip > 0){
                 this.game.emptyScreen()
                 this.game.showScreen(new SpaceGame(this.game))
             }

@@ -1,25 +1,27 @@
 class Jerrycan {
     
     private div: HTMLElement
-    private speed:number
     private x:number
     private y:number
         
-    constructor() {
+    constructor(x:number, y:number) {
+      this.x = x
+      this.y = y
+        
         this.div = document.createElement("jerrycan")
         let foreground = document.getElementsByTagName("foreground")[0]
-        foreground.appendChild(this.div)
-        this.speed = 4 + Math.random() * 8
-        this.x = Math.random() * (window.innerWidth - 200)
-        this.y = -400 - (Math.random() * 450) 
+        foreground.appendChild(this.div)        
+    }
+    
+    public scrollLeft(pos:number){
+        this.x+=pos
     }
 
     public update():void {
-        this.y += this.speed
         this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
     }
 
-    public getRectangle() {
+      public getRectangle() {
         return this.div.getBoundingClientRect()
     }
 }

@@ -16,8 +16,9 @@ body {
 }
 
 jerrycan {
-    width:512px; height:512px;
-    background-image: url(../images/Fuel_midgrade_jerrycan.png);
+    width:50px; height:50px;
+    background-color: crimson;
+    position: absolute;
 }
 
 container {

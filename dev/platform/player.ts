@@ -64,13 +64,6 @@ class Player  {
         }
     }
 
-<<<<<<< HEAD
-
-=======
-    public setFalling(b:boolean){
-        this.falling = b
-     }
->>>>>>> d00f4e35b0e738654d44ed4c338471e263e64f43
 
     public update():void 
     {

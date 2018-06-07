@@ -63,7 +63,9 @@ class Player  {
                 break
         }
     }
-
+    public setFalling(b:boolean){
+        this.falling = b
+     }
 
     public update():void 
     {

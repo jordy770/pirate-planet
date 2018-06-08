@@ -18,7 +18,7 @@ class Jerrycan {
         this.x+=pos
     }
 
-    private remove(){
+    public remove(){
         this.div.remove()
     }
 

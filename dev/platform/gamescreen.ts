@@ -82,6 +82,7 @@ class GameScreen{
             if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
                 this.score++
                 console.log(this.score)
+                jerrycan.remove()
                 // if(this.score > 4){
                 // }
             }

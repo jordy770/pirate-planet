@@ -122,6 +122,7 @@ var GameScreen = (function () {
             if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
                 this.score++;
                 console.log(this.score);
+                jerrycan.remove();
             }
         }
         for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {

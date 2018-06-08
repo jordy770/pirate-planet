@@ -5,8 +5,9 @@ class Jerrycan {
     private y:number
         
     constructor(x:number, y:number) {
-      this.x = x
-      this.y = y
+
+        this.x = x
+        this.y = y
         
         this.div = document.createElement("jerrycan")
         let foreground = document.getElementsByTagName("foreground")[0]
@@ -15,6 +16,10 @@ class Jerrycan {
     
     public scrollLeft(pos:number){
         this.x+=pos
+    }
+
+    private remove(){
+        this.div.remove()
     }
 
     public update():void {

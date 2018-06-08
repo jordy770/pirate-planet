@@ -8,6 +8,7 @@ class GameScreen{
     private game:Game
     private score:number = 0
     private hitShip:number = 0
+    private MAX_JERRY:number = 4
     private interface : Interface
     
 
@@ -25,10 +26,10 @@ class GameScreen{
 
         this.jerrycans = new Array()
         let jerrycanCoordinates = [
-            {x: 300, y: 550},
-            {x: 400, y: 500},
-            {x: 300, y: 500},
-            {x: 300, y: 500}
+            {x: 225, y: 430},
+            {x: 590, y: 470},
+            {x: 1100, y: 250},
+            {x: 1550, y: 500}
         ]
 
         this.platforms = new Array()
@@ -78,11 +79,12 @@ class GameScreen{
         for(let jerrycan of this.jerrycans){
             jerrycan.update()
 
-            // if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
-            //     this.score++
-            //     if(this.score > 4){
-            //     }
-            // }
+            if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
+                this.score++
+                console.log(this.score)
+                // if(this.score > 4){
+                // }
+            }
         }
 
         
@@ -108,6 +110,21 @@ class GameScreen{
                 this.game.showScreen(new SpaceGame(this.game))
             }
         }
+    }
+
+    public removeMe(j:Jerrycan){
+        let removeList:number[] = []
+
+        for(let i = 0 ; i < this.MAX_JERRY; i++){
+            if (this.jerrycans[i] == j){
+                removeList.push(i);
+            }
+        }
+
+        removeList.reverse()
+            for(let i of removeList){
+                this.jerrycans.splice(i, 1)
+            }
     }
     
     public checkCollision(a: ClientRect, b: ClientRect): boolean {

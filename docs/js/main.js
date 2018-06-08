@@ -71,6 +71,7 @@ var GameScreen = (function () {
     function GameScreen(g) {
         this.score = 0;
         this.hitShip = 0;
+        this.MAX_JERRY = 4;
         this.game = g;
         this.interface = new Interface(this.game);
         var container = document.getElementsByTagName("container")[0];
@@ -78,10 +79,10 @@ var GameScreen = (function () {
         this.ship = new Ship();
         this.jerrycans = new Array();
         var jerrycanCoordinates = [
-            { x: 300, y: 550 },
-            { x: 400, y: 500 },
-            { x: 300, y: 500 },
-            { x: 300, y: 500 }
+            { x: 225, y: 430 },
+            { x: 590, y: 470 },
+            { x: 1100, y: 250 },
+            { x: 1550, y: 500 }
         ];
         this.platforms = new Array();
         var platformCoordinates = [
@@ -118,6 +119,10 @@ var GameScreen = (function () {
         for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
             var jerrycan = _a[_i];
             jerrycan.update();
+            if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
+                this.score++;
+                console.log(this.score);
+            }
         }
         for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
             var platform = _c[_b];
@@ -141,6 +146,19 @@ var GameScreen = (function () {
             }
         }
     };
+    GameScreen.prototype.removeMe = function (j) {
+        var removeList = [];
+        for (var i = 0; i < this.MAX_JERRY; i++) {
+            if (this.jerrycans[i] == j) {
+                removeList.push(i);
+            }
+        }
+        removeList.reverse();
+        for (var _i = 0, removeList_1 = removeList; _i < removeList_1.length; _i++) {
+            var i = removeList_1[_i];
+            this.jerrycans.splice(i, 1);
+        }
+    };
     GameScreen.prototype.checkCollision = function (a, b) {
         return (a.left <= b.right &&
             b.left <= a.right &&
@@ -159,6 +177,9 @@ var Jerrycan = (function () {
     }
     Jerrycan.prototype.scrollLeft = function (pos) {
         this.x += pos;
+    };
+    Jerrycan.prototype.remove = function () {
+        this.div.remove();
     };
     Jerrycan.prototype.update = function () {
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";

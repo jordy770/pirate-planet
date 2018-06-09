@@ -1,21 +1,25 @@
 class GameScreen{
 
     private player:Player
+
     private ship:Ship
     private platforms:Array<Platform>
     private jerrycans:Array<Jerrycan>
-    // private foreground:HTMLElement
+    private textfield: HTMLElement
     private game:Game
-    private score:number = 0
+    public score:number = 0
     private hitShip:number = 0
     private MAX_JERRY:number = 4
     private interface : Interface
-    
+       
 
     constructor(g:Game){
         this.game = g
         
         this.interface = new Interface(this.game)
+        let background = document.getElementsByTagName("background")[0]
+        this.textfield = document.createElement("textfield")
+        background.appendChild(this.textfield);
 
         // get container
         let container = document.getElementsByTagName("container")[0]
@@ -52,6 +56,7 @@ class GameScreen{
         this.player = new Player(this)
     }
 
+    //scroll level
     public scrollLevel(pos:number){
         //this.foreground.style.transform = `translateX(${pos}px)`
         // dirty fix
@@ -75,7 +80,10 @@ class GameScreen{
         this.player.update()
      
         this.ship.update()
-
+        this.textfield.innerHTML = this.score + "/" + this.MAX_JERRY 
+        this.textfield.setAttribute("style", "font-size:30px;width:1000px;")
+        
+        //If player hits jerrycan +score & remove this.jerrycan
         for(let jerrycan of this.jerrycans){
             jerrycan.update()
 
@@ -83,16 +91,15 @@ class GameScreen{
                 this.score++
                 console.log(this.score)
                 jerrycan.remove()
-                // if(this.score > 4){
-                // }
-            }
+                }
         }
 
-        
+        //update platforms
         for(let platform of this.platforms){
             platform.update()
         }
         
+        //update if player hits platform dont drop!
         for(let platform of this.platforms){
 
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
@@ -103,10 +110,10 @@ class GameScreen{
              }
         }
 
-        
+        //if player had MAX amount jerrycans boat activates
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++
-            if(this.hitShip > 0){
+            if(this.hitShip > 0 && this.score == this.MAX_JERRY){
                 this.game.emptyScreen()
                 this.game.showScreen(new SpaceGame(this.game))
             }

@@ -67,6 +67,28 @@ var Interface = (function () {
     };
     return Interface;
 }());
+var Enemy = (function () {
+    function Enemy(x, y) {
+        this.x = x;
+        this.y = y;
+        this.div = document.createElement("enemy");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.div);
+    }
+    Enemy.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
+    Enemy.prototype.remove = function () {
+        this.div.remove();
+    };
+    Enemy.prototype.update = function () {
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Enemy.prototype.getRectangle = function () {
+        return this.div.getBoundingClientRect();
+    };
+    return Enemy;
+}());
 var GameScreen = (function () {
     function GameScreen(g) {
         this.score = 0;
@@ -74,6 +96,9 @@ var GameScreen = (function () {
         this.MAX_JERRY = 4;
         this.game = g;
         this.interface = new Interface(this.game);
+        var background = document.getElementsByTagName("background")[0];
+        this.textfield = document.createElement("textfield");
+        background.appendChild(this.textfield);
         var container = document.getElementsByTagName("container")[0];
         console.log("hallo");
         this.ship = new Ship();
@@ -116,6 +141,8 @@ var GameScreen = (function () {
     GameScreen.prototype.update = function () {
         this.player.update();
         this.ship.update();
+        this.textfield.innerHTML = this.score + "/" + this.MAX_JERRY;
+        this.textfield.setAttribute("style", "font-size:30px;width:1000px;");
         for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
             var jerrycan = _a[_i];
             jerrycan.update();
@@ -141,7 +168,7 @@ var GameScreen = (function () {
         }
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++;
-            if (this.hitShip > 0) {
+            if (this.hitShip > 0 && this.score == this.MAX_JERRY) {
                 this.game.emptyScreen();
                 this.game.showScreen(new SpaceGame(this.game));
             }
@@ -278,8 +305,8 @@ var Player = (function () {
 }());
 var Ship = (function () {
     function Ship() {
-        this.ship = document.createElement("ship");
         var foreground = document.getElementsByTagName("foreground")[0];
+        this.ship = document.createElement("ship");
         foreground.appendChild(this.ship);
         this.x = 3000 - this.getRectangle().width;
         this.y = 720 - this.getRectangle().height;

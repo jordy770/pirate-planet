@@ -3,11 +3,9 @@ class Enemy {
     private div: HTMLElement
     private x:number
     private y:number
+    private speed:number = 10
         
-    constructor(x:number, y:number) {
-
-        this.x = x
-        this.y = y
+    constructor() {
         
         this.div = document.createElement("enemy")
         let foreground = document.getElementsByTagName("foreground")[0]
@@ -23,7 +21,13 @@ class Enemy {
     }
 
     public update():void {
-        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
+        
+        let newX = this.x - this.speed 
+        if (newX > 0  && newX + 150 < 720) {
+            this.x = newX
+        } 
+        
+        this.div.style.transform = `translate(${this.x}px, 720-150px)`
     }
 
       public getRectangle() {

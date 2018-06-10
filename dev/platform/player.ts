@@ -7,19 +7,19 @@ class Player  {
     private speedRight: number = 0
     private speedUp: number = 0
     private gamescreen:GameScreen
-    // private frames = 4
-    // private frame = 0
-    // private framewidth = 255
-    // private speedcounter = 0
+    private frames = 4
+    private frame = 0
+    private framewidth = 105
+    private speedcounter = 0
     private falling:boolean = true
 
     private gravity: number
          
     constructor(b:GameScreen) {
         this.gamescreen = b
-        this.player = document.createElement("player")  
+        this.player = document.createElement("playerright")  
 
-        // this.frame = 0
+        this.frame = 0
 
         let background = document.getElementsByTagName("background")[0]
         background.appendChild(this.player)
@@ -39,6 +39,7 @@ class Player  {
             case "ArrowRight":
             case "d":
                 this.speedRight = 10
+                this.walkRight()
                 break
             case "ArrowUp":
             case "w":
@@ -70,17 +71,6 @@ class Player  {
     public update():void 
     {
 
-        // // go to the next drawing after X animationframes (the FPS)
-        // this.speedcounter++
-        // if(this.speedcounter%4 == 0) this.frame++
-        // // check if this frame exists or go to frame 0
-        // if(this.frame >= this.frames) this.frame = 0
-        // // position of the spritesheet image
-        // let pos = 0 - (this.frame*this.framewidth)
-        // this.player.style.backgroundPosition = pos + 'px 0px'
-
-        // update 60 times per second
-       // requestAnimationFrame(()=>this.update())
         // keyboard input verandert alleen de positie van het level
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight)
@@ -95,7 +85,7 @@ class Player  {
 
         // TODO ALLEEN SPRINGEN ALS GRAVITY 0
         
-        // positie van auto kan je veranderen met x y
+        // positie van player kan je veranderen met x y        
         this.player.style.transform = `translate(200px, ${this.y}px)`
 
         
@@ -103,5 +93,20 @@ class Player  {
 
     public getRectangle() {
         return this.player.getBoundingClientRect()
+    }
+
+    private walkRight(){
+                // this.speedRight = 10
+                // go to the next drawing after X animationframes (the FPS)
+                this.speedcounter++
+                if(this.speedcounter%4 == 0) this.frame++
+                // check if this frame exists or go to frame 0
+                if(this.frame >= this.frames) this.frame = 0
+                // position of the spritesheet image
+                let pos = 0 - (this.frame*this.framewidth)
+                this.player.style.backgroundPosition = pos + 'px 0px'
+        
+                // update 60 times per second
+            //    requestAnimationFrame(()=>this.update())
     }
 }

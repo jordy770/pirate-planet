@@ -68,9 +68,8 @@ var Interface = (function () {
     return Interface;
 }());
 var Enemy = (function () {
-    function Enemy(x, y) {
-        this.x = x;
-        this.y = y;
+    function Enemy() {
+        this.speed = 10;
         this.div = document.createElement("enemy");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -82,7 +81,11 @@ var Enemy = (function () {
         this.div.remove();
     };
     Enemy.prototype.update = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+        var newX = this.x - this.speed;
+        if (newX > 0 && newX + 150 < 720) {
+            this.x = newX;
+        }
+        this.div.style.transform = "translate(" + this.x + "px, 720-150px)";
     };
     Enemy.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();
@@ -244,9 +247,14 @@ var Player = (function () {
         this.speedLeft = 0;
         this.speedRight = 0;
         this.speedUp = 0;
+        this.frames = 4;
+        this.frame = 0;
+        this.framewidth = 105;
+        this.speedcounter = 0;
         this.falling = true;
         this.gamescreen = b;
-        this.player = document.createElement("player");
+        this.player = document.createElement("playerright");
+        this.frame = 0;
         var background = document.getElementsByTagName("background")[0];
         background.appendChild(this.player);
         this.gravity = 10;
@@ -262,6 +270,7 @@ var Player = (function () {
             case "ArrowRight":
             case "d":
                 this.speedRight = 10;
+                this.walkRight();
                 break;
             case "ArrowUp":
             case "w":
@@ -300,6 +309,15 @@ var Player = (function () {
     };
     Player.prototype.getRectangle = function () {
         return this.player.getBoundingClientRect();
+    };
+    Player.prototype.walkRight = function () {
+        this.speedcounter++;
+        if (this.speedcounter % 4 == 0)
+            this.frame++;
+        if (this.frame >= this.frames)
+            this.frame = 0;
+        var pos = 0 - (this.frame * this.framewidth);
+        this.player.style.backgroundPosition = pos + 'px 0px';
     };
     return Player;
 }());

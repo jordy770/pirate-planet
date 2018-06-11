@@ -1,8 +1,15 @@
 class Game {
 
     private currentscreen : StartScreen | GameScreen | SpaceGame | GameOver
-    // width: number = 1280;
-    // height: number = 720;
+    private previouslevel : number
+
+    public get getPreviousLevel() : number {
+        return this.previouslevel
+    }
+    
+    public set setPreviousLevel(level : number){
+        this.previouslevel = level 
+    }
 
     constructor() {
        // let container = document.getElementsByTagName("container")[0]
@@ -23,7 +30,7 @@ class Game {
         background.innerHTML = ""
     }
 
-    public showScreen(screen : StartScreen | GameScreen| SpaceGame | GameOver ) {
+    public showScreen(screen : StartScreen | GameScreen | SpaceGame | GameOver ) {
         this.currentscreen = screen
     }
     

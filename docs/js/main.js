@@ -92,14 +92,14 @@ var End = (function () {
         this.assignmentmodal.appendChild(this.textcontainer2);
         this.textcontainer1.appendChild(this.assignmenttext1);
         this.textcontainer2.appendChild(this.assignmenttext2);
-        var aarde = new PlanetContainer("Aarde", "../docs/images/aarde.png");
-        var jupiter = new PlanetContainer("Jupiter", "../docs/images/jupiter.png");
-        var mars = new PlanetContainer("Mars", "../docs/images/mars.png");
-        var mercurius = new PlanetContainer("Mercurius", "../docs/images/mercurius.png");
-        var neptunus = new PlanetContainer("Neptunus", "../docs/images/neptunus.png");
-        var saturnus = new PlanetContainer("Saturnus", "../docs/images/saturnus.png");
-        var uranus = new PlanetContainer("Uranus", "../docs/images/uranus.png");
-        var venus = new PlanetContainer("Uranus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer("planetswrong", 8, "Aarde", "../docs/images/aarde.png");
+        var jupiter = new PlanetContainer("planetswrong", 8, "Jupiter", "../docs/images/jupiter.png");
+        var mars = new PlanetContainer("planetswrong", 8, "Mars", "../docs/images/mars.png");
+        var mercurius = new PlanetContainer("planetswrong", 8, "Mercurius", "../docs/images/mercurius.png");
+        var neptunus = new PlanetContainer("planetswrong", 8, "Neptunus", "../docs/images/neptunus.png");
+        var saturnus = new PlanetContainer("planetswrong", 8, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer("planetswrong", 8, "Uranus", "../docs/images/uranus.png");
+        var venus = new PlanetContainer("planetswrong", 8, "Venus", "../docs/images/venus.png");
         this.assignmentbtn.innerHTML = "CHECK";
         this.assignmenttext1.innerHTML = "Zet de planeten in de goede volgorde van het zonnestelsel.";
         this.assignmenttext2.innerHTML = "Klik op een planeet en verschuif hem naar een vakje.";
@@ -155,9 +155,11 @@ var Item = (function () {
     return Item;
 }());
 var PlanetContainer = (function () {
-    function PlanetContainer(planet, source) {
+    function PlanetContainer(element, currentLevel, planet, source) {
         var _this = this;
-        var container = document.getElementsByTagName("planetswrong")[0];
+        this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
+        this.currentLevel = currentLevel;
+        var container = document.getElementsByTagName(element)[0];
         this.planetContainer = document.createElement("planetcontainer");
         container.appendChild(this.planetContainer);
         this.image = document.createElement("planetimg");
@@ -167,8 +169,18 @@ var PlanetContainer = (function () {
         this.planetContainer.appendChild(this.image);
         this.planetContainer.appendChild(this.text);
         this.moveBind = function (e) { return _this.update(e); };
-        this.planetContainer.addEventListener("mousedown", function (e) { return _this.initDrag(e); });
-        this.planetContainer.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
+        if (element == "planetswrong") {
+            this.planetContainer.addEventListener("mousedown", function (e) { return _this.initDrag(e); });
+            this.planetContainer.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
+        }
+        if (element == "interface") {
+            this.planetContainer.style.border = "none";
+            this.planetContainer.style.opacity = "0.5";
+            console.log(this.planets[this.currentLevel]);
+            if (this.planets[this.currentLevel] == planet) {
+                this.planetContainer.style.opacity = "1.0";
+            }
+        }
     }
     PlanetContainer.prototype.initDrag = function (e) {
         e.preventDefault();
@@ -341,7 +353,9 @@ var GameScreen = (function () {
         this.totalItems = totalItems;
         this.items = new Array();
         this.platforms = new Array();
-        this.interface = new Interface(this.game);
+        if (currentlevel < 8) {
+            this.interface = new Interface(this.game, this.currentlevel);
+        }
         var background = document.getElementsByTagName("background")[0];
         this.textfield = document.createElement("textfield");
         background.appendChild(this.textfield);
@@ -680,25 +694,20 @@ var GameScreen8 = (function (_super) {
     return GameScreen8;
 }(GameScreen));
 var Interface = (function () {
-    function Interface(g) {
-        this.planetWidth = 400;
-        this.planetHeight = 100;
+    function Interface(g, currentPlanet) {
         this.game = g;
-        console.log('ik ben de interface bitches');
         var foreground = document.getElementsByTagName("foreground")[0];
         this.interface = document.createElement("interface");
         foreground.appendChild(this.interface);
-        this.updateInterface();
+        var mercurius = new PlanetContainer("interface", currentPlanet, "Mercurius", "../docs/images/mercurius.png");
+        var venus = new PlanetContainer("interface", currentPlanet, "Venus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer("interface", currentPlanet, "Aarde", "../docs/images/aarde.png");
+        var mars = new PlanetContainer("interface", currentPlanet, "Mars", "../docs/images/mars.png");
+        var jupiter = new PlanetContainer("interface", currentPlanet, "Jupiter", "../docs/images/jupiter.png");
+        var saturnus = new PlanetContainer("interface", currentPlanet, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer("interface", currentPlanet, "Uranus", "../docs/images/uranus.png");
+        var neptunus = new PlanetContainer("interface", currentPlanet, "Neptunus", "../docs/images/neptunus.png");
     }
-    Interface.prototype.update = function () {
-    };
-    Interface.prototype.updateInterface = function () {
-        this.planetImage = new Image(this.planetWidth, this.planetHeight);
-        this.planetImage.setAttribute('style', 'left:400px;top:20px;');
-        this.planetImage.src = 'images/planet1.png';
-        this.interface.appendChild(this.planetImage);
-        console.log('updating interface');
-    };
     return Interface;
 }());
 var Asteroid = (function () {
@@ -1009,7 +1018,7 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.update = function () {
         this.startbtn.innerHTML = "START GAME";
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunus. Ga op reis om de schat te vinden!";
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {
         console.log('switch to gamescreen');

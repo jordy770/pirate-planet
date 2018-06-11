@@ -41,7 +41,7 @@ class StartScreen {
 
     public update() {
         this.startbtn.innerHTML = "START GAME"
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunus. Ga op reis om de schat te vinden!"
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!"
     }
 
     private switchScreens(){

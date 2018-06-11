@@ -20,7 +20,11 @@ class GameScreen{
         this.items = new Array()
         this.platforms = new Array()
         
-        this.interface = new Interface(this.game)
+        if(currentlevel < 8){
+            this.interface = new Interface(this.game, this.currentlevel) 
+        }
+       
+
         let background = document.getElementsByTagName("background")[0]
         this.textfield = document.createElement("textfield")
         background.appendChild(this.textfield);

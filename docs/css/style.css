@@ -320,11 +320,7 @@ planetsright {
     margin-top: 210px;
 }
 
-/* interface {
-    width:400px;
-    height:100px;
-    background-color:#fff;
-    left:400px;
-    top:20px;
-    background-image: url(../images/planet1.png);
-} */
+interface {
+    width: 100%;
+    left: 320px;
+}

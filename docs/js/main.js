@@ -159,16 +159,7 @@ var GameScreen = (function () {
             var platform = _c[_b];
             platform.update();
         }
-        for (var _d = 0, _e = this.platforms; _d < _e.length; _d++) {
-            var platform = _e[_d];
-            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false);
-                break;
-            }
-            else {
-                this.player.setFalling(true);
-            }
-        }
+        this.collisionWithPlat();
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++;
             if (this.hitShip > 0 && this.score == this.MAX_JERRY) {
@@ -195,6 +186,18 @@ var GameScreen = (function () {
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom);
+    };
+    GameScreen.prototype.collisionWithPlat = function () {
+        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
+            var platform = _a[_i];
+            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
+                this.player.setFalling(false);
+                break;
+            }
+            else {
+                this.player.setFalling(true);
+            }
+        }
     };
     return GameScreen;
 }());
@@ -252,6 +255,7 @@ var Player = (function () {
         this.framewidth = 105;
         this.speedcounter = 0;
         this.falling = true;
+        this.jump = true;
         this.gamescreen = b;
         this.player = document.createElement("player");
         this.frame = 0;
@@ -275,7 +279,10 @@ var Player = (function () {
                 break;
             case "ArrowUp":
             case "w":
-                this.speedUp = 50;
+                if (this.jump == false) {
+                    this.speedUp = 50;
+                    this.jump = true;
+                }
                 break;
         }
     };
@@ -302,6 +309,10 @@ var Player = (function () {
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         this.gravity = (this.falling) ? 10 : 0;
+        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
+            this.jump = false;
+        }
+        console.log(this.jump);
         var newY = this.y - this.speedUp + this.gravity;
         if (newY > 0 && newY + 150 < 720) {
             this.y = newY;

@@ -100,16 +100,8 @@ class GameScreen{
         }
         
         //update if player hits platform dont drop!
-        for(let platform of this.platforms){
-
-            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false)
-                break
-             } else {
-                 this.player.setFalling(true)
-             }
-        }
-
+       this.collisionWithPlat();
+        
         //if player had MAX amount jerrycans boat activates
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++
@@ -140,6 +132,18 @@ class GameScreen{
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom)
+    }
+
+    public collisionWithPlat(){
+        for(let platform of this.platforms){
+
+            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
+                this.player.setFalling(false)
+                break
+             } else {
+                 this.player.setFalling(true)
+             }
+        }
     }
 }
 

@@ -12,6 +12,7 @@ class Player  {
     private framewidth = 105
     private speedcounter = 0
     private falling:boolean = true
+    private jump:boolean = true
 
     private gravity: number
          
@@ -44,7 +45,10 @@ class Player  {
                 break
             case "ArrowUp":
             case "w":
+            if(this.jump == false){
                 this.speedUp = 50
+                this.jump = true
+            }
                 break
         }
     }
@@ -77,6 +81,12 @@ class Player  {
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight)
 
         this.gravity = (this.falling) ? 10 : 0 
+
+        if(this.y > 720 - 200 || this.gamescreen.collisionWithPlat()){
+            this.jump = false
+        }
+
+        console.log(this.jump)
 
         let newY = this.y - this.speedUp + this.gravity
         if (newY > 0 && newY + 150 < 720) {

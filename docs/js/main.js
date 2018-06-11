@@ -253,7 +253,7 @@ var Player = (function () {
         this.speedcounter = 0;
         this.falling = true;
         this.gamescreen = b;
-        this.player = document.createElement("playerright");
+        this.player = document.createElement("player");
         this.frame = 0;
         var background = document.getElementsByTagName("background")[0];
         background.appendChild(this.player);
@@ -266,6 +266,7 @@ var Player = (function () {
             case "ArrowLeft":
             case "a":
                 this.speedLeft = 10;
+                this.walkLeft();
                 break;
             case "ArrowRight":
             case "d":
@@ -318,6 +319,15 @@ var Player = (function () {
             this.frame = 0;
         var pos = 0 - (this.frame * this.framewidth);
         this.player.style.backgroundPosition = pos + 'px 0px';
+    };
+    Player.prototype.walkLeft = function () {
+        this.speedcounter++;
+        if (this.speedcounter % 4 == 0)
+            this.frame++;
+        if (this.frame >= this.frames)
+            this.frame = 0;
+        var pos = 0 - (this.frame * this.framewidth);
+        this.player.style.backgroundPosition = pos + 'px -150px';
     };
     return Player;
 }());

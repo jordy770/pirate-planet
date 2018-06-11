@@ -39,18 +39,13 @@ container {
     padding: 0px;
 }
 
-playerright{
+player{
     width:105px; height:150px;
     display:block;
     background-repeat:no-repeat;
     background-image: url(../images/pirateSprite.png);    
 }
-playerleft{
-    width:105px; height:150px;
-    display:block;
-    background-repeat:no-repeat;
-    background-image: url(../images/pirateSprite.png);   
-}
+
 
 
 textfield {

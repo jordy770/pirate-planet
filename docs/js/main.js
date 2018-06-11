@@ -92,14 +92,14 @@ var End = (function () {
         this.assignmentmodal.appendChild(this.textcontainer2);
         this.textcontainer1.appendChild(this.assignmenttext1);
         this.textcontainer2.appendChild(this.assignmenttext2);
-        var aarde = new PlanetContainer("Aarde", "../docs/images/aarde.png");
-        var jupiter = new PlanetContainer("Jupiter", "../docs/images/jupiter.png");
-        var mars = new PlanetContainer("Mars", "../docs/images/mars.png");
-        var mercurius = new PlanetContainer("Mercurius", "../docs/images/mercurius.png");
-        var neptunus = new PlanetContainer("Neptunus", "../docs/images/neptunus.png");
-        var saturnus = new PlanetContainer("Saturnus", "../docs/images/saturnus.png");
-        var uranus = new PlanetContainer("Uranus", "../docs/images/uranus.png");
-        var venus = new PlanetContainer("Uranus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer("planetswrong", 8, "Aarde", "../docs/images/aarde.png");
+        var jupiter = new PlanetContainer("planetswrong", 8, "Jupiter", "../docs/images/jupiter.png");
+        var mars = new PlanetContainer("planetswrong", 8, "Mars", "../docs/images/mars.png");
+        var mercurius = new PlanetContainer("planetswrong", 8, "Mercurius", "../docs/images/mercurius.png");
+        var neptunus = new PlanetContainer("planetswrong", 8, "Neptunus", "../docs/images/neptunus.png");
+        var saturnus = new PlanetContainer("planetswrong", 8, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer("planetswrong", 8, "Uranus", "../docs/images/uranus.png");
+        var venus = new PlanetContainer("planetswrong", 8, "Venus", "../docs/images/venus.png");
         this.assignmentbtn.innerHTML = "CHECK";
         this.assignmenttext1.innerHTML = "Zet de planeten in de goede volgorde van het zonnestelsel.";
         this.assignmenttext2.innerHTML = "Klik op een planeet en verschuif hem naar een vakje.";
@@ -155,9 +155,11 @@ var Item = (function () {
     return Item;
 }());
 var PlanetContainer = (function () {
-    function PlanetContainer(planet, source) {
+    function PlanetContainer(element, currentLevel, planet, source) {
         var _this = this;
-        var container = document.getElementsByTagName("planetswrong")[0];
+        this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
+        this.currentLevel = currentLevel;
+        var container = document.getElementsByTagName(element)[0];
         this.planetContainer = document.createElement("planetcontainer");
         container.appendChild(this.planetContainer);
         this.image = document.createElement("planetimg");
@@ -167,8 +169,18 @@ var PlanetContainer = (function () {
         this.planetContainer.appendChild(this.image);
         this.planetContainer.appendChild(this.text);
         this.moveBind = function (e) { return _this.update(e); };
-        this.planetContainer.addEventListener("mousedown", function (e) { return _this.initDrag(e); });
-        this.planetContainer.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
+        if (element == "planetswrong") {
+            this.planetContainer.addEventListener("mousedown", function (e) { return _this.initDrag(e); });
+            this.planetContainer.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
+        }
+        if (element == "interface") {
+            this.planetContainer.style.border = "none";
+            this.planetContainer.style.opacity = "0.5";
+            console.log(this.planets[this.currentLevel]);
+            if (this.planets[this.currentLevel] == planet) {
+                this.planetContainer.style.opacity = "1.0";
+            }
+        }
     }
     PlanetContainer.prototype.initDrag = function (e) {
         e.preventDefault();
@@ -341,7 +353,9 @@ var GameScreen = (function () {
         this.totalItems = totalItems;
         this.items = new Array();
         this.platforms = new Array();
-        this.interface = new Interface(this.game);
+        if (currentlevel < 8) {
+            this.interface = new Interface(this.game, this.currentlevel);
+        }
         var background = document.getElementsByTagName("background")[0];
         this.textfield = document.createElement("textfield");
         background.appendChild(this.textfield);
@@ -680,320 +694,21 @@ var GameScreen8 = (function (_super) {
     return GameScreen8;
 }(GameScreen));
 var Interface = (function () {
-    function Interface(g) {
-        this.planetWidth = 400;
-        this.planetHeight = 100;
+    function Interface(g, currentPlanet) {
         this.game = g;
-        console.log('ik ben de interface bitches');
         var foreground = document.getElementsByTagName("foreground")[0];
         this.interface = document.createElement("interface");
         foreground.appendChild(this.interface);
-        this.updateInterface();
+        var mercurius = new PlanetContainer("interface", currentPlanet, "Mercurius", "../docs/images/mercurius.png");
+        var venus = new PlanetContainer("interface", currentPlanet, "Venus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer("interface", currentPlanet, "Aarde", "../docs/images/aarde.png");
+        var mars = new PlanetContainer("interface", currentPlanet, "Mars", "../docs/images/mars.png");
+        var jupiter = new PlanetContainer("interface", currentPlanet, "Jupiter", "../docs/images/jupiter.png");
+        var saturnus = new PlanetContainer("interface", currentPlanet, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer("interface", currentPlanet, "Uranus", "../docs/images/uranus.png");
+        var neptunus = new PlanetContainer("interface", currentPlanet, "Neptunus", "../docs/images/neptunus.png");
     }
-    Interface.prototype.update = function () {
-    };
-    Interface.prototype.updateInterface = function () {
-        this.planetImage = new Image(this.planetWidth, this.planetHeight);
-        this.planetImage.setAttribute('style', 'left:400px;top:20px;');
-        this.planetImage.src = 'images/planet1.png';
-        this.interface.appendChild(this.planetImage);
-        console.log('updating interface');
-    };
     return Interface;
-}());
-var Enemy = (function () {
-    function Enemy() {
-        this.speed = 10;
-        this.div = document.createElement("enemy");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.div);
-    }
-    Enemy.prototype.scrollLeft = function (pos) {
-        this.x += pos;
-    };
-    Enemy.prototype.remove = function () {
-        this.div.remove();
-    };
-    Enemy.prototype.update = function () {
-        var newX = this.x - this.speed;
-        if (newX > 0 && newX + 150 < 720) {
-            this.x = newX;
-        }
-        this.div.style.transform = "translate(" + this.x + "px, 720-150px)";
-    };
-    Enemy.prototype.getRectangle = function () {
-        return this.div.getBoundingClientRect();
-    };
-    return Enemy;
-}());
-var GameScreen = (function () {
-    function GameScreen(g) {
-        this.score = 0;
-        this.hitShip = 0;
-        this.MAX_JERRY = 4;
-        this.game = g;
-        this.interface = new Interface(this.game);
-        var background = document.getElementsByTagName("background")[0];
-        this.textfield = document.createElement("textfield");
-        background.appendChild(this.textfield);
-        var container = document.getElementsByTagName("container")[0];
-        console.log("hallo");
-        this.ship = new Ship();
-        this.jerrycans = new Array();
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
-        ];
-        this.platforms = new Array();
-        var platformCoordinates = [
-            { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
-        ];
-        for (var _i = 0, jerrycanCoordinates_9 = jerrycanCoordinates; _i < jerrycanCoordinates_9.length; _i++) {
-            var jcoords = jerrycanCoordinates_9[_i];
-            this.jerrycans.push(new Jerrycan(jcoords.x, jcoords.y));
-        }
-        for (var _a = 0, platformCoordinates_9 = platformCoordinates; _a < platformCoordinates_9.length; _a++) {
-            var coords = platformCoordinates_9[_a];
-            this.platforms.push(new Platform(coords.x, coords.y));
-        }
-        this.player = new Player(this);
-    }
-    GameScreen.prototype.scrollLevel = function (pos) {
-        this.ship.scrollLeft(pos);
-        for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
-            var jerrycan = _a[_i];
-            jerrycan.scrollLeft(pos);
-        }
-        for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
-            var platform = _c[_b];
-            platform.scrollLeft(pos);
-        }
-    };
-    GameScreen.prototype.update = function () {
-        this.player.update();
-        this.ship.update();
-        this.textfield.innerHTML = this.score + "/" + this.MAX_JERRY;
-        this.textfield.setAttribute("style", "font-size:30px;width:1000px;");
-        for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
-            var jerrycan = _a[_i];
-            jerrycan.update();
-            if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
-                this.score++;
-                console.log(this.score);
-                jerrycan.remove();
-            }
-        }
-        for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
-            var platform = _c[_b];
-            platform.update();
-        }
-        this.collisionWithPlat();
-        if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
-            this.hitShip++;
-            if (this.hitShip > 0 && this.score == this.MAX_JERRY) {
-                this.game.emptyScreen();
-                this.game.showScreen(new SpaceGame(this.game));
-            }
-        }
-    };
-    GameScreen.prototype.removeMe = function (j) {
-        var removeList = [];
-        for (var i = 0; i < this.MAX_JERRY; i++) {
-            if (this.jerrycans[i] == j) {
-                removeList.push(i);
-            }
-        }
-        removeList.reverse();
-        for (var _i = 0, removeList_2 = removeList; _i < removeList_2.length; _i++) {
-            var i = removeList_2[_i];
-            this.jerrycans.splice(i, 1);
-        }
-    };
-    GameScreen.prototype.checkCollision = function (a, b) {
-        return (a.left <= b.right &&
-            b.left <= a.right &&
-            a.top <= b.bottom &&
-            b.top <= a.bottom);
-    };
-    GameScreen.prototype.collisionWithPlat = function () {
-        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
-            var platform = _a[_i];
-            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false);
-                break;
-            }
-            else {
-                this.player.setFalling(true);
-            }
-        }
-    };
-    return GameScreen;
-}());
-var Jerrycan = (function () {
-    function Jerrycan(x, y) {
-        this.x = x;
-        this.y = y;
-        this.div = document.createElement("jerrycan");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.div);
-    }
-    Jerrycan.prototype.scrollLeft = function (pos) {
-        this.x += pos;
-    };
-    Jerrycan.prototype.remove = function () {
-        this.div.remove();
-    };
-    Jerrycan.prototype.update = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    Jerrycan.prototype.getRectangle = function () {
-        return this.div.getBoundingClientRect();
-    };
-    return Jerrycan;
-}());
-var Platform = (function () {
-    function Platform(x, y) {
-        this.x = x;
-        this.y = y;
-        this.div = document.createElement("platform");
-        var foreground = document.getElementsByTagName("foreground")[0];
-        foreground.appendChild(this.div);
-    }
-    Platform.prototype.scrollLeft = function (pos) {
-        this.x += pos;
-    };
-    Platform.prototype.update = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    Platform.prototype.getRectangle = function () {
-        return this.div.getBoundingClientRect();
-    };
-    return Platform;
-}());
-var Player = (function () {
-    function Player(b) {
-        var _this = this;
-        this.levelposition = 0;
-        this.y = 10;
-        this.speedLeft = 0;
-        this.speedRight = 0;
-        this.speedUp = 0;
-        this.frames = 4;
-        this.frame = 0;
-        this.framewidth = 105;
-        this.speedcounter = 0;
-        this.falling = true;
-        this.jump = true;
-        this.gamescreen = b;
-        this.player = document.createElement("player");
-        this.frame = 0;
-        var background = document.getElementsByTagName("background")[0];
-        background.appendChild(this.player);
-        this.gravity = 10;
-        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
-    }
-    Player.prototype.onKeyDown = function (event) {
-        switch (event.key) {
-            case "ArrowLeft":
-            case "a":
-                this.speedLeft = 10;
-                this.walkLeft();
-                break;
-            case "ArrowRight":
-            case "d":
-                this.speedRight = 10;
-                this.walkRight();
-                break;
-            case "ArrowUp":
-            case "w":
-                if (this.jump == false) {
-                    this.speedUp = 50;
-                    this.jump = true;
-                }
-                break;
-        }
-    };
-    Player.prototype.onKeyUp = function (event) {
-        switch (event.key) {
-            case "ArrowLeft":
-            case "a":
-                this.speedLeft = 0;
-                break;
-            case "ArrowRight":
-            case "d":
-                this.speedRight = 0;
-                break;
-            case "ArrowUp":
-            case "w":
-                this.speedUp = 0;
-                break;
-        }
-    };
-    Player.prototype.setFalling = function (b) {
-        this.falling = b;
-    };
-    Player.prototype.update = function () {
-        this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
-        this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
-        this.gravity = (this.falling) ? 10 : 0;
-        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
-            this.jump = false;
-        }
-        console.log(this.jump);
-        var newY = this.y - this.speedUp + this.gravity;
-        if (newY > 0 && newY + 150 < 720) {
-            this.y = newY;
-        }
-        this.player.style.transform = "translate(200px, " + this.y + "px)";
-    };
-    Player.prototype.getRectangle = function () {
-        return this.player.getBoundingClientRect();
-    };
-    Player.prototype.walkRight = function () {
-        this.speedcounter++;
-        if (this.speedcounter % 4 == 0)
-            this.frame++;
-        if (this.frame >= this.frames)
-            this.frame = 0;
-        var pos = 0 - (this.frame * this.framewidth);
-        this.player.style.backgroundPosition = pos + 'px 0px';
-    };
-    Player.prototype.walkLeft = function () {
-        this.speedcounter++;
-        if (this.speedcounter % 4 == 0)
-            this.frame++;
-        if (this.frame >= this.frames)
-            this.frame = 0;
-        var pos = 0 - (this.frame * this.framewidth);
-        this.player.style.backgroundPosition = pos + 'px -150px';
-    };
-    return Player;
-}());
-var Ship = (function () {
-    function Ship() {
-        var foreground = document.getElementsByTagName("foreground")[0];
-        this.ship = document.createElement("ship");
-        foreground.appendChild(this.ship);
-        this.x = 3000 - this.getRectangle().width;
-        this.y = 720 - this.getRectangle().height;
-    }
-    Ship.prototype.scrollLeft = function (pos) {
-        this.x += pos;
-    };
-    Ship.prototype.update = function () {
-        this.ship.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    Ship.prototype.getRectangle = function () {
-        return this.ship.getBoundingClientRect();
-    };
-    return Ship;
 }());
 var Asteroid = (function () {
     function Asteroid(g) {
@@ -1303,7 +1018,7 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.update = function () {
         this.startbtn.innerHTML = "START GAME";
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunus. Ga op reis om de schat te vinden!";
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {
         console.log('switch to gamescreen');

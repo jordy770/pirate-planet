@@ -40,14 +40,14 @@ class End {
         this.textcontainer1.appendChild(this.assignmenttext1)
         this.textcontainer2.appendChild(this.assignmenttext2)
 
-        let aarde = new PlanetContainer("Aarde", "../docs/images/aarde.png")
-        let jupiter = new PlanetContainer("Jupiter", "../docs/images/jupiter.png")
-        let mars = new PlanetContainer("Mars", "../docs/images/mars.png")
-        let mercurius = new PlanetContainer("Mercurius", "../docs/images/mercurius.png")
-        let neptunus = new PlanetContainer("Neptunus", "../docs/images/neptunus.png")
-        let saturnus = new PlanetContainer("Saturnus", "../docs/images/saturnus.png")
-        let uranus = new PlanetContainer("Uranus", "../docs/images/uranus.png")
-        let venus = new PlanetContainer("Uranus", "../docs/images/venus.png")
+        let aarde = new PlanetContainer("planetswrong", 8, "Aarde", "../docs/images/aarde.png")
+        let jupiter = new PlanetContainer("planetswrong", 8, "Jupiter", "../docs/images/jupiter.png")
+        let mars = new PlanetContainer("planetswrong", 8, "Mars", "../docs/images/mars.png")
+        let mercurius = new PlanetContainer("planetswrong", 8, "Mercurius", "../docs/images/mercurius.png")
+        let neptunus = new PlanetContainer("planetswrong", 8, "Neptunus", "../docs/images/neptunus.png")
+        let saturnus = new PlanetContainer("planetswrong", 8, "Saturnus", "../docs/images/saturnus.png")
+        let uranus = new PlanetContainer("planetswrong", 8, "Uranus", "../docs/images/uranus.png")
+        let venus = new PlanetContainer("planetswrong", 8, "Venus", "../docs/images/venus.png")
 
         this.assignmentbtn.innerHTML = "CHECK"
         this.assignmenttext1.innerHTML = "Zet de planeten in de goede volgorde van het zonnestelsel."

@@ -701,6 +701,300 @@ var Interface = (function () {
     };
     return Interface;
 }());
+var Enemy = (function () {
+    function Enemy() {
+        this.speed = 10;
+        this.div = document.createElement("enemy");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.div);
+    }
+    Enemy.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
+    Enemy.prototype.remove = function () {
+        this.div.remove();
+    };
+    Enemy.prototype.update = function () {
+        var newX = this.x - this.speed;
+        if (newX > 0 && newX + 150 < 720) {
+            this.x = newX;
+        }
+        this.div.style.transform = "translate(" + this.x + "px, 720-150px)";
+    };
+    Enemy.prototype.getRectangle = function () {
+        return this.div.getBoundingClientRect();
+    };
+    return Enemy;
+}());
+var GameScreen = (function () {
+    function GameScreen(g) {
+        this.score = 0;
+        this.hitShip = 0;
+        this.MAX_JERRY = 4;
+        this.game = g;
+        this.interface = new Interface(this.game);
+        var background = document.getElementsByTagName("background")[0];
+        this.textfield = document.createElement("textfield");
+        background.appendChild(this.textfield);
+        var container = document.getElementsByTagName("container")[0];
+        console.log("hallo");
+        this.ship = new Ship();
+        this.jerrycans = new Array();
+        var jerrycanCoordinates = [
+            { x: 225, y: 430 },
+            { x: 590, y: 470 },
+            { x: 1100, y: 250 },
+            { x: 1550, y: 500 }
+        ];
+        this.platforms = new Array();
+        var platformCoordinates = [
+            { x: 100, y: 200 },
+            { x: 150, y: 500 },
+            { x: 500, y: 550 },
+            { x: 1000, y: 300 },
+            { x: 1500, y: 600 }
+        ];
+        for (var _i = 0, jerrycanCoordinates_9 = jerrycanCoordinates; _i < jerrycanCoordinates_9.length; _i++) {
+            var jcoords = jerrycanCoordinates_9[_i];
+            this.jerrycans.push(new Jerrycan(jcoords.x, jcoords.y));
+        }
+        for (var _a = 0, platformCoordinates_9 = platformCoordinates; _a < platformCoordinates_9.length; _a++) {
+            var coords = platformCoordinates_9[_a];
+            this.platforms.push(new Platform(coords.x, coords.y));
+        }
+        this.player = new Player(this);
+    }
+    GameScreen.prototype.scrollLevel = function (pos) {
+        this.ship.scrollLeft(pos);
+        for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
+            var jerrycan = _a[_i];
+            jerrycan.scrollLeft(pos);
+        }
+        for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
+            var platform = _c[_b];
+            platform.scrollLeft(pos);
+        }
+    };
+    GameScreen.prototype.update = function () {
+        this.player.update();
+        this.ship.update();
+        this.textfield.innerHTML = this.score + "/" + this.MAX_JERRY;
+        this.textfield.setAttribute("style", "font-size:30px;width:1000px;");
+        for (var _i = 0, _a = this.jerrycans; _i < _a.length; _i++) {
+            var jerrycan = _a[_i];
+            jerrycan.update();
+            if (this.checkCollision(this.player.getRectangle(), jerrycan.getRectangle())) {
+                this.score++;
+                console.log(this.score);
+                jerrycan.remove();
+            }
+        }
+        for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
+            var platform = _c[_b];
+            platform.update();
+        }
+        this.collisionWithPlat();
+        if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
+            this.hitShip++;
+            if (this.hitShip > 0 && this.score == this.MAX_JERRY) {
+                this.game.emptyScreen();
+                this.game.showScreen(new SpaceGame(this.game));
+            }
+        }
+    };
+    GameScreen.prototype.removeMe = function (j) {
+        var removeList = [];
+        for (var i = 0; i < this.MAX_JERRY; i++) {
+            if (this.jerrycans[i] == j) {
+                removeList.push(i);
+            }
+        }
+        removeList.reverse();
+        for (var _i = 0, removeList_2 = removeList; _i < removeList_2.length; _i++) {
+            var i = removeList_2[_i];
+            this.jerrycans.splice(i, 1);
+        }
+    };
+    GameScreen.prototype.checkCollision = function (a, b) {
+        return (a.left <= b.right &&
+            b.left <= a.right &&
+            a.top <= b.bottom &&
+            b.top <= a.bottom);
+    };
+    GameScreen.prototype.collisionWithPlat = function () {
+        for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
+            var platform = _a[_i];
+            if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
+                this.player.setFalling(false);
+                break;
+            }
+            else {
+                this.player.setFalling(true);
+            }
+        }
+    };
+    return GameScreen;
+}());
+var Jerrycan = (function () {
+    function Jerrycan(x, y) {
+        this.x = x;
+        this.y = y;
+        this.div = document.createElement("jerrycan");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.div);
+    }
+    Jerrycan.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
+    Jerrycan.prototype.remove = function () {
+        this.div.remove();
+    };
+    Jerrycan.prototype.update = function () {
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Jerrycan.prototype.getRectangle = function () {
+        return this.div.getBoundingClientRect();
+    };
+    return Jerrycan;
+}());
+var Platform = (function () {
+    function Platform(x, y) {
+        this.x = x;
+        this.y = y;
+        this.div = document.createElement("platform");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.div);
+    }
+    Platform.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
+    Platform.prototype.update = function () {
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Platform.prototype.getRectangle = function () {
+        return this.div.getBoundingClientRect();
+    };
+    return Platform;
+}());
+var Player = (function () {
+    function Player(b) {
+        var _this = this;
+        this.levelposition = 0;
+        this.y = 10;
+        this.speedLeft = 0;
+        this.speedRight = 0;
+        this.speedUp = 0;
+        this.frames = 4;
+        this.frame = 0;
+        this.framewidth = 105;
+        this.speedcounter = 0;
+        this.falling = true;
+        this.jump = true;
+        this.gamescreen = b;
+        this.player = document.createElement("player");
+        this.frame = 0;
+        var background = document.getElementsByTagName("background")[0];
+        background.appendChild(this.player);
+        this.gravity = 10;
+        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
+        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
+    }
+    Player.prototype.onKeyDown = function (event) {
+        switch (event.key) {
+            case "ArrowLeft":
+            case "a":
+                this.speedLeft = 10;
+                this.walkLeft();
+                break;
+            case "ArrowRight":
+            case "d":
+                this.speedRight = 10;
+                this.walkRight();
+                break;
+            case "ArrowUp":
+            case "w":
+                if (this.jump == false) {
+                    this.speedUp = 50;
+                    this.jump = true;
+                }
+                break;
+        }
+    };
+    Player.prototype.onKeyUp = function (event) {
+        switch (event.key) {
+            case "ArrowLeft":
+            case "a":
+                this.speedLeft = 0;
+                break;
+            case "ArrowRight":
+            case "d":
+                this.speedRight = 0;
+                break;
+            case "ArrowUp":
+            case "w":
+                this.speedUp = 0;
+                break;
+        }
+    };
+    Player.prototype.setFalling = function (b) {
+        this.falling = b;
+    };
+    Player.prototype.update = function () {
+        this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
+        this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
+        this.gravity = (this.falling) ? 10 : 0;
+        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
+            this.jump = false;
+        }
+        console.log(this.jump);
+        var newY = this.y - this.speedUp + this.gravity;
+        if (newY > 0 && newY + 150 < 720) {
+            this.y = newY;
+        }
+        this.player.style.transform = "translate(200px, " + this.y + "px)";
+    };
+    Player.prototype.getRectangle = function () {
+        return this.player.getBoundingClientRect();
+    };
+    Player.prototype.walkRight = function () {
+        this.speedcounter++;
+        if (this.speedcounter % 4 == 0)
+            this.frame++;
+        if (this.frame >= this.frames)
+            this.frame = 0;
+        var pos = 0 - (this.frame * this.framewidth);
+        this.player.style.backgroundPosition = pos + 'px 0px';
+    };
+    Player.prototype.walkLeft = function () {
+        this.speedcounter++;
+        if (this.speedcounter % 4 == 0)
+            this.frame++;
+        if (this.frame >= this.frames)
+            this.frame = 0;
+        var pos = 0 - (this.frame * this.framewidth);
+        this.player.style.backgroundPosition = pos + 'px -150px';
+    };
+    return Player;
+}());
+var Ship = (function () {
+    function Ship() {
+        var foreground = document.getElementsByTagName("foreground")[0];
+        this.ship = document.createElement("ship");
+        foreground.appendChild(this.ship);
+        this.x = 3000 - this.getRectangle().width;
+        this.y = 720 - this.getRectangle().height;
+    }
+    Ship.prototype.scrollLeft = function (pos) {
+        this.x += pos;
+    };
+    Ship.prototype.update = function () {
+        this.ship.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
+    };
+    Ship.prototype.getRectangle = function () {
+        return this.ship.getBoundingClientRect();
+    };
+    return Ship;
+}());
 var Asteroid = (function () {
     function Asteroid(g) {
         this.spacegame = g;

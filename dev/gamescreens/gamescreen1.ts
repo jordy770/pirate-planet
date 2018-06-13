@@ -29,7 +29,7 @@ class GameScreen1 extends GameScreen{
             {x: 700, y: 650},
             {x: 1000, y: 300},
             {x: 1500, y: 600},
-            {x: 1900, y: 200}
+            {x: 1900, y: 250}
 
         ]
         for(let coords of platformCoordinates){

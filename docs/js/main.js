@@ -521,7 +521,7 @@ var GameScreen1 = (function (_super) {
             { x: 700, y: 650 },
             { x: 1000, y: 300 },
             { x: 1500, y: 600 },
-            { x: 1900, y: 200 }
+            { x: 1900, y: 250 }
         ];
         for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
             var coords = platformCoordinates_1[_a];

@@ -1068,7 +1068,7 @@ var StartScreen = (function () {
         console.log('switch to gamescreen');
         this.bgmusic.pause();
         this.game.emptyScreen();
-        this.game.showScreen(new GameScreen2(this.game));
+        this.game.showScreen(new GameScreen1(this.game));
     };
     return StartScreen;
 }());

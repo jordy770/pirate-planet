@@ -384,6 +384,13 @@ var GameScreen = (function () {
         var background = document.getElementsByTagName("background")[0];
         this.textfield = document.createElement("textfield");
         background.appendChild(this.textfield);
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-planet-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         this.ship = new Ship();
         this.player = new Player(this);
     }
@@ -427,6 +434,7 @@ var GameScreen = (function () {
                     this.currentlevel = 9;
                 }
                 else if (this.currentlevel < 8) {
+                    this.bgmusic.pause();
                     this.game.emptyScreen();
                     this.game.setPreviousLevel = this.currentlevel;
                     this.game.showScreen(new SpaceGame(this.game));
@@ -851,6 +859,13 @@ var SpaceGame = (function () {
         this.foreground.appendChild(this.textfield);
         this.asteroids = [];
         this.lasers = [];
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-space-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         for (var i = 0; i < 6; i++) {
             var asteroid = new Asteroid(this);
             this.asteroids.push(asteroid);
@@ -893,12 +908,14 @@ var SpaceGame = (function () {
         }
         if (this.levens == 0) {
             this.spaceship.removeSpaceship();
+            this.bgmusic.pause();
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
         }
-        if (this.time == 100) {
+        if (this.time == 10000) {
             this.spaceship.removeSpaceship();
             this.game.emptyScreen();
+            this.bgmusic.pause();
             if (this.game.getPreviousLevel == 1) {
                 this.game.showScreen(new GameScreen2(this.game));
             }
@@ -1044,7 +1061,7 @@ var StartScreen = (function () {
         this.startmodal.appendChild(this.startbtn);
         this.startmodal.appendChild(this.starttext);
         this.bgmusic = document.createElement("audio");
-        this.bgmusic.src = "../docs/music/game-intro-music.wav";
+        this.bgmusic.src = "../docs/music/game-intro-2-music.wav";
         this.bgmusic.setAttribute("preload", "auto");
         this.bgmusic.setAttribute("controls", "none");
         this.bgmusic.style.display = "none";

@@ -40,7 +40,7 @@ class StartScreen {
         this.startmodal.appendChild(this.starttext)
 
         this.bgmusic = document.createElement("audio");
-        this.bgmusic.src = "../docs/music/game-intro-music.wav"
+        this.bgmusic.src = "../docs/music/game-intro-2-music.wav"
         this.bgmusic.setAttribute("preload", "auto");
         this.bgmusic.setAttribute("controls", "none");
         this.bgmusic.style.display = "none";

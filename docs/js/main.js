@@ -760,7 +760,7 @@ var GameScreen7 = (function (_super) {
 var GameScreen8 = (function (_super) {
     __extends(GameScreen8, _super);
     function GameScreen8(game) {
-        var _this = _super.call(this, game, 8, 4) || this;
+        var _this = _super.call(this, game, 8, 8) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("venusbg", "mercurybg");
         var itemCoordinates = [
@@ -1153,7 +1153,7 @@ var StartScreen = (function () {
         console.log('switch to gamescreen');
         this.bgmusic.pause();
         this.game.emptyScreen();
-        this.game.showScreen(new GameScreen8(this.game));
+        this.game.showScreen(new GameScreen1(this.game));
     };
     return StartScreen;
 }());

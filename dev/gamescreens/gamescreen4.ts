@@ -29,7 +29,7 @@ class GameScreen4 extends GameScreen{
             {x: 1500, y: 600}
         ]
         for(let coords of platformCoordinates){
-            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"))
+            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/purpleplatform.png"))
         }
 
     }

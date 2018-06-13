@@ -1,17 +1,18 @@
-class BetweenScreen {
-
-    // private textfield: HTMLElement
+class BetweenScreen{
     private game : Game
     background: HTMLImageElement;
     private betweenbtn : HTMLElement
+    private betweenmodal : HTMLElement
+    private betweentext : HTMLElement
     width: number = 1280;
     height: number = 720;
-
 
     constructor(g:Game) {
         this.game = g
         
         this.betweenbtn = document.createElement("betweenbtn")
+        this.betweenmodal = document.createElement("betweenmodal")
+        this.betweentext = document.createElement("betweentext")
 
         // get container
         let container = document.getElementsByTagName("container")[0]
@@ -33,13 +34,12 @@ class BetweenScreen {
         this.betweenbtn.addEventListener("click", ()=> this.switchScreens())
     }
 
-    public update() {
-        this.betweenbtn.innerHTML = "NEXT LEVEL"
-    }
-
     private switchScreens(){
         console.log('go to second level')
        // this.game.emptyScreen()
        // this.game.showScreen(new GameScreen(this.game))
     }
+
+
+
 }

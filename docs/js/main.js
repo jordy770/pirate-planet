@@ -52,6 +52,8 @@ var BetweenScreen = (function () {
         this.height = 720;
         this.game = g;
         this.betweenbtn = document.createElement("betweenbtn");
+        this.betweenmodal = document.createElement("betweenmodal");
+        this.betweentext = document.createElement("betweentext");
         var container = document.getElementsByTagName("container")[0];
         var background = document.createElement("background");
         container.appendChild(background);
@@ -62,14 +64,36 @@ var BetweenScreen = (function () {
         foreground.appendChild(this.betweenbtn);
         this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
-    BetweenScreen.prototype.update = function () {
-        this.betweenbtn.innerHTML = "NEXT LEVEL";
-    };
     BetweenScreen.prototype.switchScreens = function () {
         console.log('go to second level');
     };
     return BetweenScreen;
 }());
+var BetweenScreen1 = (function (_super) {
+    __extends(BetweenScreen1, _super);
+    function BetweenScreen1(game) {
+        var _this = _super.call(this) || this;
+        _this.game = game;
+        var container = document.getElementsByTagName("container")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        _this.background = new Image(_this.width, _this.height);
+        _this.background.setAttribute("class", "between-background");
+        foreground.appendChild(_this.betweenbtn);
+        _this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
+        return _this;
+    }
+    BetweenScreen1.prototype.update = function () {
+        this.betweenbtn.innerHTML = "NEXT LEVEL";
+        this.betweentext.innerHTML = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+    };
+    BetweenScreen1.prototype.switchScreens = function () {
+        console.log('go to second level');
+    };
+    return BetweenScreen1;
+}(BetweenScreen));
 var GameOver = (function () {
     function GameOver(g) {
         var _this = this;

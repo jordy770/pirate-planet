@@ -258,7 +258,6 @@ var Player = (function () {
         this.framewidth = 105;
         this.speedcounter = 0;
         this.falling = true;
-        this.jump = true;
         this.gamescreen = b;
         this.player = document.createElement("player");
         this.frame = 0;
@@ -282,9 +281,9 @@ var Player = (function () {
                 break;
             case "ArrowUp":
             case "w":
-                if (this.jump == false) {
-                    this.speedUp = 50;
-                    this.jump = true;
+                if (this.falling == false) {
+                    this.speedUp = 30;
+                    console.log("set speed up");
                 }
                 break;
         }
@@ -300,25 +299,23 @@ var Player = (function () {
                 this.speedRight = 0;
                 break;
             case "ArrowUp":
-            case "w":
-                this.speedUp = 0;
-                break;
         }
     };
-    Player.prototype.setFalling = function (b) {
-        this.falling = b;
-    };
     Player.prototype.update = function () {
+        if (this.speedUp > 0) {
+            this.speedUp--;
+        }
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         this.gravity = (this.falling) ? 10 : 0;
-        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
-            this.jump = false;
+        var hitsFloor = (this.y > 720 - 200);
+        var hitsPlat = this.gamescreen.collisionWithPlat();
+        if (hitsFloor || hitsPlat) {
+            this.falling = false;
         }
         else {
-            this.jump = true;
+            this.falling = true;
         }
-        console.log(this.jump);
         var newY = this.y - this.speedUp + this.gravity;
         if (newY > 0 && newY + 150 < 720) {
             this.y = newY;
@@ -419,7 +416,6 @@ var GameScreen = (function () {
             var platform = _c[_b];
             platform.update();
         }
-        this.collisionWithPlat();
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++;
             if (this.hitShip > 0 && this.score == this.totalItems) {
@@ -458,16 +454,15 @@ var GameScreen = (function () {
             b.top <= a.bottom);
     };
     GameScreen.prototype.collisionWithPlat = function () {
+        var falling = false;
         for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
             var platform = _a[_i];
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false);
+                falling = true;
                 break;
             }
-            else {
-                this.player.setFalling(true);
-            }
         }
+        return falling;
     };
     return GameScreen;
 }());

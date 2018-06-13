@@ -13,7 +13,7 @@ class GameScreen2 extends GameScreen{
         let itemCoordinates = [
             {x: 570, y: 220},
             {x: 1100, y: 220},
-            {x: 1550, y: 520}
+            {x: 1550, y: 520},
             {x: 2250, y: 80}
 
         ]

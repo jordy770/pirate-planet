@@ -4,17 +4,19 @@ class GameScreen7 extends GameScreen{
 
     constructor(game:Game){
         //In de super eerst de game doorgeven, daarna het aantal items wat verzameld moet worden
-        super(game, 7, 4)
+        super(game, 7, 5)
 
         let background = document.getElementsByTagName("background")[0]
         background.classList.replace("neptunebg", "venusbg")
 
         //Items
         let itemCoordinates = [
-            {x: 225, y: 430},
-            {x: 590, y: 470},
-            {x: 1100, y: 250},
-            {x: 1550, y: 500}
+            {x: 225, y: 510},
+            {x: -350, y: 410},
+            {x: 1100, y: 360},
+            {x: 1900, y: 360},
+            {x: 2350, y: 560}
+
         ]
         for(let icoords of itemCoordinates){
             this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bag.png"))
@@ -23,13 +25,24 @@ class GameScreen7 extends GameScreen{
         //Platforms
         let platformCoordinates = [
             {x: 100, y: 200},
-            {x: 150, y: 500},
-            {x: 500, y: 550},
-            {x: 1000, y: 300},
-            {x: 1500, y: 600}
+            {x: 320, y: 200},
+            {x: 500, y: 450},
+            {x: 150, y: 600},
+            {x: -80, y: 600},
+            {x: -400, y: 500},
+            {x: 1000, y: 450},
+            {x: 1500, y: 250},
+            {x: 1730, y: 250},
+            {x: 1900, y: 450},
+            {x: 2200, y: 650},
+            {x: 2350, y: 350},
+
+
+
+
         ]
         for(let coords of platformCoordinates){
-            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/lava.png"))
+            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/metalplatform.png"))
         }
 
     }

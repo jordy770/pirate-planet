@@ -72,7 +72,7 @@ class GameScreen{
         //update if player hits platform dont drop!
        this.collisionWithPlat();
         
-        //if player had MAX amount jerrycans boat activates
+        //if player had MAX amount items boat activates
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++
             if(this.hitShip > 0 && this.score == this.totalItems){

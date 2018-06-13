@@ -45,6 +45,31 @@ var Game = (function () {
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
+var BetweenScreen = (function () {
+    function BetweenScreen(g) {
+        var _this = this;
+        this.width = 1280;
+        this.height = 720;
+        this.game = g;
+        this.betweenbtn = document.createElement("betweenbtn");
+        var container = document.getElementsByTagName("container")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        this.background = new Image(this.width, this.height);
+        this.background.setAttribute("class", "between-background");
+        foreground.appendChild(this.betweenbtn);
+        this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
+    }
+    BetweenScreen.prototype.update = function () {
+        this.betweenbtn.innerHTML = "NEXT LEVEL";
+    };
+    BetweenScreen.prototype.switchScreens = function () {
+        console.log('go to second level');
+    };
+    return BetweenScreen;
+}());
 var GameOver = (function () {
     function GameOver(g) {
         var _this = this;
@@ -77,7 +102,7 @@ var End = (function () {
         this.assignmenttext2 = document.createElement("assignmenttext");
         this.assignmentbtn = document.createElement("assignmentbtn");
         this.textcontainer1 = document.createElement("textcontainer1");
-        this.planetswrong = document.createElement("planetswrong");
+        this.planetscontainer = document.createElement("planetscontainer");
         this.textcontainer2 = document.createElement("textcontainer2");
         this.planetsright = document.createElement("planetsright");
         for (var i = 0; i < 8; i++) {
@@ -86,20 +111,20 @@ var End = (function () {
         }
         foreground.appendChild(this.assignmentmodal);
         this.assignmentmodal.appendChild(this.assignmentbtn);
-        this.assignmentmodal.appendChild(this.planetswrong);
+        this.assignmentmodal.appendChild(this.planetscontainer);
         this.assignmentmodal.appendChild(this.planetsright);
         this.assignmentmodal.appendChild(this.textcontainer1);
         this.assignmentmodal.appendChild(this.textcontainer2);
         this.textcontainer1.appendChild(this.assignmenttext1);
         this.textcontainer2.appendChild(this.assignmenttext2);
-        var aarde = new PlanetContainer("planetswrong", 8, "Aarde", "../docs/images/aarde.png");
-        var jupiter = new PlanetContainer("planetswrong", 8, "Jupiter", "../docs/images/jupiter.png");
-        var mars = new PlanetContainer("planetswrong", 8, "Mars", "../docs/images/mars.png");
-        var mercurius = new PlanetContainer("planetswrong", 8, "Mercurius", "../docs/images/mercurius.png");
-        var neptunus = new PlanetContainer("planetswrong", 8, "Neptunus", "../docs/images/neptunus.png");
-        var saturnus = new PlanetContainer("planetswrong", 8, "Saturnus", "../docs/images/saturnus.png");
-        var uranus = new PlanetContainer("planetswrong", 8, "Uranus", "../docs/images/uranus.png");
-        var venus = new PlanetContainer("planetswrong", 8, "Venus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer(8, "Aarde", "../docs/images/aarde.png");
+        var jupiter = new PlanetContainer(8, "Jupiter", "../docs/images/jupiter.png");
+        var mars = new PlanetContainer(8, "Mars", "../docs/images/mars.png");
+        var mercurius = new PlanetContainer(8, "Mercurius", "../docs/images/mercurius.png");
+        var neptunus = new PlanetContainer(8, "Neptunus", "../docs/images/neptunus.png");
+        var saturnus = new PlanetContainer(8, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer(8, "Uranus", "../docs/images/uranus.png");
+        var venus = new PlanetContainer(8, "Venus", "../docs/images/venus.png");
         this.assignmentbtn.innerHTML = "CHECK";
         this.assignmenttext1.innerHTML = "Zet de planeten in de goede volgorde van het zonnestelsel.";
         this.assignmenttext2.innerHTML = "Klik op een planeet en verschuif hem naar een vakje.";
@@ -155,11 +180,11 @@ var Item = (function () {
     return Item;
 }());
 var PlanetContainer = (function () {
-    function PlanetContainer(element, currentLevel, planet, source) {
+    function PlanetContainer(currentLevel, planet, source) {
         var _this = this;
         this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
         this.currentLevel = currentLevel;
-        var container = document.getElementsByTagName(element)[0];
+        var container = document.getElementsByTagName("planetscontainer")[0];
         this.planetContainer = document.createElement("planetcontainer");
         container.appendChild(this.planetContainer);
         this.image = document.createElement("planetimg");
@@ -169,11 +194,11 @@ var PlanetContainer = (function () {
         this.planetContainer.appendChild(this.image);
         this.planetContainer.appendChild(this.text);
         this.moveBind = function (e) { return _this.update(e); };
-        if (element == "planetswrong") {
+        if (this.currentLevel == 8) {
             this.planetContainer.addEventListener("mousedown", function (e) { return _this.initDrag(e); });
             this.planetContainer.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
         }
-        if (element == "interface") {
+        else {
             this.planetContainer.style.border = "none";
             this.planetContainer.style.opacity = "0.5";
             console.log(this.planets[this.currentLevel]);
@@ -697,16 +722,21 @@ var Interface = (function () {
     function Interface(g, currentPlanet) {
         this.game = g;
         var foreground = document.getElementsByTagName("foreground")[0];
-        this.interface = document.createElement("interface");
-        foreground.appendChild(this.interface);
-        var mercurius = new PlanetContainer("interface", currentPlanet, "Mercurius", "../docs/images/mercurius.png");
-        var venus = new PlanetContainer("interface", currentPlanet, "Venus", "../docs/images/venus.png");
-        var aarde = new PlanetContainer("interface", currentPlanet, "Aarde", "../docs/images/aarde.png");
-        var mars = new PlanetContainer("interface", currentPlanet, "Mars", "../docs/images/mars.png");
-        var jupiter = new PlanetContainer("interface", currentPlanet, "Jupiter", "../docs/images/jupiter.png");
-        var saturnus = new PlanetContainer("interface", currentPlanet, "Saturnus", "../docs/images/saturnus.png");
-        var uranus = new PlanetContainer("interface", currentPlanet, "Uranus", "../docs/images/uranus.png");
-        var neptunus = new PlanetContainer("interface", currentPlanet, "Neptunus", "../docs/images/neptunus.png");
+        this.planetscontainer = document.createElement("planetscontainer");
+        foreground.appendChild(this.planetscontainer);
+        var mercurius = new PlanetContainer(currentPlanet, "Mercurius", "../docs/images/mercurius.png");
+        var venus = new PlanetContainer(currentPlanet, "Venus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer(currentPlanet, "Aarde", "../docs/images/aarde.png");
+        var mars = new PlanetContainer(currentPlanet, "Mars", "../docs/images/mars.png");
+        var jupiter = new PlanetContainer(currentPlanet, "Jupiter", "../docs/images/jupiter.png");
+        var saturnus = new PlanetContainer(currentPlanet, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer(currentPlanet, "Uranus", "../docs/images/uranus.png");
+        var neptunus = new PlanetContainer(currentPlanet, "Neptunus", "../docs/images/neptunus.png");
+        if (currentPlanet != 8) {
+            this.planetscontainer.style.marginTop = "0px";
+            this.planetscontainer.style.left = "320px";
+            this.planetscontainer.style.backgroundImage = "none";
+        }
     }
     return Interface;
 }());

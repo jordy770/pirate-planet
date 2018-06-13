@@ -268,7 +268,7 @@ textcontainer2 {
     height: 20px;
 }
 
-planetswrong {
+planetscontainer {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -318,9 +318,4 @@ planetsright {
     height: 100px;
     background-color: #baa684;
     margin-top: 210px;
-}
-
-interface {
-    width: 100%;
-    left: 320px;
 }

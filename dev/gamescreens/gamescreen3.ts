@@ -10,14 +10,14 @@ class GameScreen3 extends GameScreen{
         background.classList.replace("marsbg", "jupiterbg")
 
         //Items
-        let jerrycanCoordinates = [
-            {x: 225, y: 430},
-            {x: 590, y: 470},
-            {x: 1100, y: 250},
+        let itemcanCoordinates = [
+            {x: 225, y: 400},
+            {x: 590, y: 450},
+            {x: 1100, y: 210},
             {x: 1550, y: 500}
         ]
-        for(let jcoords of jerrycanCoordinates){
-            this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"))
+        for(let icoords of itemcanCoordinates){
+            this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bubble.png"))
         }
 
         //Platforms
@@ -29,7 +29,7 @@ class GameScreen3 extends GameScreen{
             {x: 1500, y: 600}
         ]
         for(let coords of platformCoordinates){
-            this.platforms.push(new Platform(coords.x, coords.y))
+            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"))
         }
 
     }

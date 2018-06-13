@@ -10,7 +10,7 @@ class PlanetContainer {
     private y: number
     private scale : number
     private currentLevel : number
-    private planets: Array<string> = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
+    private planets: Array<string> = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Venus", "Mercurius"];
 
     constructor(currentLevel : number, planet : string, source : string) {
         this.currentLevel = currentLevel
@@ -36,7 +36,6 @@ class PlanetContainer {
         } else {
             this.planetContainer.style.border = "none"
             this.planetContainer.style.opacity = "0.5"
-            console.log(this.planets[this.currentLevel])
 
             if(this.planets[this.currentLevel] == planet){
             this.planetContainer.style.opacity = "1.0"

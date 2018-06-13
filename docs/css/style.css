@@ -20,7 +20,7 @@ item {
     position: absolute;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
 }
 
 enemy {
@@ -133,8 +133,10 @@ foreground {
 
 platform {
     position: absolute; 
-    height: 25px; width: 200px;
-    background-color: black
+    height: 50px; width: 250px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 body, html {

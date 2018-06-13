@@ -10,14 +10,14 @@ class GameScreen5 extends GameScreen{
         background.classList.replace("saturnbg", "uranusbg")
 
         //Items
-        let jerrycanCoordinates = [
+        let itemCoordinates = [
             {x: 225, y: 430},
             {x: 590, y: 470},
             {x: 1100, y: 250},
             {x: 1550, y: 500}
         ]
-        for(let jcoords of jerrycanCoordinates){
-            this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"))
+        for(let icoords of itemCoordinates){
+            this.items.push(new Item(icoords.x, icoords.y, "../docs/images/jerrycan.png"))
         }
 
         //Platforms
@@ -29,7 +29,7 @@ class GameScreen5 extends GameScreen{
             {x: 1500, y: 600}
         ]
         for(let coords of platformCoordinates){
-            this.platforms.push(new Platform(coords.x, coords.y))
+            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/snow.png"))
         }
 
     }

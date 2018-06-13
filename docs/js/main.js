@@ -182,7 +182,7 @@ var Item = (function () {
 var PlanetContainer = (function () {
     function PlanetContainer(currentLevel, planet, source) {
         var _this = this;
-        this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
+        this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Venus", "Mercurius"];
         this.currentLevel = currentLevel;
         var container = document.getElementsByTagName("planetscontainer")[0];
         this.planetContainer = document.createElement("planetcontainer");
@@ -201,7 +201,6 @@ var PlanetContainer = (function () {
         else {
             this.planetContainer.style.border = "none";
             this.planetContainer.style.opacity = "0.5";
-            console.log(this.planets[this.currentLevel]);
             if (this.planets[this.currentLevel] == planet) {
                 this.planetContainer.style.opacity = "1.0";
             }
@@ -227,10 +226,11 @@ var PlanetContainer = (function () {
     return PlanetContainer;
 }());
 var Platform = (function () {
-    function Platform(x, y) {
+    function Platform(x, y, image) {
         this.x = x;
         this.y = y;
         this.div = document.createElement("platform");
+        this.div.style.backgroundImage = "url('" + image + "')";
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
     }
@@ -471,26 +471,28 @@ var GameScreen1 = (function (_super) {
         var _this = _super.call(this, game, 1, 4) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("startbg", "earthbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var itemCoordinates = [
+            { x: 225, y: 420 },
+            { x: 730, y: 570 },
+            { x: 1100, y: 220 },
+            { x: 1550, y: 520 },
+            { x: 1550, y: 520 }
         ];
-        for (var _i = 0, jerrycanCoordinates_1 = jerrycanCoordinates; _i < jerrycanCoordinates_1.length; _i++) {
-            var jcoords = jerrycanCoordinates_1[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_1 = itemCoordinates; _i < itemCoordinates_1.length; _i++) {
+            var icoords = itemCoordinates_1[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/plank.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
             { x: 150, y: 500 },
-            { x: 500, y: 550 },
+            { x: 700, y: 650 },
             { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 1500, y: 600 },
+            { x: 1800, y: 200 }
         ];
         for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
             var coords = platformCoordinates_1[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/grass.png"));
         }
         return _this;
     }
@@ -502,15 +504,15 @@ var GameScreen2 = (function (_super) {
         var _this = _super.call(this, game, 2, 4) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("earthbg", "marsbg");
-        var jerrycanCoordinates = [
+        var itemCoordinates = [
             { x: 225, y: 430 },
             { x: 590, y: 470 },
             { x: 1100, y: 250 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_2 = jerrycanCoordinates; _i < jerrycanCoordinates_2.length; _i++) {
-            var jcoords = jerrycanCoordinates_2[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_2 = itemCoordinates; _i < itemCoordinates_2.length; _i++) {
+            var icoords = itemCoordinates_2[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/schroeven.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -521,7 +523,7 @@ var GameScreen2 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_2 = platformCoordinates; _a < platformCoordinates_2.length; _a++) {
             var coords = platformCoordinates_2[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/lava.png"));
         }
         return _this;
     }
@@ -533,15 +535,15 @@ var GameScreen3 = (function (_super) {
         var _this = _super.call(this, game, 3, 4) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("marsbg", "jupiterbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
+        var itemcanCoordinates = [
+            { x: 225, y: 400 },
+            { x: 590, y: 450 },
+            { x: 1100, y: 210 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_3 = jerrycanCoordinates; _i < jerrycanCoordinates_3.length; _i++) {
-            var jcoords = jerrycanCoordinates_3[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemcanCoordinates_1 = itemcanCoordinates; _i < itemcanCoordinates_1.length; _i++) {
+            var icoords = itemcanCoordinates_1[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bubble.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -552,7 +554,7 @@ var GameScreen3 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_3 = platformCoordinates; _a < platformCoordinates_3.length; _a++) {
             var coords = platformCoordinates_3[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"));
         }
         return _this;
     }
@@ -564,15 +566,15 @@ var GameScreen4 = (function (_super) {
         var _this = _super.call(this, game, 4, 4) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("jupiterbg", "saturnbg");
-        var jerrycanCoordinates = [
+        var itemCoordinates = [
             { x: 225, y: 430 },
             { x: 590, y: 470 },
             { x: 1100, y: 250 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_4 = jerrycanCoordinates; _i < jerrycanCoordinates_4.length; _i++) {
-            var jcoords = jerrycanCoordinates_4[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_3 = itemCoordinates; _i < itemCoordinates_3.length; _i++) {
+            var icoords = itemCoordinates_3[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/apple.gif"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -583,7 +585,7 @@ var GameScreen4 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_4 = platformCoordinates; _a < platformCoordinates_4.length; _a++) {
             var coords = platformCoordinates_4[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"));
         }
         return _this;
     }
@@ -595,15 +597,15 @@ var GameScreen5 = (function (_super) {
         var _this = _super.call(this, game, 5, 4) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("saturnbg", "uranusbg");
-        var jerrycanCoordinates = [
+        var itemCoordinates = [
             { x: 225, y: 430 },
             { x: 590, y: 470 },
             { x: 1100, y: 250 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_5 = jerrycanCoordinates; _i < jerrycanCoordinates_5.length; _i++) {
-            var jcoords = jerrycanCoordinates_5[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_4 = itemCoordinates; _i < itemCoordinates_4.length; _i++) {
+            var icoords = itemCoordinates_4[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/jerrycan.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -614,7 +616,7 @@ var GameScreen5 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_5 = platformCoordinates; _a < platformCoordinates_5.length; _a++) {
             var coords = platformCoordinates_5[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/snow.png"));
         }
         return _this;
     }
@@ -626,15 +628,15 @@ var GameScreen6 = (function (_super) {
         var _this = _super.call(this, game, 6, 4) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("uranusbg", "neptunebg");
-        var jerrycanCoordinates = [
+        var itemCoordinates = [
             { x: 225, y: 430 },
             { x: 590, y: 470 },
             { x: 1100, y: 250 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_6 = jerrycanCoordinates; _i < jerrycanCoordinates_6.length; _i++) {
-            var jcoords = jerrycanCoordinates_6[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_5 = itemCoordinates; _i < itemCoordinates_5.length; _i++) {
+            var icoords = itemCoordinates_5[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/metal.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -645,7 +647,7 @@ var GameScreen6 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_6 = platformCoordinates; _a < platformCoordinates_6.length; _a++) {
             var coords = platformCoordinates_6[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/snow.png"));
         }
         return _this;
     }
@@ -656,16 +658,16 @@ var GameScreen7 = (function (_super) {
     function GameScreen7(game) {
         var _this = _super.call(this, game, 7, 4) || this;
         var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("neptunebg", "mercurybg");
-        var jerrycanCoordinates = [
+        background.classList.replace("neptunebg", "venusbg");
+        var itemCoordinates = [
             { x: 225, y: 430 },
             { x: 590, y: 470 },
             { x: 1100, y: 250 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_7 = jerrycanCoordinates; _i < jerrycanCoordinates_7.length; _i++) {
-            var jcoords = jerrycanCoordinates_7[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_6 = itemCoordinates; _i < itemCoordinates_6.length; _i++) {
+            var icoords = itemCoordinates_6[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bag.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -676,7 +678,7 @@ var GameScreen7 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_7 = platformCoordinates; _a < platformCoordinates_7.length; _a++) {
             var coords = platformCoordinates_7[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/lava.png"));
         }
         return _this;
     }
@@ -687,16 +689,16 @@ var GameScreen8 = (function (_super) {
     function GameScreen8(game) {
         var _this = _super.call(this, game, 8, 4) || this;
         var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("mercurybg", "venusbg");
-        var jerrycanCoordinates = [
+        background.classList.replace("venusbg", "mercurybg");
+        var itemCoordinates = [
             { x: 225, y: 430 },
             { x: 590, y: 470 },
             { x: 1100, y: 250 },
             { x: 1550, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_8 = jerrycanCoordinates; _i < jerrycanCoordinates_8.length; _i++) {
-            var jcoords = jerrycanCoordinates_8[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_7 = itemCoordinates; _i < itemCoordinates_7.length; _i++) {
+            var icoords = itemCoordinates_7[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/coin.gif"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
@@ -707,7 +709,7 @@ var GameScreen8 = (function (_super) {
         ];
         for (var _a = 0, platformCoordinates_8 = platformCoordinates; _a < platformCoordinates_8.length; _a++) {
             var coords = platformCoordinates_8[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"));
         }
         var chest = document.getElementsByTagName("ship")[0];
         chest.id = "chest";
@@ -1038,6 +1040,13 @@ var StartScreen = (function () {
         foreground.appendChild(this.startmodal);
         this.startmodal.appendChild(this.startbtn);
         this.startmodal.appendChild(this.starttext);
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-intro-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         this.startbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
     StartScreen.prototype.addNumbers = function (a, b) {
@@ -1049,6 +1058,7 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.switchScreens = function () {
         console.log('switch to gamescreen');
+        this.bgmusic.pause();
         this.game.emptyScreen();
         this.game.showScreen(new GameScreen1(this.game));
     };

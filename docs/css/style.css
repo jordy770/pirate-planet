@@ -85,6 +85,7 @@ background {
     background-size: cover;    
 }
 
+/* Backgrounds Game */
 .startbg {
     background-image: url(../images/startbg.jpg);
 }

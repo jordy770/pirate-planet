@@ -315,6 +315,9 @@ var Player = (function () {
         if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
             this.jump = false;
         }
+        else {
+            this.jump = true;
+        }
         console.log(this.jump);
         var newY = this.y - this.speedUp + this.gravity;
         if (newY > 0 && newY + 150 < 720) {

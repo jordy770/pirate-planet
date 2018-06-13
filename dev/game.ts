@@ -1,6 +1,6 @@
 class Game {
 
-    private currentscreen : StartScreen | GameScreen | SpaceGame | GameOver
+    private currentscreen : StartScreen | GameScreen | SpaceGame | BetweenScreen | GameOver
     private previouslevel : number
 
     public get getPreviousLevel() : number {
@@ -30,7 +30,7 @@ class Game {
         background.innerHTML = ""
     }
 
-    public showScreen(screen : StartScreen | GameScreen | SpaceGame | GameOver ) {
+    public showScreen(screen : StartScreen | GameScreen | SpaceGame | BetweenScreen | GameOver ) {
         this.currentscreen = screen
     }
     

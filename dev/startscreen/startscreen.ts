@@ -46,8 +46,6 @@ class StartScreen {
         this.bgmusic.style.display = "none";
         document.body.appendChild(this.bgmusic);
         this.bgmusic.play();
-        // this.bgmusic = new sound("../music/game-intro-music.wav");
-        // this.bgmusic.play();
 
         this.startbtn.addEventListener("click", ()=> this.switchScreens())
     }

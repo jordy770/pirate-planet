@@ -11,6 +11,7 @@ class GameScreen{
     protected totalItems : number
     protected platforms:Array<Platform>
     protected currentlevel : number
+    private bgmusic : HTMLAudioElement
 
     constructor(game:Game, currentlevel:number, totalItems : number){
         this.game = game
@@ -28,6 +29,15 @@ class GameScreen{
         let background = document.getElementsByTagName("background")[0]
         this.textfield = document.createElement("textfield")
         background.appendChild(this.textfield);
+
+        /// music
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-planet-music.wav"
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
 
         this.ship = new Ship()
         this.player = new Player(this)
@@ -70,9 +80,9 @@ class GameScreen{
         }
         
         //update if player hits platform dont drop!
-       this.collisionWithPlat();
+       //this.collisionWithPlat();
         
-        //if player had MAX amount jerrycans boat activates
+        //if player had MAX amount items boat activates
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++
             if(this.hitShip > 0 && this.score == this.totalItems){
@@ -83,6 +93,7 @@ class GameScreen{
                     this.player.removeInput()
                     this.currentlevel = 9
                 } else if(this.currentlevel < 8) {
+                    this.bgmusic.pause();
                     this.game.emptyScreen()
                     this.game.setPreviousLevel = this.currentlevel
                     this.game.showScreen(new SpaceGame(this.game))
@@ -113,16 +124,19 @@ class GameScreen{
             b.top <= a.bottom)
     }
 
-    public collisionWithPlat(){
+    // aangeroepen door player
+    // player moet setfalling doen als false
+    public collisionWithPlat() : boolean {
+        let falling = false
         for(let platform of this.platforms){
 
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false)
-                break
-             } else {
-                 this.player.setFalling(true)
+               falling = true
+               break
              }
         }
+
+        return falling
     }
 }
 

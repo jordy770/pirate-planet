@@ -12,7 +12,7 @@ class Player  {
     private framewidth = 105
     private speedcounter = 0
     private falling:boolean = true
-    private jump:boolean = true
+    //public jump:boolean = true
 
     private gravity: number
          
@@ -36,6 +36,7 @@ class Player  {
             case "ArrowLeft":
             case "a":
                 this.speedLeft = 10
+
                 this.walkLeft()
                 break
             case "ArrowRight":
@@ -45,10 +46,11 @@ class Player  {
                 break
             case "ArrowUp":
             case "w":
-            if(this.jump == false){
-                this.speedUp = 50
-                this.jump = true
-            }
+                if(this.falling == false){
+                    this.speedUp = 30
+                    console.log("set speed up")
+
+                }
                 break
         }
     }
@@ -64,17 +66,18 @@ class Player  {
                 this.speedRight = 0
                 break
             case "ArrowUp":
-            case "w":
-                this.speedUp = 0
-                break
+            //case "w":
+            //    this.speedUp = 0
+            //    break
         }
     }
-    public setFalling(b:boolean){
-        this.falling = b
-     }
+ 
 
     public update():void 
     {
+        if(this.speedUp > 0){
+            this.speedUp--
+        }
 
         // keyboard input verandert alleen de positie van het level
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight
@@ -82,11 +85,20 @@ class Player  {
 
         this.gravity = (this.falling) ? 10 : 0 
 
-        if(this.y > 720 - 200 || this.gamescreen.collisionWithPlat()){
-            this.jump = false
+        let hitsFloor = (this.y > 720 - 200)
+        let hitsPlat =  this.gamescreen.collisionWithPlat()
+
+        if(hitsFloor ||  hitsPlat){
+            this.falling = false
+        } else {
+            this.falling = true
         }
 
-        console.log(this.jump)
+        // console.log(hitsFloor + " <floor  plat> " + hitsPlat)
+       // console.log(this.falling);
+        
+
+        // console.log(this.jump)
 
         let newY = this.y - this.speedUp + this.gravity
         if (newY > 0 && newY + 150 < 720) {

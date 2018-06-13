@@ -45,6 +45,126 @@ var Game = (function () {
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
+var BetweenScreen = (function () {
+    function BetweenScreen(g) {
+        var _this = this;
+        this.game = g;
+        var foreground = document.getElementsByTagName("foreground")[0];
+        this.betweenbtn = document.createElement("betweenbtn");
+        this.betweenmodal = document.createElement("betweenmodal");
+        this.betweentext = document.createElement("betweentext");
+        foreground.appendChild(this.betweenmodal);
+        this.betweenmodal.appendChild(this.betweenbtn);
+        this.betweenmodal.appendChild(this.betweentext);
+        this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
+    }
+    BetweenScreen.prototype.switchScreens = function () {
+        this.game.emptyScreen();
+        if (this.game.getPreviousLevel == 1) {
+            this.game.showScreen(new GameScreen2(this.game));
+        }
+        else if (this.game.getPreviousLevel == 2) {
+            this.game.showScreen(new GameScreen3(this.game));
+        }
+        else if (this.game.getPreviousLevel == 3) {
+            this.game.showScreen(new GameScreen4(this.game));
+        }
+        else if (this.game.getPreviousLevel == 4) {
+            this.game.showScreen(new GameScreen5(this.game));
+        }
+        else if (this.game.getPreviousLevel == 5) {
+            this.game.showScreen(new GameScreen6(this.game));
+        }
+        else if (this.game.getPreviousLevel == 6) {
+            this.game.showScreen(new GameScreen7(this.game));
+        }
+        else if (this.game.getPreviousLevel == 7) {
+            this.game.showScreen(new GameScreen8(this.game));
+        }
+    };
+    BetweenScreen.prototype.update = function () {
+        this.betweentext.innerHTML = this.text;
+        this.betweenbtn.innerHTML = "OKE";
+    };
+    return BetweenScreen;
+}());
+var BetweenScreen1 = (function (_super) {
+    __extends(BetweenScreen1, _super);
+    function BetweenScreen1(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("earthbg", "marsbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen1;
+}(BetweenScreen));
+var BetweenScreen2 = (function (_super) {
+    __extends(BetweenScreen2, _super);
+    function BetweenScreen2(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("marsbg", "jupiterbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen2;
+}(BetweenScreen));
+var BetweenScreen3 = (function (_super) {
+    __extends(BetweenScreen3, _super);
+    function BetweenScreen3(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("jupiterbg", "saturnbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen3;
+}(BetweenScreen));
+var BetweenScreen4 = (function (_super) {
+    __extends(BetweenScreen4, _super);
+    function BetweenScreen4(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("saturnbg", "uranusbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen4;
+}(BetweenScreen));
+var BetweenScreen5 = (function (_super) {
+    __extends(BetweenScreen5, _super);
+    function BetweenScreen5(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("uranusbg", "neptunebg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen5;
+}(BetweenScreen));
+var BetweenScreen6 = (function (_super) {
+    __extends(BetweenScreen6, _super);
+    function BetweenScreen6(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("neptunebg", "venusbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen6;
+}(BetweenScreen));
+var BetweenScreen7 = (function (_super) {
+    __extends(BetweenScreen7, _super);
+    function BetweenScreen7(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("venusbg", "mercurybg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen7;
+}(BetweenScreen));
 var GameOver = (function () {
     function GameOver(g) {
         var _this = this;
@@ -77,7 +197,7 @@ var End = (function () {
         this.assignmenttext2 = document.createElement("assignmenttext");
         this.assignmentbtn = document.createElement("assignmentbtn");
         this.textcontainer1 = document.createElement("textcontainer1");
-        this.planetswrong = document.createElement("planetswrong");
+        this.planetscontainer = document.createElement("planetscontainer");
         this.textcontainer2 = document.createElement("textcontainer2");
         this.planetsright = document.createElement("planetsright");
         for (var i = 0; i < 8; i++) {
@@ -86,20 +206,20 @@ var End = (function () {
         }
         foreground.appendChild(this.assignmentmodal);
         this.assignmentmodal.appendChild(this.assignmentbtn);
-        this.assignmentmodal.appendChild(this.planetswrong);
+        this.assignmentmodal.appendChild(this.planetscontainer);
         this.assignmentmodal.appendChild(this.planetsright);
         this.assignmentmodal.appendChild(this.textcontainer1);
         this.assignmentmodal.appendChild(this.textcontainer2);
         this.textcontainer1.appendChild(this.assignmenttext1);
         this.textcontainer2.appendChild(this.assignmenttext2);
-        var aarde = new PlanetContainer("planetswrong", 8, "Aarde", "../docs/images/aarde.png");
-        var jupiter = new PlanetContainer("planetswrong", 8, "Jupiter", "../docs/images/jupiter.png");
-        var mars = new PlanetContainer("planetswrong", 8, "Mars", "../docs/images/mars.png");
-        var mercurius = new PlanetContainer("planetswrong", 8, "Mercurius", "../docs/images/mercurius.png");
-        var neptunus = new PlanetContainer("planetswrong", 8, "Neptunus", "../docs/images/neptunus.png");
-        var saturnus = new PlanetContainer("planetswrong", 8, "Saturnus", "../docs/images/saturnus.png");
-        var uranus = new PlanetContainer("planetswrong", 8, "Uranus", "../docs/images/uranus.png");
-        var venus = new PlanetContainer("planetswrong", 8, "Venus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer(8, "Aarde", "../docs/images/aarde.png");
+        var jupiter = new PlanetContainer(8, "Jupiter", "../docs/images/jupiter.png");
+        var mars = new PlanetContainer(8, "Mars", "../docs/images/mars.png");
+        var mercurius = new PlanetContainer(8, "Mercurius", "../docs/images/mercurius.png");
+        var neptunus = new PlanetContainer(8, "Neptunus", "../docs/images/neptunus.png");
+        var saturnus = new PlanetContainer(8, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer(8, "Uranus", "../docs/images/uranus.png");
+        var venus = new PlanetContainer(8, "Venus", "../docs/images/venus.png");
         this.assignmentbtn.innerHTML = "CHECK";
         this.assignmenttext1.innerHTML = "Zet de planeten in de goede volgorde van het zonnestelsel.";
         this.assignmenttext2.innerHTML = "Klik op een planeet en verschuif hem naar een vakje.";
@@ -107,8 +227,10 @@ var End = (function () {
     return End;
 }());
 var Enemy = (function () {
-    function Enemy() {
-        this.speed = 10;
+    function Enemy(speed) {
+        this.x = 10;
+        this.y = 10;
+        this.speed = 20;
         this.div = document.createElement("enemy");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -120,11 +242,18 @@ var Enemy = (function () {
         this.div.remove();
     };
     Enemy.prototype.update = function () {
-        var newX = this.x - this.speed;
-        if (newX > 0 && newX + 150 < 720) {
-            this.x = newX;
+        if (this.x > window.innerWidth - this.div.offsetWidth) {
+            this.orientate = -1;
+            console.log('turn');
+            console.log(window.innerWidth);
+            console.log(window.innerHeight);
         }
-        this.div.style.transform = "translate(" + this.x + "px, 720-150px)";
+        else if (this.x < 0) {
+            this.orientate = 1;
+        }
+        var nextPosition = this.x + (this.speed * this.orientate);
+        this.x = nextPosition;
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px";
     };
     Enemy.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();
@@ -155,11 +284,11 @@ var Item = (function () {
     return Item;
 }());
 var PlanetContainer = (function () {
-    function PlanetContainer(element, currentLevel, planet, source) {
+    function PlanetContainer(currentLevel, planet, source) {
         var _this = this;
-        this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
+        this.planets = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Venus", "Mercurius"];
         this.currentLevel = currentLevel;
-        var container = document.getElementsByTagName(element)[0];
+        var container = document.getElementsByTagName("planetscontainer")[0];
         this.planetContainer = document.createElement("planetcontainer");
         container.appendChild(this.planetContainer);
         this.image = document.createElement("planetimg");
@@ -169,14 +298,13 @@ var PlanetContainer = (function () {
         this.planetContainer.appendChild(this.image);
         this.planetContainer.appendChild(this.text);
         this.moveBind = function (e) { return _this.update(e); };
-        if (element == "planetswrong") {
+        if (this.currentLevel == 8) {
             this.planetContainer.addEventListener("mousedown", function (e) { return _this.initDrag(e); });
             this.planetContainer.addEventListener("mouseup", function (e) { return _this.stopDrag(e); });
         }
-        if (element == "interface") {
+        else {
             this.planetContainer.style.border = "none";
             this.planetContainer.style.opacity = "0.5";
-            console.log(this.planets[this.currentLevel]);
             if (this.planets[this.currentLevel] == planet) {
                 this.planetContainer.style.opacity = "1.0";
             }
@@ -202,10 +330,11 @@ var PlanetContainer = (function () {
     return PlanetContainer;
 }());
 var Platform = (function () {
-    function Platform(x, y) {
+    function Platform(x, y, image) {
         this.x = x;
         this.y = y;
         this.div = document.createElement("platform");
+        this.div.style.backgroundImage = "url('" + image + "')";
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
     }
@@ -233,7 +362,6 @@ var Player = (function () {
         this.framewidth = 105;
         this.speedcounter = 0;
         this.falling = true;
-        this.jump = true;
         this.gamescreen = b;
         this.player = document.createElement("player");
         this.frame = 0;
@@ -257,9 +385,9 @@ var Player = (function () {
                 break;
             case "ArrowUp":
             case "w":
-                if (this.jump == false) {
-                    this.speedUp = 50;
-                    this.jump = true;
+                if (this.falling == false) {
+                    this.speedUp = 30;
+                    console.log("set speed up");
                 }
                 break;
         }
@@ -275,22 +403,23 @@ var Player = (function () {
                 this.speedRight = 0;
                 break;
             case "ArrowUp":
-            case "w":
-                this.speedUp = 0;
-                break;
         }
     };
-    Player.prototype.setFalling = function (b) {
-        this.falling = b;
-    };
     Player.prototype.update = function () {
+        if (this.speedUp > 0) {
+            this.speedUp--;
+        }
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         this.gravity = (this.falling) ? 10 : 0;
-        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
-            this.jump = false;
+        var hitsFloor = (this.y > 720 - 200);
+        var hitsPlat = this.gamescreen.collisionWithPlat();
+        if (hitsFloor || hitsPlat) {
+            this.falling = false;
         }
-        console.log(this.jump);
+        else {
+            this.falling = true;
+        }
         var newY = this.y - this.speedUp + this.gravity;
         if (newY > 0 && newY + 150 < 720) {
             this.y = newY;
@@ -359,6 +488,13 @@ var GameScreen = (function () {
         var background = document.getElementsByTagName("background")[0];
         this.textfield = document.createElement("textfield");
         background.appendChild(this.textfield);
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-planet-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         this.ship = new Ship();
         this.player = new Player(this);
     }
@@ -391,7 +527,6 @@ var GameScreen = (function () {
             var platform = _c[_b];
             platform.update();
         }
-        this.collisionWithPlat();
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++;
             if (this.hitShip > 0 && this.score == this.totalItems) {
@@ -403,6 +538,7 @@ var GameScreen = (function () {
                     this.currentlevel = 9;
                 }
                 else if (this.currentlevel < 8) {
+                    this.bgmusic.pause();
                     this.game.emptyScreen();
                     this.game.setPreviousLevel = this.currentlevel;
                     this.game.showScreen(new SpaceGame(this.game));
@@ -430,45 +566,46 @@ var GameScreen = (function () {
             b.top <= a.bottom);
     };
     GameScreen.prototype.collisionWithPlat = function () {
+        var falling = false;
         for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
             var platform = _a[_i];
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false);
+                falling = true;
                 break;
             }
-            else {
-                this.player.setFalling(true);
-            }
         }
+        return falling;
     };
     return GameScreen;
 }());
 var GameScreen1 = (function (_super) {
     __extends(GameScreen1, _super);
     function GameScreen1(game) {
-        var _this = _super.call(this, game, 1, 4) || this;
+        var _this = _super.call(this, game, 1, 5) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("startbg", "earthbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var itemCoordinates = [
+            { x: 225, y: 420 },
+            { x: 730, y: 570 },
+            { x: 1100, y: 220 },
+            { x: 1550, y: 520 },
+            { x: 1980, y: 100 }
         ];
-        for (var _i = 0, jerrycanCoordinates_1 = jerrycanCoordinates; _i < jerrycanCoordinates_1.length; _i++) {
-            var jcoords = jerrycanCoordinates_1[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_1 = itemCoordinates; _i < itemCoordinates_1.length; _i++) {
+            var icoords = itemCoordinates_1[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/plank.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
             { x: 150, y: 500 },
-            { x: 500, y: 550 },
+            { x: 700, y: 650 },
             { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 1500, y: 600 },
+            { x: 1900, y: 250 }
         ];
         for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
             var coords = platformCoordinates_1[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/grass.png"));
         }
         return _this;
     }
@@ -478,28 +615,28 @@ var GameScreen2 = (function (_super) {
     __extends(GameScreen2, _super);
     function GameScreen2(game) {
         var _this = _super.call(this, game, 2, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("earthbg", "marsbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var itemCoordinates = [
+            { x: 570, y: 220 },
+            { x: 1300, y: 220 },
+            { x: 1550, y: 520 },
+            { x: 2250, y: 80 }
         ];
-        for (var _i = 0, jerrycanCoordinates_2 = jerrycanCoordinates; _i < jerrycanCoordinates_2.length; _i++) {
-            var jcoords = jerrycanCoordinates_2[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_2 = itemCoordinates; _i < itemCoordinates_2.length; _i++) {
+            var icoords = itemCoordinates_2[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/schroeven.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 500, y: 300 },
+            { x: 700, y: 550 },
+            { x: 1200, y: 300 },
+            { x: 1500, y: 600 },
+            { x: 2000, y: 400 },
+            { x: 2200, y: 150 }
         ];
         for (var _a = 0, platformCoordinates_2 = platformCoordinates; _a < platformCoordinates_2.length; _a++) {
             var coords = platformCoordinates_2[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/lava.png"));
         }
         return _this;
     }
@@ -508,29 +645,32 @@ var GameScreen2 = (function (_super) {
 var GameScreen3 = (function (_super) {
     __extends(GameScreen3, _super);
     function GameScreen3(game) {
-        var _this = _super.call(this, game, 3, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("marsbg", "jupiterbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var _this = _super.call(this, game, 3, 5) || this;
+        var itemcanCoordinates = [
+            { x: -150, y: 500 },
+            { x: 590, y: 450 },
+            { x: 1100, y: 210 },
+            { x: 1550, y: 500 },
+            { x: 2300, y: 500 }
         ];
-        for (var _i = 0, jerrycanCoordinates_3 = jerrycanCoordinates; _i < jerrycanCoordinates_3.length; _i++) {
-            var jcoords = jerrycanCoordinates_3[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemcanCoordinates_1 = itemcanCoordinates; _i < itemcanCoordinates_1.length; _i++) {
+            var icoords = itemcanCoordinates_1[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bubble.png"));
         }
         var platformCoordinates = [
+            { x: -500, y: 400 },
+            { x: -200, y: 600 },
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
             { x: 500, y: 550 },
             { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 1500, y: 600 },
+            { x: 1600, y: 200 },
+            { x: 1900, y: 400 },
+            { x: 2200, y: 600 },
         ];
         for (var _a = 0, platformCoordinates_3 = platformCoordinates; _a < platformCoordinates_3.length; _a++) {
             var coords = platformCoordinates_3[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"));
         }
         return _this;
     }
@@ -539,29 +679,32 @@ var GameScreen3 = (function (_super) {
 var GameScreen4 = (function (_super) {
     __extends(GameScreen4, _super);
     function GameScreen4(game) {
-        var _this = _super.call(this, game, 4, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("jupiterbg", "saturnbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var _this = _super.call(this, game, 4, 5) || this;
+        var itemCoordinates = [
+            { x: -230, y: 260 },
+            { x: 225, y: 410 },
+            { x: 920, y: 430 },
+            { x: 1150, y: 110 },
+            { x: 1960, y: 510 },
         ];
-        for (var _i = 0, jerrycanCoordinates_4 = jerrycanCoordinates; _i < jerrycanCoordinates_4.length; _i++) {
-            var jcoords = jerrycanCoordinates_4[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_3 = itemCoordinates; _i < itemCoordinates_3.length; _i++) {
+            var icoords = itemCoordinates_3[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/apple.gif"));
         }
         var platformCoordinates = [
+            { x: -250, y: 350 },
             { x: 100, y: 200 },
             { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 600, y: 350 },
+            { x: 1100, y: 200 },
+            { x: 1000, y: 600 },
+            { x: 1400, y: 400 },
+            { x: 1900, y: 600 },
+            { x: 2150, y: 300 }
         ];
         for (var _a = 0, platformCoordinates_4 = platformCoordinates; _a < platformCoordinates_4.length; _a++) {
             var coords = platformCoordinates_4[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/purpleplatform.png"));
         }
         return _this;
     }
@@ -571,28 +714,34 @@ var GameScreen5 = (function (_super) {
     __extends(GameScreen5, _super);
     function GameScreen5(game) {
         var _this = _super.call(this, game, 5, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("saturnbg", "uranusbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var itemCoordinates = [
+            { x: 600, y: 120 },
+            { x: 1100, y: 320 },
+            { x: 210, y: 460 },
+            { x: 1900, y: 270 },
         ];
-        for (var _i = 0, jerrycanCoordinates_5 = jerrycanCoordinates; _i < jerrycanCoordinates_5.length; _i++) {
-            var jcoords = jerrycanCoordinates_5[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_4 = itemCoordinates; _i < itemCoordinates_4.length; _i++) {
+            var icoords = itemCoordinates_4[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/jerrycan.png"));
         }
         var platformCoordinates = [
+            { x: -150, y: 200 },
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 350, y: 200 },
+            { x: 600, y: 200 },
+            { x: 150, y: 550 },
+            { x: 400, y: 550 },
+            { x: 650, y: 550 },
+            { x: 1000, y: 400 },
+            { x: 1300, y: 250 },
+            { x: 1600, y: 500 },
+            { x: 1900, y: 100 },
+            { x: 1900, y: 350 },
+            { x: 2200, y: 600 }
         ];
         for (var _a = 0, platformCoordinates_5 = platformCoordinates; _a < platformCoordinates_5.length; _a++) {
             var coords = platformCoordinates_5[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/snow.png"));
         }
         return _this;
     }
@@ -601,29 +750,39 @@ var GameScreen5 = (function (_super) {
 var GameScreen6 = (function (_super) {
     __extends(GameScreen6, _super);
     function GameScreen6(game) {
-        var _this = _super.call(this, game, 6, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("uranusbg", "neptunebg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var _this = _super.call(this, game, 6, 5) || this;
+        var itemCoordinates = [
+            { x: 450, y: 340 },
+            { x: -190, y: 570 },
+            { x: 900, y: 350 },
+            { x: 1400, y: 270 },
+            { x: 2450, y: 170 }
         ];
-        for (var _i = 0, jerrycanCoordinates_6 = jerrycanCoordinates; _i < jerrycanCoordinates_6.length; _i++) {
-            var jcoords = jerrycanCoordinates_6[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_5 = itemCoordinates; _i < itemCoordinates_5.length; _i++) {
+            var icoords = itemCoordinates_5[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/metal.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 550, y: 200 },
+            { x: 350, y: 420 },
+            { x: 100, y: 420 },
+            { x: -150, y: 420 },
+            { x: -400, y: 420 },
+            { x: -750, y: 650 },
+            { x: -500, y: 650 },
+            { x: -250, y: 650 },
+            { x: 1000, y: 550 },
+            { x: 1300, y: 350 },
+            { x: 1700, y: 150 },
+            { x: 1700, y: 450 },
+            { x: 2000, y: 650 },
+            { x: 2200, y: 400 },
+            { x: 2400, y: 250 }
         ];
         for (var _a = 0, platformCoordinates_6 = platformCoordinates; _a < platformCoordinates_6.length; _a++) {
             var coords = platformCoordinates_6[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/snow.png"));
         }
         return _this;
     }
@@ -632,29 +791,35 @@ var GameScreen6 = (function (_super) {
 var GameScreen7 = (function (_super) {
     __extends(GameScreen7, _super);
     function GameScreen7(game) {
-        var _this = _super.call(this, game, 7, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("neptunebg", "mercurybg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var _this = _super.call(this, game, 7, 5) || this;
+        var itemCoordinates = [
+            { x: 225, y: 510 },
+            { x: -350, y: 410 },
+            { x: 1100, y: 360 },
+            { x: 1900, y: 360 },
+            { x: 2350, y: 560 }
         ];
-        for (var _i = 0, jerrycanCoordinates_7 = jerrycanCoordinates; _i < jerrycanCoordinates_7.length; _i++) {
-            var jcoords = jerrycanCoordinates_7[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_6 = itemCoordinates; _i < itemCoordinates_6.length; _i++) {
+            var icoords = itemCoordinates_6[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bag.png"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 320, y: 200 },
+            { x: 500, y: 450 },
+            { x: 150, y: 600 },
+            { x: -80, y: 600 },
+            { x: -400, y: 500 },
+            { x: 1000, y: 450 },
+            { x: 1500, y: 250 },
+            { x: 1730, y: 250 },
+            { x: 1900, y: 450 },
+            { x: 2200, y: 650 },
+            { x: 2350, y: 350 },
         ];
         for (var _a = 0, platformCoordinates_7 = platformCoordinates; _a < platformCoordinates_7.length; _a++) {
             var coords = platformCoordinates_7[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/metalplatform.png"));
         }
         return _this;
     }
@@ -663,29 +828,38 @@ var GameScreen7 = (function (_super) {
 var GameScreen8 = (function (_super) {
     __extends(GameScreen8, _super);
     function GameScreen8(game) {
-        var _this = _super.call(this, game, 8, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("mercurybg", "venusbg");
-        var jerrycanCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+        var _this = _super.call(this, game, 8, 8) || this;
+        var itemCoordinates = [
+            { x: 180, y: 430 },
+            { x: 580, y: 430 },
+            { x: 980, y: 430 },
+            { x: 1380, y: 430 },
+            { x: 1580, y: 330 },
+            { x: 1780, y: 230 },
+            { x: 1980, y: 130 },
+            { x: 2180, y: 30 }
         ];
-        for (var _i = 0, jerrycanCoordinates_8 = jerrycanCoordinates; _i < jerrycanCoordinates_8.length; _i++) {
-            var jcoords = jerrycanCoordinates_8[_i];
-            _this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"));
+        for (var _i = 0, itemCoordinates_7 = itemCoordinates; _i < itemCoordinates_7.length; _i++) {
+            var icoords = itemCoordinates_7[_i];
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/coin.gif"));
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
+            { x: 100, y: 550 },
             { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 900, y: 550 },
+            { x: 1300, y: 550 },
+            { x: 1500, y: 450 },
+            { x: 1700, y: 350 },
+            { x: 1900, y: 250 },
+            { x: 2100, y: 150 },
+            { x: 2200, y: 350 },
+            { x: 2400, y: 350 },
+            { x: 2600, y: 350 }
         ];
         for (var _a = 0, platformCoordinates_8 = platformCoordinates; _a < platformCoordinates_8.length; _a++) {
             var coords = platformCoordinates_8[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/blocks.png"));
         }
         var chest = document.getElementsByTagName("ship")[0];
         chest.id = "chest";
@@ -697,16 +871,21 @@ var Interface = (function () {
     function Interface(g, currentPlanet) {
         this.game = g;
         var foreground = document.getElementsByTagName("foreground")[0];
-        this.interface = document.createElement("interface");
-        foreground.appendChild(this.interface);
-        var mercurius = new PlanetContainer("interface", currentPlanet, "Mercurius", "../docs/images/mercurius.png");
-        var venus = new PlanetContainer("interface", currentPlanet, "Venus", "../docs/images/venus.png");
-        var aarde = new PlanetContainer("interface", currentPlanet, "Aarde", "../docs/images/aarde.png");
-        var mars = new PlanetContainer("interface", currentPlanet, "Mars", "../docs/images/mars.png");
-        var jupiter = new PlanetContainer("interface", currentPlanet, "Jupiter", "../docs/images/jupiter.png");
-        var saturnus = new PlanetContainer("interface", currentPlanet, "Saturnus", "../docs/images/saturnus.png");
-        var uranus = new PlanetContainer("interface", currentPlanet, "Uranus", "../docs/images/uranus.png");
-        var neptunus = new PlanetContainer("interface", currentPlanet, "Neptunus", "../docs/images/neptunus.png");
+        this.planetscontainer = document.createElement("planetscontainer");
+        foreground.appendChild(this.planetscontainer);
+        var mercurius = new PlanetContainer(currentPlanet, "Mercurius", "../docs/images/mercurius.png");
+        var venus = new PlanetContainer(currentPlanet, "Venus", "../docs/images/venus.png");
+        var aarde = new PlanetContainer(currentPlanet, "Aarde", "../docs/images/aarde.png");
+        var mars = new PlanetContainer(currentPlanet, "Mars", "../docs/images/mars.png");
+        var jupiter = new PlanetContainer(currentPlanet, "Jupiter", "../docs/images/jupiter.png");
+        var saturnus = new PlanetContainer(currentPlanet, "Saturnus", "../docs/images/saturnus.png");
+        var uranus = new PlanetContainer(currentPlanet, "Uranus", "../docs/images/uranus.png");
+        var neptunus = new PlanetContainer(currentPlanet, "Neptunus", "../docs/images/neptunus.png");
+        if (currentPlanet != 8) {
+            this.planetscontainer.style.marginTop = "0px";
+            this.planetscontainer.style.left = "320px";
+            this.planetscontainer.style.backgroundImage = "none";
+        }
     }
     return Interface;
 }());
@@ -819,6 +998,13 @@ var SpaceGame = (function () {
         this.foreground.appendChild(this.textfield);
         this.asteroids = [];
         this.lasers = [];
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-space-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         for (var i = 0; i < 6; i++) {
             var asteroid = new Asteroid(this);
             this.asteroids.push(asteroid);
@@ -861,32 +1047,34 @@ var SpaceGame = (function () {
         }
         if (this.levens == 0) {
             this.spaceship.removeSpaceship();
+            this.bgmusic.pause();
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
         }
-        if (this.time == 100) {
+        if (this.time == 1400) {
             this.spaceship.removeSpaceship();
             this.game.emptyScreen();
+            this.bgmusic.pause();
             if (this.game.getPreviousLevel == 1) {
-                this.game.showScreen(new GameScreen2(this.game));
+                this.game.showScreen(new BetweenScreen1(this.game));
             }
             else if (this.game.getPreviousLevel == 2) {
-                this.game.showScreen(new GameScreen3(this.game));
+                this.game.showScreen(new BetweenScreen2(this.game));
             }
             else if (this.game.getPreviousLevel == 3) {
-                this.game.showScreen(new GameScreen4(this.game));
+                this.game.showScreen(new BetweenScreen3(this.game));
             }
             else if (this.game.getPreviousLevel == 4) {
-                this.game.showScreen(new GameScreen5(this.game));
+                this.game.showScreen(new BetweenScreen4(this.game));
             }
             else if (this.game.getPreviousLevel == 5) {
-                this.game.showScreen(new GameScreen6(this.game));
+                this.game.showScreen(new BetweenScreen5(this.game));
             }
             else if (this.game.getPreviousLevel == 6) {
-                this.game.showScreen(new GameScreen7(this.game));
+                this.game.showScreen(new BetweenScreen6(this.game));
             }
             else if (this.game.getPreviousLevel == 7) {
-                this.game.showScreen(new GameScreen8(this.game));
+                this.game.showScreen(new BetweenScreen7(this.game));
             }
         }
         this.time++;
@@ -1011,6 +1199,13 @@ var StartScreen = (function () {
         foreground.appendChild(this.startmodal);
         this.startmodal.appendChild(this.startbtn);
         this.startmodal.appendChild(this.starttext);
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-intro-2-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         this.startbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
     StartScreen.prototype.addNumbers = function (a, b) {
@@ -1018,10 +1213,11 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.update = function () {
         this.startbtn.innerHTML = "START GAME";
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!";
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Mercurius. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {
         console.log('switch to gamescreen');
+        this.bgmusic.pause();
         this.game.emptyScreen();
         this.game.showScreen(new GameScreen1(this.game));
     };

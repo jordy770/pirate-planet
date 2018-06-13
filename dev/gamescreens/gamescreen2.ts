@@ -6,30 +6,32 @@ class GameScreen2 extends GameScreen{
         //In de super eerst de game doorgeven, daarna het aantal items wat verzameld moet worden
         super(game, 2, 4)
 
-        let background = document.getElementsByTagName("background")[0]
-        background.classList.replace("earthbg", "marsbg")
-
         //Items
-        let jerrycanCoordinates = [
-            {x: 225, y: 430},
-            {x: 590, y: 470},
-            {x: 1100, y: 250},
-            {x: 1550, y: 500}
+        let itemCoordinates = [
+            {x: 570, y: 220},
+            {x: 1300, y: 220},
+            {x: 1550, y: 520},
+            {x: 2250, y: 80}
+
         ]
-        for(let jcoords of jerrycanCoordinates){
-            this.items.push(new Item(jcoords.x, jcoords.y, "../docs/images/jerrycan.png"))
+        for(let icoords of itemCoordinates){
+            this.items.push(new Item(icoords.x, icoords.y, "../docs/images/schroeven.png"))
         }
 
         //Platforms
         let platformCoordinates = [
             {x: 100, y: 200},
-            {x: 150, y: 500},
-            {x: 500, y: 550},
-            {x: 1000, y: 300},
-            {x: 1500, y: 600}
+            {x: 500, y: 300},
+            {x: 700, y: 550},
+            {x: 1200, y: 300},
+            {x: 1500, y: 600},
+            {x: 2000, y: 400},
+            {x: 2200, y: 150}
+
+
         ]
         for(let coords of platformCoordinates){
-            this.platforms.push(new Platform(coords.x, coords.y))
+            this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/lava.png"))
         }
 
     }

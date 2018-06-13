@@ -5,6 +5,8 @@ class StartScreen {
     private startbtn : HTMLElement
     private startmodal : HTMLElement
     private starttext : HTMLElement
+    private bgmusic : HTMLAudioElement
+    
 
     private addNumbers(a:number, b:number){
         console.log( a + b )
@@ -14,6 +16,7 @@ class StartScreen {
         this.addNumbers(2,3)
 
         this.game = g
+
         
         this.startbtn = document.createElement("startbtn")
         this.startmodal = document.createElement("startmodal")
@@ -36,17 +39,28 @@ class StartScreen {
         this.startmodal.appendChild(this.startbtn)
         this.startmodal.appendChild(this.starttext)
 
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-intro-2-music.wav"
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
+
         this.startbtn.addEventListener("click", ()=> this.switchScreens())
     }
 
     public update() {
         this.startbtn.innerHTML = "START GAME"
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!"
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Mercurius. Ga op reis om de schat te vinden!"
     }
 
     private switchScreens(){
         console.log('switch to gamescreen')
+        this.bgmusic.pause()
         this.game.emptyScreen()
         this.game.showScreen(new GameScreen1(this.game))
     }
+    
+
 }

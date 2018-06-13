@@ -10,11 +10,11 @@ class PlanetContainer {
     private y: number
     private scale : number
     private currentLevel : number
-    private planets: Array<string> = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Mercurius", "Venus"];
+    private planets: Array<string> = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Venus", "Mercurius"];
 
-    constructor(element : string, currentLevel : number, planet : string, source : string) {
+    constructor(currentLevel : number, planet : string, source : string) {
         this.currentLevel = currentLevel
-        let container = document.getElementsByTagName(element)[0]
+        let container = document.getElementsByTagName("planetscontainer")[0]
 
         this.planetContainer = document.createElement("planetcontainer")
         container.appendChild(this.planetContainer)   
@@ -30,20 +30,16 @@ class PlanetContainer {
 
         this.moveBind = (e: Event) => this.update(e)
 
-        if(element == "planetswrong"){
+        if(this.currentLevel == 8){
             this.planetContainer.addEventListener("mousedown", (e) => this.initDrag(e))
             this.planetContainer.addEventListener("mouseup"  , (e) => this.stopDrag(e))  
-        }
-
-        if(element == "interface"){
+        } else {
             this.planetContainer.style.border = "none"
             this.planetContainer.style.opacity = "0.5"
-            console.log(this.planets[this.currentLevel])
 
             if(this.planets[this.currentLevel] == planet){
-                this.planetContainer.style.opacity = "1.0"
-
-            }
+            this.planetContainer.style.opacity = "1.0"
+            }          
         }
     }
 

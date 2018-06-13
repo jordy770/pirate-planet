@@ -312,6 +312,12 @@ var Player = (function () {
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         this.gravity = (this.falling) ? 10 : 0;
+        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
+            this.jump = false;
+        }
+        else {
+            this.jump = true;
+        }
         console.log(this.jump);
         var newY = this.y - this.speedUp + this.gravity;
         if (newY > 0 && newY + 150 < 720) {

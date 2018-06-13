@@ -36,6 +36,7 @@ class Player  {
             case "ArrowLeft":
             case "a":
                 this.speedLeft = 10
+
                 this.walkLeft()
                 break
             case "ArrowRight":
@@ -82,11 +83,11 @@ class Player  {
 
         this.gravity = (this.falling) ? 10 : 0 
 
-        // if(this.y > 720 - 151 || this.gamescreen.collisionWithPlat()){
-        //     this.jump = false
-        // } else{
-        //     this.jump = true
-        // }
+        if(this.y > 720 - 200 || this.gamescreen.collisionWithPlat()){
+            this.jump = false
+        } else{
+            this.jump = true
+        }
 
         console.log(this.jump)
 

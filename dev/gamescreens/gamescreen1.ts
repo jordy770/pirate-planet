@@ -4,7 +4,7 @@ class GameScreen1 extends GameScreen{
 
     constructor(game:Game){
         //In de super eerst de game doorgeven, daarna het nummer van de gamescreen, daarna het aantal items wat verzameld moet worden
-        super(game, 1, 4)
+        super(game, 1, 5)
 
         let background = document.getElementsByTagName("background")[0]
         background.classList.replace("startbg", "earthbg")
@@ -15,7 +15,7 @@ class GameScreen1 extends GameScreen{
             {x: 730, y: 570},
             {x: 1100, y: 220},
             {x: 1550, y: 520},
-            {x: 1550, y: 520}
+            {x: 1980, y: 100}
 
         ]
         for(let icoords of itemCoordinates){
@@ -29,7 +29,7 @@ class GameScreen1 extends GameScreen{
             {x: 700, y: 650},
             {x: 1000, y: 300},
             {x: 1500, y: 600},
-            {x: 1800, y: 200}
+            {x: 1900, y: 200}
 
         ]
         for(let coords of platformCoordinates){

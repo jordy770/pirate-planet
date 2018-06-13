@@ -12,7 +12,7 @@ class Player  {
     private framewidth = 105
     private speedcounter = 0
     private falling:boolean = true
-    private jump:boolean = true
+    public jump:boolean = true
 
     private gravity: number
          
@@ -82,9 +82,11 @@ class Player  {
 
         this.gravity = (this.falling) ? 10 : 0 
 
-        if(this.y > 720 - 200 || this.gamescreen.collisionWithPlat()){
-            this.jump = false
-        }
+        // if(this.y > 720 - 151 || this.gamescreen.collisionWithPlat()){
+        //     this.jump = false
+        // } else{
+        //     this.jump = true
+        // }
 
         console.log(this.jump)
 

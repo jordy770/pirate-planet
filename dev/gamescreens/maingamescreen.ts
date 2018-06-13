@@ -118,6 +118,7 @@ class GameScreen{
 
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
                 this.player.setFalling(false)
+
                 break
              } else {
                  this.player.setFalling(true)

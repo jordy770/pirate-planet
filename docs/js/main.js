@@ -156,8 +156,10 @@ var End = (function () {
     return End;
 }());
 var Enemy = (function () {
-    function Enemy() {
-        this.speed = 10;
+    function Enemy(speed) {
+        this.x = 10;
+        this.y = 10;
+        this.speed = 20;
         this.div = document.createElement("enemy");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -169,11 +171,18 @@ var Enemy = (function () {
         this.div.remove();
     };
     Enemy.prototype.update = function () {
-        var newX = this.x - this.speed;
-        if (newX > 0 && newX + 150 < 720) {
-            this.x = newX;
+        if (this.x > window.innerWidth - this.div.offsetWidth) {
+            this.orientate = -1;
+            console.log('turn');
+            console.log(window.innerWidth);
+            console.log(window.innerHeight);
         }
-        this.div.style.transform = "translate(" + this.x + "px, 720-150px)";
+        else if (this.x < 0) {
+            this.orientate = 1;
+        }
+        var nextPosition = this.x + (this.speed * this.orientate);
+        this.x = nextPosition;
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px";
     };
     Enemy.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();

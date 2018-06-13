@@ -80,7 +80,7 @@ class GameScreen{
         }
         
         //update if player hits platform dont drop!
-       this.collisionWithPlat();
+       //this.collisionWithPlat();
         
         //if player had MAX amount items boat activates
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
@@ -124,17 +124,19 @@ class GameScreen{
             b.top <= a.bottom)
     }
 
-    public collisionWithPlat(){
+    // aangeroepen door player
+    // player moet setfalling doen als false
+    public collisionWithPlat() : boolean {
+        let falling = false
         for(let platform of this.platforms){
 
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false)
-
-                break
-             } else {
-                 this.player.setFalling(true)
+               falling = true
+               break
              }
         }
+
+        return falling
     }
 }
 

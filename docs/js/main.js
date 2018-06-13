@@ -936,7 +936,7 @@ var SpaceGame = (function () {
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
         }
-        if (this.time == 10) {
+        if (this.time == 1400) {
             this.spaceship.removeSpaceship();
             this.game.emptyScreen();
             this.bgmusic.pause();

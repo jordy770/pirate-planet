@@ -21,6 +21,31 @@ var Game = (function () {
     return Game;
 }());
 window.addEventListener("load", function () { return new Game(); });
+var BetweenScreen = (function () {
+    function BetweenScreen(g) {
+        var _this = this;
+        this.width = 1280;
+        this.height = 720;
+        this.game = g;
+        this.betweenbtn = document.createElement("betweenbtn");
+        var container = document.getElementsByTagName("container")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        this.background = new Image(this.width, this.height);
+        this.background.setAttribute("class", "between-background");
+        foreground.appendChild(this.betweenbtn);
+        this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
+    }
+    BetweenScreen.prototype.update = function () {
+        this.betweenbtn.innerHTML = "NEXT LEVEL";
+    };
+    BetweenScreen.prototype.switchScreens = function () {
+        console.log('go to second level');
+    };
+    return BetweenScreen;
+}());
 var GameOver = (function () {
     function GameOver(g) {
         var _this = this;

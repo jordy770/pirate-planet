@@ -539,7 +539,7 @@ var GameScreen2 = (function (_super) {
         background.classList.replace("earthbg", "marsbg");
         var itemCoordinates = [
             { x: 570, y: 220 },
-            { x: 1100, y: 220 },
+            { x: 1300, y: 220 },
             { x: 1550, y: 520 },
             { x: 2250, y: 80 }
         ];
@@ -551,7 +551,7 @@ var GameScreen2 = (function (_super) {
             { x: 100, y: 200 },
             { x: 500, y: 300 },
             { x: 700, y: 550 },
-            { x: 1000, y: 300 },
+            { x: 1200, y: 300 },
             { x: 1500, y: 600 },
             { x: 2000, y: 400 },
             { x: 2200, y: 150 }
@@ -567,25 +567,30 @@ var GameScreen2 = (function (_super) {
 var GameScreen3 = (function (_super) {
     __extends(GameScreen3, _super);
     function GameScreen3(game) {
-        var _this = _super.call(this, game, 3, 4) || this;
+        var _this = _super.call(this, game, 3, 5) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("marsbg", "jupiterbg");
         var itemcanCoordinates = [
-            { x: 225, y: 400 },
+            { x: -150, y: 500 },
             { x: 590, y: 450 },
             { x: 1100, y: 210 },
-            { x: 1550, y: 500 }
+            { x: 1550, y: 500 },
+            { x: 2300, y: 500 }
         ];
         for (var _i = 0, itemcanCoordinates_1 = itemcanCoordinates; _i < itemcanCoordinates_1.length; _i++) {
             var icoords = itemcanCoordinates_1[_i];
             _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/bubble.png"));
         }
         var platformCoordinates = [
+            { x: -500, y: 400 },
+            { x: -200, y: 600 },
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
             { x: 500, y: 550 },
             { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 1500, y: 600 },
+            { x: 1600, y: 200 },
+            { x: 1900, y: 400 },
+            { x: 2200, y: 600 },
         ];
         for (var _a = 0, platformCoordinates_3 = platformCoordinates; _a < platformCoordinates_3.length; _a++) {
             var coords = platformCoordinates_3[_a];
@@ -598,25 +603,30 @@ var GameScreen3 = (function (_super) {
 var GameScreen4 = (function (_super) {
     __extends(GameScreen4, _super);
     function GameScreen4(game) {
-        var _this = _super.call(this, game, 4, 4) || this;
+        var _this = _super.call(this, game, 4, 5) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("jupiterbg", "saturnbg");
         var itemCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+            { x: -230, y: 260 },
+            { x: 225, y: 410 },
+            { x: 920, y: 430 },
+            { x: 1150, y: 110 },
+            { x: 1960, y: 510 },
         ];
         for (var _i = 0, itemCoordinates_3 = itemCoordinates; _i < itemCoordinates_3.length; _i++) {
             var icoords = itemCoordinates_3[_i];
             _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/apple.gif"));
         }
         var platformCoordinates = [
+            { x: -250, y: 350 },
             { x: 100, y: 200 },
             { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 600, y: 350 },
+            { x: 1100, y: 200 },
+            { x: 1000, y: 600 },
+            { x: 1400, y: 400 },
+            { x: 1900, y: 600 },
+            { x: 2150, y: 300 }
         ];
         for (var _a = 0, platformCoordinates_4 = platformCoordinates; _a < platformCoordinates_4.length; _a++) {
             var coords = platformCoordinates_4[_a];
@@ -633,21 +643,29 @@ var GameScreen5 = (function (_super) {
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("saturnbg", "uranusbg");
         var itemCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+            { x: 600, y: 120 },
+            { x: 1100, y: 320 },
+            { x: 210, y: 460 },
+            { x: 1900, y: 270 },
         ];
         for (var _i = 0, itemCoordinates_4 = itemCoordinates; _i < itemCoordinates_4.length; _i++) {
             var icoords = itemCoordinates_4[_i];
             _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/jerrycan.png"));
         }
         var platformCoordinates = [
+            { x: -150, y: 200 },
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 350, y: 200 },
+            { x: 600, y: 200 },
+            { x: 150, y: 550 },
+            { x: 400, y: 550 },
+            { x: 650, y: 550 },
+            { x: 1000, y: 400 },
+            { x: 1300, y: 250 },
+            { x: 1600, y: 500 },
+            { x: 1900, y: 100 },
+            { x: 1900, y: 350 },
+            { x: 2200, y: 600 }
         ];
         for (var _a = 0, platformCoordinates_5 = platformCoordinates; _a < platformCoordinates_5.length; _a++) {
             var coords = platformCoordinates_5[_a];
@@ -660,14 +678,15 @@ var GameScreen5 = (function (_super) {
 var GameScreen6 = (function (_super) {
     __extends(GameScreen6, _super);
     function GameScreen6(game) {
-        var _this = _super.call(this, game, 6, 4) || this;
+        var _this = _super.call(this, game, 6, 5) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("uranusbg", "neptunebg");
         var itemCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+            { x: 450, y: 340 },
+            { x: -190, y: 570 },
+            { x: 900, y: 350 },
+            { x: 1400, y: 270 },
+            { x: 2450, y: 170 }
         ];
         for (var _i = 0, itemCoordinates_5 = itemCoordinates; _i < itemCoordinates_5.length; _i++) {
             var icoords = itemCoordinates_5[_i];
@@ -675,10 +694,21 @@ var GameScreen6 = (function (_super) {
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 550, y: 200 },
+            { x: 350, y: 420 },
+            { x: 100, y: 420 },
+            { x: -150, y: 420 },
+            { x: -400, y: 420 },
+            { x: -750, y: 650 },
+            { x: -500, y: 650 },
+            { x: -250, y: 650 },
+            { x: 1000, y: 550 },
+            { x: 1300, y: 350 },
+            { x: 1700, y: 150 },
+            { x: 1700, y: 450 },
+            { x: 2000, y: 650 },
+            { x: 2200, y: 400 },
+            { x: 2400, y: 250 }
         ];
         for (var _a = 0, platformCoordinates_6 = platformCoordinates; _a < platformCoordinates_6.length; _a++) {
             var coords = platformCoordinates_6[_a];
@@ -691,14 +721,15 @@ var GameScreen6 = (function (_super) {
 var GameScreen7 = (function (_super) {
     __extends(GameScreen7, _super);
     function GameScreen7(game) {
-        var _this = _super.call(this, game, 7, 4) || this;
+        var _this = _super.call(this, game, 7, 5) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("neptunebg", "venusbg");
         var itemCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+            { x: 225, y: 510 },
+            { x: -350, y: 410 },
+            { x: 1100, y: 360 },
+            { x: 1900, y: 360 },
+            { x: 2350, y: 560 }
         ];
         for (var _i = 0, itemCoordinates_6 = itemCoordinates; _i < itemCoordinates_6.length; _i++) {
             var icoords = itemCoordinates_6[_i];
@@ -706,14 +737,21 @@ var GameScreen7 = (function (_super) {
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
-            { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 320, y: 200 },
+            { x: 500, y: 450 },
+            { x: 150, y: 600 },
+            { x: -80, y: 600 },
+            { x: -400, y: 500 },
+            { x: 1000, y: 450 },
+            { x: 1500, y: 250 },
+            { x: 1730, y: 250 },
+            { x: 1900, y: 450 },
+            { x: 2200, y: 650 },
+            { x: 2350, y: 350 },
         ];
         for (var _a = 0, platformCoordinates_7 = platformCoordinates; _a < platformCoordinates_7.length; _a++) {
             var coords = platformCoordinates_7[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/lava.png"));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/metalplatform.png"));
         }
         return _this;
     }
@@ -726,10 +764,14 @@ var GameScreen8 = (function (_super) {
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("venusbg", "mercurybg");
         var itemCoordinates = [
-            { x: 225, y: 430 },
-            { x: 590, y: 470 },
-            { x: 1100, y: 250 },
-            { x: 1550, y: 500 }
+            { x: 180, y: 430 },
+            { x: 580, y: 430 },
+            { x: 980, y: 430 },
+            { x: 1380, y: 430 },
+            { x: 1580, y: 330 },
+            { x: 1780, y: 230 },
+            { x: 1980, y: 130 },
+            { x: 2180, y: 30 }
         ];
         for (var _i = 0, itemCoordinates_7 = itemCoordinates; _i < itemCoordinates_7.length; _i++) {
             var icoords = itemCoordinates_7[_i];
@@ -737,14 +779,21 @@ var GameScreen8 = (function (_super) {
         }
         var platformCoordinates = [
             { x: 100, y: 200 },
-            { x: 150, y: 500 },
+            { x: 100, y: 550 },
             { x: 500, y: 550 },
-            { x: 1000, y: 300 },
-            { x: 1500, y: 600 }
+            { x: 900, y: 550 },
+            { x: 1300, y: 550 },
+            { x: 1500, y: 450 },
+            { x: 1700, y: 350 },
+            { x: 1900, y: 250 },
+            { x: 2100, y: 150 },
+            { x: 2200, y: 350 },
+            { x: 2400, y: 350 },
+            { x: 2600, y: 350 }
         ];
         for (var _a = 0, platformCoordinates_8 = platformCoordinates; _a < platformCoordinates_8.length; _a++) {
             var coords = platformCoordinates_8[_a];
-            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/stone.png"));
+            _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/blocks.png"));
         }
         var chest = document.getElementsByTagName("ship")[0];
         chest.id = "chest";
@@ -1098,13 +1147,13 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.update = function () {
         this.startbtn.innerHTML = "START GAME";
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!";
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Mercurius. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {
         console.log('switch to gamescreen');
         this.bgmusic.pause();
         this.game.emptyScreen();
-        this.game.showScreen(new GameScreen1(this.game));
+        this.game.showScreen(new GameScreen8(this.game));
     };
     return StartScreen;
 }());

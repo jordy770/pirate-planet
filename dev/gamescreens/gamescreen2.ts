@@ -12,7 +12,11 @@ class GameScreen2 extends GameScreen{
         //Items
         let itemCoordinates = [
             {x: 570, y: 220},
+<<<<<<< HEAD
+            {x: 1300, y: 220},
+=======
             {x: 1100, y: 220},
+>>>>>>> 34824d7ce89a2b801f7bcca4ceb1992a16053632
             {x: 1550, y: 520},
             {x: 2250, y: 80}
 
@@ -26,7 +30,7 @@ class GameScreen2 extends GameScreen{
             {x: 100, y: 200},
             {x: 500, y: 300},
             {x: 700, y: 550},
-            {x: 1000, y: 300},
+            {x: 1200, y: 300},
             {x: 1500, y: 600},
             {x: 2000, y: 400},
             {x: 2200, y: 150}

@@ -1043,6 +1043,13 @@ var StartScreen = (function () {
         foreground.appendChild(this.startmodal);
         this.startmodal.appendChild(this.startbtn);
         this.startmodal.appendChild(this.starttext);
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-intro-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         this.startbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
     StartScreen.prototype.addNumbers = function (a, b) {
@@ -1054,6 +1061,7 @@ var StartScreen = (function () {
     };
     StartScreen.prototype.switchScreens = function () {
         console.log('switch to gamescreen');
+        this.bgmusic.pause();
         this.game.emptyScreen();
         this.game.showScreen(new GameScreen1(this.game));
     };

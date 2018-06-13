@@ -52,6 +52,8 @@ var BetweenScreen = (function () {
         this.height = 720;
         this.game = g;
         this.betweenbtn = document.createElement("betweenbtn");
+        this.betweenmodal = document.createElement("betweenmodal");
+        this.betweentext = document.createElement("betweentext");
         var container = document.getElementsByTagName("container")[0];
         var background = document.createElement("background");
         container.appendChild(background);
@@ -62,14 +64,36 @@ var BetweenScreen = (function () {
         foreground.appendChild(this.betweenbtn);
         this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
-    BetweenScreen.prototype.update = function () {
-        this.betweenbtn.innerHTML = "NEXT LEVEL";
-    };
     BetweenScreen.prototype.switchScreens = function () {
         console.log('go to second level');
     };
     return BetweenScreen;
 }());
+var BetweenScreen1 = (function (_super) {
+    __extends(BetweenScreen1, _super);
+    function BetweenScreen1(game) {
+        var _this = _super.call(this) || this;
+        _this.game = game;
+        var container = document.getElementsByTagName("container")[0];
+        var background = document.createElement("background");
+        container.appendChild(background);
+        var foreground = document.createElement("foreground");
+        container.appendChild(foreground);
+        _this.background = new Image(_this.width, _this.height);
+        _this.background.setAttribute("class", "between-background");
+        foreground.appendChild(_this.betweenbtn);
+        _this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
+        return _this;
+    }
+    BetweenScreen1.prototype.update = function () {
+        this.betweenbtn.innerHTML = "NEXT LEVEL";
+        this.betweentext.innerHTML = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+    };
+    BetweenScreen1.prototype.switchScreens = function () {
+        console.log('go to second level');
+    };
+    return BetweenScreen1;
+}(BetweenScreen));
 var GameOver = (function () {
     function GameOver(g) {
         var _this = this;
@@ -258,7 +282,6 @@ var Player = (function () {
         this.framewidth = 105;
         this.speedcounter = 0;
         this.falling = true;
-        this.jump = true;
         this.gamescreen = b;
         this.player = document.createElement("player");
         this.frame = 0;
@@ -282,9 +305,9 @@ var Player = (function () {
                 break;
             case "ArrowUp":
             case "w":
-                if (this.jump == false) {
-                    this.speedUp = 50;
-                    this.jump = true;
+                if (this.falling == false) {
+                    this.speedUp = 30;
+                    console.log("set speed up");
                 }
                 break;
         }
@@ -300,25 +323,23 @@ var Player = (function () {
                 this.speedRight = 0;
                 break;
             case "ArrowUp":
-            case "w":
-                this.speedUp = 0;
-                break;
         }
     };
-    Player.prototype.setFalling = function (b) {
-        this.falling = b;
-    };
     Player.prototype.update = function () {
+        if (this.speedUp > 0) {
+            this.speedUp--;
+        }
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         this.gravity = (this.falling) ? 10 : 0;
-        if (this.y > 720 - 200 || this.gamescreen.collisionWithPlat()) {
-            this.jump = false;
+        var hitsFloor = (this.y > 720 - 200);
+        var hitsPlat = this.gamescreen.collisionWithPlat();
+        if (hitsFloor || hitsPlat) {
+            this.falling = false;
         }
         else {
-            this.jump = true;
+            this.falling = true;
         }
-        console.log(this.jump);
         var newY = this.y - this.speedUp + this.gravity;
         if (newY > 0 && newY + 150 < 720) {
             this.y = newY;
@@ -387,6 +408,13 @@ var GameScreen = (function () {
         var background = document.getElementsByTagName("background")[0];
         this.textfield = document.createElement("textfield");
         background.appendChild(this.textfield);
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-planet-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         this.ship = new Ship();
         this.player = new Player(this);
     }
@@ -419,7 +447,6 @@ var GameScreen = (function () {
             var platform = _c[_b];
             platform.update();
         }
-        this.collisionWithPlat();
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++;
             if (this.hitShip > 0 && this.score == this.totalItems) {
@@ -431,6 +458,7 @@ var GameScreen = (function () {
                     this.currentlevel = 9;
                 }
                 else if (this.currentlevel < 8) {
+                    this.bgmusic.pause();
                     this.game.emptyScreen();
                     this.game.setPreviousLevel = this.currentlevel;
                     this.game.showScreen(new SpaceGame(this.game));
@@ -458,16 +486,15 @@ var GameScreen = (function () {
             b.top <= a.bottom);
     };
     GameScreen.prototype.collisionWithPlat = function () {
+        var falling = false;
         for (var _i = 0, _a = this.platforms; _i < _a.length; _i++) {
             var platform = _a[_i];
             if (this.checkCollision(this.player.getRectangle(), platform.getRectangle())) {
-                this.player.setFalling(false);
+                falling = true;
                 break;
             }
-            else {
-                this.player.setFalling(true);
-            }
         }
+        return falling;
     };
     return GameScreen;
 }());
@@ -494,7 +521,7 @@ var GameScreen1 = (function (_super) {
             { x: 700, y: 650 },
             { x: 1000, y: 300 },
             { x: 1500, y: 600 },
-            { x: 1900, y: 200 }
+            { x: 1900, y: 250 }
         ];
         for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
             var coords = platformCoordinates_1[_a];
@@ -905,6 +932,13 @@ var SpaceGame = (function () {
         this.foreground.appendChild(this.textfield);
         this.asteroids = [];
         this.lasers = [];
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-space-music.wav";
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
         for (var i = 0; i < 6; i++) {
             var asteroid = new Asteroid(this);
             this.asteroids.push(asteroid);
@@ -947,12 +981,14 @@ var SpaceGame = (function () {
         }
         if (this.levens == 0) {
             this.spaceship.removeSpaceship();
+            this.bgmusic.pause();
             this.game.emptyScreen();
             this.game.showScreen(new GameOver(this.game));
         }
-        if (this.time == 100) {
+        if (this.time == 1400) {
             this.spaceship.removeSpaceship();
             this.game.emptyScreen();
+            this.bgmusic.pause();
             if (this.game.getPreviousLevel == 1) {
                 this.game.showScreen(new GameScreen2(this.game));
             }
@@ -1098,7 +1134,7 @@ var StartScreen = (function () {
         this.startmodal.appendChild(this.startbtn);
         this.startmodal.appendChild(this.starttext);
         this.bgmusic = document.createElement("audio");
-        this.bgmusic.src = "../docs/music/game-intro-music.wav";
+        this.bgmusic.src = "../docs/music/game-intro-2-music.wav";
         this.bgmusic.setAttribute("preload", "auto");
         this.bgmusic.setAttribute("controls", "none");
         this.bgmusic.style.display = "none";

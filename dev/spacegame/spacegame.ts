@@ -10,6 +10,9 @@ class SpaceGame {
     private game:Game
     private foreground:Element
     private afstand:number = 2452800
+    private bgmusic : HTMLAudioElement
+
+    
 
     public get Time() : number {
         return this.time
@@ -26,6 +29,15 @@ class SpaceGame {
 
         this.asteroids = []
         this.lasers = []
+
+        /// music
+        this.bgmusic = document.createElement("audio");
+        this.bgmusic.src = "../docs/music/game-space-music.wav"
+        this.bgmusic.setAttribute("preload", "auto");
+        this.bgmusic.setAttribute("controls", "none");
+        this.bgmusic.style.display = "none";
+        document.body.appendChild(this.bgmusic);
+        this.bgmusic.play();
 
         for(let i = 0; i < 6; i++){ //create asteroids
             let asteroid = new Asteroid(this)            
@@ -65,13 +77,23 @@ class SpaceGame {
 
         if (this.levens == 0){    
             this.spaceship.removeSpaceship()
+            this.bgmusic.pause();
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
         }
 
-        if (this.time == 100){
+<<<<<<< HEAD
+        if (this.time == 1400){
+=======
+<<<<<<< HEAD
+        if (this.time == 1400){
+=======
+        if (this.time == 10){
+>>>>>>> 5df975cbcbad11556ec7f2886684cc0324a2226f
+>>>>>>> 26e95089bd15142e9402f364223f955d88305089
             this.spaceship.removeSpaceship()
             this.game.emptyScreen()
+            this.bgmusic.pause();
             if (this.game.getPreviousLevel == 1){
                 this.game.showScreen(new GameScreen2(this.game))
             } else if (this.game.getPreviousLevel == 2){

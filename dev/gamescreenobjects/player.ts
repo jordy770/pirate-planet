@@ -12,12 +12,13 @@ class Player  {
     private framewidth = 105
     private speedcounter = 0
     private falling:boolean = true
+    private jump:boolean = true
 
     private gravity: number
          
     constructor(b:GameScreen) {
         this.gamescreen = b
-        this.player = document.createElement("playerright")  
+        this.player = document.createElement("player")  
 
         this.frame = 0
 
@@ -35,6 +36,7 @@ class Player  {
             case "ArrowLeft":
             case "a":
                 this.speedLeft = 10
+                this.walkLeft()
                 break
             case "ArrowRight":
             case "d":
@@ -43,7 +45,10 @@ class Player  {
                 break
             case "ArrowUp":
             case "w":
+            if(this.jump == false){
                 this.speedUp = 50
+                this.jump = true
+            }
                 break
         }
     }
@@ -77,6 +82,12 @@ class Player  {
 
         this.gravity = (this.falling) ? 10 : 0 
 
+        if(this.y > 720 - 200 || this.gamescreen.collisionWithPlat()){
+            this.jump = false
+        }
+
+        console.log(this.jump)
+
         let newY = this.y - this.speedUp + this.gravity
         if (newY > 0 && newY + 150 < 720) {
             this.y = newY
@@ -108,5 +119,25 @@ class Player  {
         
                 // update 60 times per second
             //    requestAnimationFrame(()=>this.update())
+    }
+
+    private walkLeft(){
+        // this.speedRight = 10
+        // go to the next drawing after X animationframes (the FPS)
+        this.speedcounter++
+        if(this.speedcounter%4 == 0) this.frame++
+        // check if this frame exists or go to frame 0
+        if(this.frame >= this.frames) this.frame = 0
+        // position of the spritesheet image
+        let pos = 0 - (this.frame*this.framewidth)
+        this.player.style.backgroundPosition = pos + 'px -150px'
+
+        // update 60 times per second
+    //    requestAnimationFrame(()=>this.update())
+    }
+
+    public removeInput(){
+        window.removeEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
+        window.removeEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
     }
 }

@@ -1,6 +1,6 @@
 class SpaceGame {
     
-    public asteroids: Asteroid[] //array for asteroids
+    private asteroids: Asteroid[] //array for asteroids
     private spaceship: Spaceship
     private background: Background
     private lasers : Laser[]
@@ -69,10 +69,24 @@ class SpaceGame {
             this.game.showScreen(new GameOver(this.game))
         }
 
-        if (this.time == 1400){
+        if (this.time == 100){
             this.spaceship.removeSpaceship()
             this.game.emptyScreen()
-            this.game.showScreen(new GameScreen(this.game))
+            if (this.game.getPreviousLevel == 1){
+                this.game.showScreen(new GameScreen2(this.game))
+            } else if (this.game.getPreviousLevel == 2){
+                this.game.showScreen(new GameScreen3(this.game))
+            } else if (this.game.getPreviousLevel == 3){
+                this.game.showScreen(new GameScreen4(this.game))
+            } else if (this.game.getPreviousLevel == 4){
+                this.game.showScreen(new GameScreen5(this.game))
+            } else if (this.game.getPreviousLevel == 5){
+                this.game.showScreen(new GameScreen6(this.game))
+            } else if (this.game.getPreviousLevel == 6){
+                this.game.showScreen(new GameScreen7(this.game))
+            } else if (this.game.getPreviousLevel == 7){
+                this.game.showScreen(new GameScreen8(this.game))
+            } 
         }
 
         this.time++

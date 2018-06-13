@@ -24,6 +24,7 @@ class StartScreen {
         
         // append bg to container
         let background = document.createElement("background")
+        background.classList.add("startbg")
         container.appendChild(background)
         
         // append foreground to container
@@ -35,22 +36,17 @@ class StartScreen {
         this.startmodal.appendChild(this.startbtn)
         this.startmodal.appendChild(this.starttext)
 
-        
-
-
-        // this.textfield = document.createElement("textfield")
-        // foreground.appendChild(this.textfield)
         this.startbtn.addEventListener("click", ()=> this.switchScreens())
     }
 
     public update() {
         this.startbtn.innerHTML = "START GAME"
-        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Neptunes. Ga op reis om de schat te vinden!"
+        this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Venus. Ga op reis om de schat te vinden!"
     }
 
     private switchScreens(){
         console.log('switch to gamescreen')
         this.game.emptyScreen()
-        this.game.showScreen(new GameScreen(this.game))
+        this.game.showScreen(new GameScreen1(this.game))
     }
 }

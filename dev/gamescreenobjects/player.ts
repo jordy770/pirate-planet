@@ -12,6 +12,7 @@ class Player  {
     private framewidth = 105
     private speedcounter = 0
     private falling:boolean = true
+    public hitsFloor = false
     //public jump:boolean = true
 
     private gravity: number
@@ -85,10 +86,10 @@ class Player  {
 
         this.gravity = (this.falling) ? 10 : 0 
 
-        let hitsFloor = (this.y > 720 - 200)
+        this.hitsFloor = (this.y > 720 - 200)
         let hitsPlat =  this.gamescreen.collisionWithPlat()
 
-        if(hitsFloor ||  hitsPlat){
+        if(this.hitsFloor ||  hitsPlat){
             this.falling = false
         } else {
             this.falling = true
@@ -103,11 +104,9 @@ class Player  {
         let newY = this.y - this.speedUp + this.gravity
         if (newY > 0 && newY + 150 < 720) {
             this.y = newY
+            
         } 
-        // TODO ALS OP DE GROND GRAVITY 0
 
-        // TODO ALLEEN SPRINGEN ALS GRAVITY 0
-        
         // positie van player kan je veranderen met x y        
         this.player.style.transform = `translate(200px, ${this.y}px)`
 

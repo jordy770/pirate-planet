@@ -189,6 +189,31 @@ var GameOver = (function () {
     };
     return GameOver;
 }());
+var GameOverPlat = (function () {
+    function GameOverPlat(g, currentlevel) {
+        var _this = this;
+        this.game = g;
+        this.currentlevel = currentlevel;
+        this.restartbtn = document.createElement("startbtn");
+        this.restartmodal = document.createElement("startmodal");
+        this.restarttext = document.createElement("starttext");
+        var foreground = document.getElementsByTagName("foreground")[0];
+        foreground.appendChild(this.restartmodal);
+        this.restartmodal.appendChild(this.restartbtn);
+        this.restartmodal.appendChild(this.restarttext);
+        this.restartbtn.addEventListener("click", function () { return _this.switchScreens(); });
+    }
+    GameOverPlat.prototype.update = function () {
+        this.restartbtn.innerHTML = "RESTART GAME";
+        this.restarttext.innerHTML = "OEPS! Je verloor je evenwicht en drijft nu door de ruimte. Probeer het opnieuw.";
+    };
+    GameOverPlat.prototype.switchScreens = function () {
+        console.log('switch to gamescreen');
+        this.game.emptyScreen();
+        this.game.showScreen(new GameScreen1(this.game));
+    };
+    return GameOverPlat;
+}());
 var End = (function () {
     function End() {
         var foreground = document.getElementsByTagName("foreground")[0];
@@ -362,6 +387,7 @@ var Player = (function () {
         this.framewidth = 105;
         this.speedcounter = 0;
         this.falling = true;
+        this.hitsFloor = false;
         this.gamescreen = b;
         this.player = document.createElement("player");
         this.frame = 0;
@@ -412,9 +438,9 @@ var Player = (function () {
         this.levelposition = this.levelposition + this.speedLeft - this.speedRight;
         this.gamescreen.scrollLevel(this.speedLeft - this.speedRight);
         this.gravity = (this.falling) ? 10 : 0;
-        var hitsFloor = (this.y > 720 - 200);
+        this.hitsFloor = (this.y > 720 - 200);
         var hitsPlat = this.gamescreen.collisionWithPlat();
-        if (hitsFloor || hitsPlat) {
+        if (this.hitsFloor || hitsPlat) {
             this.falling = false;
         }
         else {
@@ -538,7 +564,7 @@ var GameScreen = (function () {
             if (this.checkCollision(this.player.getRectangle(), enemy.getRectangle())) {
                 this.game.emptyScreen();
                 this.game.setPreviousLevel = this.currentlevel;
-                this.game.showScreen(new GameOver(this.game));
+                this.game.showScreen(new GameOverPlat(this.game, this.currentlevel));
             }
         }
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
@@ -578,6 +604,12 @@ var GameScreen = (function () {
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom);
+    };
+    GameScreen.prototype.hitfloor = function () {
+        if (this.player.hitsFloor) {
+            this.game.emptyScreen();
+            this.game.showScreen(new GameOverPlat(this.game, 1));
+        }
     };
     GameScreen.prototype.collisionWithPlat = function () {
         var falling = false;
@@ -620,14 +652,6 @@ var GameScreen1 = (function (_super) {
         for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
             var coords = platformCoordinates_1[_a];
             _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/grass.png"));
-        }
-        var enemyCoordinates = [
-            { x: 800, y: 200 },
-            { x: 600, y: 500 }
-        ];
-        for (var _b = 0, enemyCoordinates_1 = enemyCoordinates; _b < enemyCoordinates_1.length; _b++) {
-            var coords = enemyCoordinates_1[_b];
-            _this.enemys.push(new Enemy(coords.x, coords.y));
         }
         return _this;
     }

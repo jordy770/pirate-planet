@@ -36,14 +36,14 @@ class GameScreen1 extends GameScreen{
             this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/grass.png"))
         }
 
-        let enemyCoordinates = [
-            {x: 800, y: 200},
-            {x: 600, y: 500}           
-        ]
-        for(let coords of enemyCoordinates){
-            this.enemys.push(new Enemy(coords.x, coords.y))
-        }
+    //     let enemyCoordinates = [
+    //         {x: 900, y: 500},
+    //         {x: 600, y: 500}           
+    //     ]
+    //     for(let coords of enemyCoordinates){
+    //         this.enemys.push(new Enemy(coords.x, coords.y))
+    //     }
 
-    }
+    // }
 }
-
+}

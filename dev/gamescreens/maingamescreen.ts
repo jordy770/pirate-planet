@@ -67,6 +67,7 @@ class GameScreen{
         this.ship.update()
         this.textfield.innerHTML = this.score + "/" + this.totalItems 
         this.textfield.setAttribute("style", "font-size:30px;width:1000px;")
+    
         
         //If player hits item +score & remove this.item
         for(let item of this.items){
@@ -90,7 +91,7 @@ class GameScreen{
             if(this.checkCollision(this.player.getRectangle(), enemy.getRectangle())){
                 this.game.emptyScreen()
                 this.game.setPreviousLevel = this.currentlevel
-                this.game.showScreen(new GameOver(this.game))
+                this.game.showScreen(new GameOverPlat(this.game,this.currentlevel))
             }
         }
         
@@ -137,6 +138,13 @@ class GameScreen{
             b.left <= a.right &&
             a.top <= b.bottom &&
             b.top <= a.bottom)
+    }
+
+    public hitfloor(){
+        if (this.player.hitsFloor){
+            this.game.emptyScreen()
+            this.game.showScreen(new GameOverPlat(this.game,1))
+        }
     }
 
     // aangeroepen door player

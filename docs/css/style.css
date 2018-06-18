@@ -205,7 +205,7 @@ startbtn, restartbtn, betweenbtn {
     transition:  0.5s ease;
 }
 
-startbtn:hover, restartbtn:hover {
+startbtn:hover, restartbtn:hover, betweenbtn:hover {
     background-color:#efefef;
     border:2px solid #313131;
     color: #313131

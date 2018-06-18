@@ -8,6 +8,6 @@ class BetweenScreen3 extends BetweenScreen {
         let background = document.getElementsByTagName("background")[0]
         background.classList.replace("jupiterbg", "saturnbg")
 
-        this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren."
+        this.text = "Je bent aangekomen op Saturnus. Om deze planeet zit een ring! Verzamel alle ringen om naar de volgende planeet te gaan."
     }
 }

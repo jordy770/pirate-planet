@@ -16,7 +16,7 @@ class GameScreen4 extends GameScreen{
 
         ]
         for(let icoords of itemCoordinates){
-            this.items.push(new Item(icoords.x, icoords.y, "../docs/images/apple.gif"))
+            this.items.push(new Item(icoords.x, icoords.y, "../docs/images/ring.png"))
         }
 
         //Platforms

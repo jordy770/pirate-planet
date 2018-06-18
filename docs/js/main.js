@@ -105,7 +105,8 @@ var BetweenScreen2 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("marsbg", "jupiterbg");
-        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        console.log('jupiter');
+        _this.text = "Je bent aangekomen op Jupiter. Jupiter is een gasreus! Verzamel alle gasbubbels om naar het volgende level te gaan.";
         return _this;
     }
     return BetweenScreen2;
@@ -116,7 +117,7 @@ var BetweenScreen3 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("jupiterbg", "saturnbg");
-        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        _this.text = "Je bent aangekomen op Saturnus. Om deze planeet zit een ring! Verzamel alle ringen om naar de volgende planeet te gaan.";
         return _this;
     }
     return BetweenScreen3;
@@ -127,7 +128,7 @@ var BetweenScreen4 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("saturnbg", "uranusbg");
-        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        _this.text = "Je bent aangekomen op Uranus. Je schip heeft alleen geen brandstof meer. Ga op zoek naar benzine zodat je weer verder kunt.";
         return _this;
     }
     return BetweenScreen4;
@@ -138,7 +139,7 @@ var BetweenScreen5 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("uranusbg", "neptunebg");
-        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        _this.text = "Je bent aangekomen op Neptunus. De kern van deze planeet bestaat uit gesmolten metaal. Vind alle blokken metaal om verder te gaan.";
         return _this;
     }
     return BetweenScreen5;
@@ -149,7 +150,7 @@ var BetweenScreen6 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("neptunebg", "venusbg");
-        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        _this.text = "Je bent aangekomen op Venus. Pak alle zakjes op zodat je straks je buit kan verzamelen!";
         return _this;
     }
     return BetweenScreen6;
@@ -160,7 +161,7 @@ var BetweenScreen7 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("venusbg", "mercurybg");
-        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        _this.text = "Je bent aangekomen op Mercurius. Volg de muntjes om de schat te vinden!";
         return _this;
     }
     return BetweenScreen7;
@@ -711,7 +712,7 @@ var GameScreen4 = (function (_super) {
         ];
         for (var _i = 0, itemCoordinates_3 = itemCoordinates; _i < itemCoordinates_3.length; _i++) {
             var icoords = itemCoordinates_3[_i];
-            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/apple.gif"));
+            _this.items.push(new Item(icoords.x, icoords.y, "../docs/images/ring.png"));
         }
         var platformCoordinates = [
             { x: -250, y: 350 },

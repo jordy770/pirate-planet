@@ -901,6 +901,13 @@ var Laser = (function () {
         this.laser.src = 'images/laser.png';
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.laser);
+        this.lasersound = document.createElement("audio");
+        this.lasersound.src = "../docs/music/laser.wav";
+        this.lasersound.setAttribute("preload", "auto");
+        this.lasersound.setAttribute("controls", "none");
+        this.lasersound.style.display = "none";
+        document.body.appendChild(this.lasersound);
+        this.lasersound.play();
         this.update();
         console.log('Created laser');
     }

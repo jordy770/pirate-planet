@@ -11,6 +11,7 @@ class SpaceGame {
     private foreground:Element
     private afstand:number = 2452800
     private bgmusic : HTMLAudioElement
+    
 
     
 
@@ -38,6 +39,7 @@ class SpaceGame {
         this.bgmusic.style.display = "none";
         document.body.appendChild(this.bgmusic);
         this.bgmusic.play();
+
 
         for(let i = 0; i < 6; i++){ //create asteroids
             let asteroid = new Asteroid(this)            
@@ -81,14 +83,8 @@ class SpaceGame {
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
         }
-<<<<<<< HEAD
-  
-        if (this.time == 1400){
-
-=======
 
         if (this.time == 1400){
->>>>>>> c4db8145e1a8f22f125638aa91278987da5dbaa4
             this.spaceship.removeSpaceship()
             this.game.emptyScreen()
             this.bgmusic.pause();

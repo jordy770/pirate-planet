@@ -12,6 +12,7 @@ class Spaceship {
     speedRight : number = 0;
     keydownlistener:EventListener
     keyuplistener:EventListener
+    // private lasersound : HTMLAudioElement
     
     constructor(g:SpaceGame){
         this.spacegame = g
@@ -24,6 +25,7 @@ class Spaceship {
         foreground.appendChild(this.spaceship);
         this.spaceship.appendChild(this.spaceshipImage)
         this.spaceship.appendChild(this.hitbox)
+
 
         this.hitbox.style.height = '130px'
         this.hitbox.style.width = '60px'

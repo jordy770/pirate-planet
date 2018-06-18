@@ -4,6 +4,7 @@ class Laser{
     laserHeight: number = 32
     y: number = 520
     x: number
+    private lasersound : HTMLAudioElement
 
     constructor(x : number){
         this.x = x - 0.5 * this.laserWidth
@@ -15,7 +16,18 @@ class Laser{
         let foreground = document.getElementsByTagName("foreground")[0]
         foreground.appendChild(this.laser);
 
+         // add shooting sound
+         this.lasersound = document.createElement("audio");
+         this.lasersound.src = "../docs/music/laser.wav"
+         this.lasersound.setAttribute("preload", "auto");
+         this.lasersound.setAttribute("controls", "none");
+         this.lasersound.style.display = "none";
+         document.body.appendChild(this.lasersound);
+         this.lasersound.play();
+
         this.update()
+
+         
     
         console.log('Created laser')
     }

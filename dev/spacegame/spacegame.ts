@@ -11,6 +11,7 @@ class SpaceGame {
     private foreground:Element
     private afstand:number = 2452800
     private bgmusic : HTMLAudioElement
+    
 
     
 
@@ -38,6 +39,7 @@ class SpaceGame {
         this.bgmusic.style.display = "none";
         document.body.appendChild(this.bgmusic);
         this.bgmusic.play();
+
 
         for(let i = 0; i < 6; i++){ //create asteroids
             let asteroid = new Asteroid(this)            
@@ -81,26 +83,37 @@ class SpaceGame {
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
         }
+<<<<<<< HEAD
   
         if (this.time == 1400){
 
+=======
+<<<<<<< HEAD
+
+        if (this.time == 1400){
+=======
+  
+        if (this.time == 1400){
+
+>>>>>>> d27bd6e1fd5125c88d7770a0ec7881c634dc081c
+>>>>>>> 662acc168741adf3ca403b79eb08f02f93aebea4
             this.spaceship.removeSpaceship()
             this.game.emptyScreen()
             this.bgmusic.pause();
             if (this.game.getPreviousLevel == 1){
-                this.game.showScreen(new GameScreen2(this.game))
+                this.game.showScreen(new BetweenScreen1(this.game))
             } else if (this.game.getPreviousLevel == 2){
-                this.game.showScreen(new GameScreen3(this.game))
+                this.game.showScreen(new BetweenScreen2(this.game))
             } else if (this.game.getPreviousLevel == 3){
-                this.game.showScreen(new GameScreen4(this.game))
+                this.game.showScreen(new BetweenScreen3(this.game))
             } else if (this.game.getPreviousLevel == 4){
-                this.game.showScreen(new GameScreen5(this.game))
+                this.game.showScreen(new BetweenScreen4(this.game))
             } else if (this.game.getPreviousLevel == 5){
-                this.game.showScreen(new GameScreen6(this.game))
+                this.game.showScreen(new BetweenScreen5(this.game))
             } else if (this.game.getPreviousLevel == 6){
-                this.game.showScreen(new GameScreen7(this.game))
+                this.game.showScreen(new BetweenScreen6(this.game))
             } else if (this.game.getPreviousLevel == 7){
-                this.game.showScreen(new GameScreen8(this.game))
+                this.game.showScreen(new BetweenScreen7(this.game))
             } 
         }
 

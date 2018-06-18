@@ -1,4 +1,4 @@
-/// <reference path="maingamescreen.ts" />
+    /// <reference path="maingamescreen.ts" />
 
 class GameScreen1 extends GameScreen{
 

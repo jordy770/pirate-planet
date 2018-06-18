@@ -6,9 +6,6 @@ class GameScreen7 extends GameScreen{
         //In de super eerst de game doorgeven, daarna het aantal items wat verzameld moet worden
         super(game, 7, 5)
 
-        let background = document.getElementsByTagName("background")[0]
-        background.classList.replace("neptunebg", "venusbg")
-
         //Items
         let itemCoordinates = [
             {x: 225, y: 510},

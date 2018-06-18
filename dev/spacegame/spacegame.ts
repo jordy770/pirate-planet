@@ -83,6 +83,10 @@ class SpaceGame {
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
         }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 58984e8e778a13cb13f3baae1000bd67b8f4287c
   
         if (this.time == 1400){
             this.spaceship.removeSpaceship()

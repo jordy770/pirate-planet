@@ -12,6 +12,7 @@ class GameScreen{
     protected platforms:Array<Platform>
     protected currentlevel : number
     private bgmusic : HTMLAudioElement
+    protected enemys:Array<Enemy>
 
     constructor(game:Game, currentlevel:number, totalItems : number){
         this.game = game
@@ -20,6 +21,7 @@ class GameScreen{
 
         this.items = new Array()
         this.platforms = new Array()
+        this.enemys = new Array()
         
         if(currentlevel < 8){
             this.interface = new Interface(this.game, this.currentlevel) 
@@ -52,6 +54,9 @@ class GameScreen{
         for(let platform of this.platforms){
             platform.scrollLeft(pos)
         }
+        for(let enemy of this.enemys){
+            enemy.scrollLeft(pos)
+        }
         this.ship.scrollLeft(pos)
     }   
 
@@ -77,6 +82,16 @@ class GameScreen{
         //update platforms
         for(let platform of this.platforms){
             platform.update()
+        }
+
+        for(let enemy of this.enemys){
+            enemy.update()
+
+            if(this.checkCollision(this.player.getRectangle(), enemy.getRectangle())){
+                this.game.emptyScreen()
+                this.game.setPreviousLevel = this.currentlevel
+                this.game.showScreen(new GameOver(this.game))
+            }
         }
         
         //update if player hits platform dont drop!

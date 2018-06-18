@@ -6,11 +6,11 @@ class Enemy {
     private orientate:number
     private speed:number
         
-    constructor(speed:number) {
+    constructor(x:number, y:number) {
         
-        this.x = 10
-        this.y = 10
-        this.speed = 20
+        this.x = x
+        this.y = y
+        this.speed = 1
         
         this.div = document.createElement("enemy")
         let foreground = document.getElementsByTagName("foreground")[0]
@@ -27,7 +27,7 @@ class Enemy {
 
     public update():void {
         
-        if (this.x > window.innerWidth - this.div.offsetWidth){
+        if (this.x > 1200 ){
             this.orientate = -1
             console.log('turn')
             console.log(window.innerWidth)
@@ -35,10 +35,10 @@ class Enemy {
 
         }
 
-        else if (this.x < 0){
+        else if (this.x < 900){
             this.orientate = 1
         }
-        
+
             let nextPosition = this.x + (this.speed * this.orientate)
             this.x = nextPosition
             this.div.style.transform = `translate(${this.x}px, ${this.y}px`

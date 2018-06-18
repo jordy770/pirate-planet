@@ -156,10 +156,10 @@ var End = (function () {
     return End;
 }());
 var Enemy = (function () {
-    function Enemy(speed) {
-        this.x = 10;
-        this.y = 10;
-        this.speed = 20;
+    function Enemy(x, y) {
+        this.x = x;
+        this.y = y;
+        this.speed = 1;
         this.div = document.createElement("enemy");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -171,13 +171,13 @@ var Enemy = (function () {
         this.div.remove();
     };
     Enemy.prototype.update = function () {
-        if (this.x > window.innerWidth - this.div.offsetWidth) {
+        if (this.x > 1200) {
             this.orientate = -1;
             console.log('turn');
             console.log(window.innerWidth);
             console.log(window.innerHeight);
         }
-        else if (this.x < 0) {
+        else if (this.x < 900) {
             this.orientate = 1;
         }
         var nextPosition = this.x + (this.speed * this.orientate);
@@ -411,6 +411,7 @@ var GameScreen = (function () {
         this.totalItems = totalItems;
         this.items = new Array();
         this.platforms = new Array();
+        this.enemys = new Array();
         if (currentlevel < 8) {
             this.interface = new Interface(this.game, this.currentlevel);
         }
@@ -436,6 +437,10 @@ var GameScreen = (function () {
             var platform = _c[_b];
             platform.scrollLeft(pos);
         }
+        for (var _d = 0, _e = this.enemys; _d < _e.length; _d++) {
+            var enemy = _e[_d];
+            enemy.scrollLeft(pos);
+        }
         this.ship.scrollLeft(pos);
     };
     GameScreen.prototype.update = function () {
@@ -455,6 +460,15 @@ var GameScreen = (function () {
         for (var _b = 0, _c = this.platforms; _b < _c.length; _b++) {
             var platform = _c[_b];
             platform.update();
+        }
+        for (var _d = 0, _e = this.enemys; _d < _e.length; _d++) {
+            var enemy = _e[_d];
+            enemy.update();
+            if (this.checkCollision(this.player.getRectangle(), enemy.getRectangle())) {
+                this.game.emptyScreen();
+                this.game.setPreviousLevel = this.currentlevel;
+                this.game.showScreen(new GameOver(this.game));
+            }
         }
         if (this.checkCollision(this.player.getRectangle(), this.ship.getRectangle())) {
             this.hitShip++;
@@ -535,6 +549,14 @@ var GameScreen1 = (function (_super) {
         for (var _a = 0, platformCoordinates_1 = platformCoordinates; _a < platformCoordinates_1.length; _a++) {
             var coords = platformCoordinates_1[_a];
             _this.platforms.push(new Platform(coords.x, coords.y, "../docs/images/grass.png"));
+        }
+        var enemyCoordinates = [
+            { x: 800, y: 200 },
+            { x: 600, y: 500 }
+        ];
+        for (var _b = 0, enemyCoordinates_1 = enemyCoordinates; _b < enemyCoordinates_1.length; _b++) {
+            var coords = enemyCoordinates_1[_b];
+            _this.enemys.push(new Enemy(coords.x, coords.y));
         }
         return _this;
     }

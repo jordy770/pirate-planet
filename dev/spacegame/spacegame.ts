@@ -81,14 +81,9 @@ class SpaceGame {
             this.game.emptyScreen()
             this.game.showScreen(new GameOver(this.game))
         }
-<<<<<<< HEAD
   
         if (this.time == 1400){
 
-=======
-
-        if (this.time == 1400){
->>>>>>> c4db8145e1a8f22f125638aa91278987da5dbaa4
             this.spaceship.removeSpaceship()
             this.game.emptyScreen()
             this.bgmusic.pause();

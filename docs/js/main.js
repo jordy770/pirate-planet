@@ -48,51 +48,122 @@ window.addEventListener("load", function () { return new Game(); });
 var BetweenScreen = (function () {
     function BetweenScreen(g) {
         var _this = this;
-        this.width = 1280;
-        this.height = 720;
         this.game = g;
+        var foreground = document.getElementsByTagName("foreground")[0];
         this.betweenbtn = document.createElement("betweenbtn");
         this.betweenmodal = document.createElement("betweenmodal");
         this.betweentext = document.createElement("betweentext");
-        var container = document.getElementsByTagName("container")[0];
-        var background = document.createElement("background");
-        container.appendChild(background);
-        var foreground = document.createElement("foreground");
-        container.appendChild(foreground);
-        this.background = new Image(this.width, this.height);
-        this.background.setAttribute("class", "between-background");
-        foreground.appendChild(this.betweenbtn);
+        foreground.appendChild(this.betweenmodal);
+        this.betweenmodal.appendChild(this.betweenbtn);
+        this.betweenmodal.appendChild(this.betweentext);
         this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
     }
     BetweenScreen.prototype.switchScreens = function () {
-        console.log('go to second level');
+        this.game.emptyScreen();
+        if (this.game.getPreviousLevel == 1) {
+            this.game.showScreen(new GameScreen2(this.game));
+        }
+        else if (this.game.getPreviousLevel == 2) {
+            this.game.showScreen(new GameScreen3(this.game));
+        }
+        else if (this.game.getPreviousLevel == 3) {
+            this.game.showScreen(new GameScreen4(this.game));
+        }
+        else if (this.game.getPreviousLevel == 4) {
+            this.game.showScreen(new GameScreen5(this.game));
+        }
+        else if (this.game.getPreviousLevel == 5) {
+            this.game.showScreen(new GameScreen6(this.game));
+        }
+        else if (this.game.getPreviousLevel == 6) {
+            this.game.showScreen(new GameScreen7(this.game));
+        }
+        else if (this.game.getPreviousLevel == 7) {
+            this.game.showScreen(new GameScreen8(this.game));
+        }
+    };
+    BetweenScreen.prototype.update = function () {
+        this.betweentext.innerHTML = this.text;
+        this.betweenbtn.innerHTML = "OKE";
     };
     return BetweenScreen;
 }());
 var BetweenScreen1 = (function (_super) {
     __extends(BetweenScreen1, _super);
     function BetweenScreen1(game) {
-        var _this = _super.call(this) || this;
-        _this.game = game;
-        var container = document.getElementsByTagName("container")[0];
-        var background = document.createElement("background");
-        container.appendChild(background);
-        var foreground = document.createElement("foreground");
-        container.appendChild(foreground);
-        _this.background = new Image(_this.width, _this.height);
-        _this.background.setAttribute("class", "between-background");
-        foreground.appendChild(_this.betweenbtn);
-        _this.betweenbtn.addEventListener("click", function () { return _this.switchScreens(); });
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("earthbg", "marsbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
         return _this;
     }
-    BetweenScreen1.prototype.update = function () {
-        this.betweenbtn.innerHTML = "NEXT LEVEL";
-        this.betweentext.innerHTML = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
-    };
-    BetweenScreen1.prototype.switchScreens = function () {
-        console.log('go to second level');
-    };
     return BetweenScreen1;
+}(BetweenScreen));
+var BetweenScreen2 = (function (_super) {
+    __extends(BetweenScreen2, _super);
+    function BetweenScreen2(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("marsbg", "jupiterbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen2;
+}(BetweenScreen));
+var BetweenScreen3 = (function (_super) {
+    __extends(BetweenScreen3, _super);
+    function BetweenScreen3(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("jupiterbg", "saturnbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen3;
+}(BetweenScreen));
+var BetweenScreen4 = (function (_super) {
+    __extends(BetweenScreen4, _super);
+    function BetweenScreen4(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("saturnbg", "uranusbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen4;
+}(BetweenScreen));
+var BetweenScreen5 = (function (_super) {
+    __extends(BetweenScreen5, _super);
+    function BetweenScreen5(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("uranusbg", "neptunebg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen5;
+}(BetweenScreen));
+var BetweenScreen6 = (function (_super) {
+    __extends(BetweenScreen6, _super);
+    function BetweenScreen6(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("neptunebg", "venusbg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen6;
+}(BetweenScreen));
+var BetweenScreen7 = (function (_super) {
+    __extends(BetweenScreen7, _super);
+    function BetweenScreen7(game) {
+        var _this = _super.call(this, game) || this;
+        var background = document.getElementsByTagName("background")[0];
+        background.classList.replace("venusbg", "mercurybg");
+        _this.text = "Je bent aangekomen op Mars. Je schip is helaas wel aan reparatie toe. Vind alle schroeven om je schip te repareren.";
+        return _this;
+    }
+    return BetweenScreen7;
 }(BetweenScreen));
 var GameOver = (function () {
     function GameOver(g) {
@@ -156,8 +227,10 @@ var End = (function () {
     return End;
 }());
 var Enemy = (function () {
-    function Enemy() {
-        this.speed = 10;
+    function Enemy(speed) {
+        this.x = 10;
+        this.y = 10;
+        this.speed = 20;
         this.div = document.createElement("enemy");
         var foreground = document.getElementsByTagName("foreground")[0];
         foreground.appendChild(this.div);
@@ -169,11 +242,18 @@ var Enemy = (function () {
         this.div.remove();
     };
     Enemy.prototype.update = function () {
-        var newX = this.x - this.speed;
-        if (newX > 0 && newX + 150 < 720) {
-            this.x = newX;
+        if (this.x > window.innerWidth - this.div.offsetWidth) {
+            this.orientate = -1;
+            console.log('turn');
+            console.log(window.innerWidth);
+            console.log(window.innerHeight);
         }
-        this.div.style.transform = "translate(" + this.x + "px, 720-150px)";
+        else if (this.x < 0) {
+            this.orientate = 1;
+        }
+        var nextPosition = this.x + (this.speed * this.orientate);
+        this.x = nextPosition;
+        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px";
     };
     Enemy.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();
@@ -535,8 +615,6 @@ var GameScreen2 = (function (_super) {
     __extends(GameScreen2, _super);
     function GameScreen2(game) {
         var _this = _super.call(this, game, 2, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("earthbg", "marsbg");
         var itemCoordinates = [
             { x: 570, y: 220 },
             { x: 1300, y: 220 },
@@ -568,8 +646,6 @@ var GameScreen3 = (function (_super) {
     __extends(GameScreen3, _super);
     function GameScreen3(game) {
         var _this = _super.call(this, game, 3, 5) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("marsbg", "jupiterbg");
         var itemcanCoordinates = [
             { x: -150, y: 500 },
             { x: 590, y: 450 },
@@ -604,8 +680,6 @@ var GameScreen4 = (function (_super) {
     __extends(GameScreen4, _super);
     function GameScreen4(game) {
         var _this = _super.call(this, game, 4, 5) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("jupiterbg", "saturnbg");
         var itemCoordinates = [
             { x: -230, y: 260 },
             { x: 225, y: 410 },
@@ -640,8 +714,6 @@ var GameScreen5 = (function (_super) {
     __extends(GameScreen5, _super);
     function GameScreen5(game) {
         var _this = _super.call(this, game, 5, 4) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("saturnbg", "uranusbg");
         var itemCoordinates = [
             { x: 600, y: 120 },
             { x: 1100, y: 320 },
@@ -679,8 +751,6 @@ var GameScreen6 = (function (_super) {
     __extends(GameScreen6, _super);
     function GameScreen6(game) {
         var _this = _super.call(this, game, 6, 5) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("uranusbg", "neptunebg");
         var itemCoordinates = [
             { x: 450, y: 340 },
             { x: -190, y: 570 },
@@ -722,8 +792,6 @@ var GameScreen7 = (function (_super) {
     __extends(GameScreen7, _super);
     function GameScreen7(game) {
         var _this = _super.call(this, game, 7, 5) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("neptunebg", "venusbg");
         var itemCoordinates = [
             { x: 225, y: 510 },
             { x: -350, y: 410 },
@@ -761,8 +829,6 @@ var GameScreen8 = (function (_super) {
     __extends(GameScreen8, _super);
     function GameScreen8(game) {
         var _this = _super.call(this, game, 8, 8) || this;
-        var background = document.getElementsByTagName("background")[0];
-        background.classList.replace("venusbg", "mercurybg");
         var itemCoordinates = [
             { x: 180, y: 430 },
             { x: 580, y: 430 },
@@ -997,25 +1063,25 @@ var SpaceGame = (function () {
             this.game.emptyScreen();
             this.bgmusic.pause();
             if (this.game.getPreviousLevel == 1) {
-                this.game.showScreen(new GameScreen2(this.game));
+                this.game.showScreen(new BetweenScreen1(this.game));
             }
             else if (this.game.getPreviousLevel == 2) {
-                this.game.showScreen(new GameScreen3(this.game));
+                this.game.showScreen(new BetweenScreen2(this.game));
             }
             else if (this.game.getPreviousLevel == 3) {
-                this.game.showScreen(new GameScreen4(this.game));
+                this.game.showScreen(new BetweenScreen3(this.game));
             }
             else if (this.game.getPreviousLevel == 4) {
-                this.game.showScreen(new GameScreen5(this.game));
+                this.game.showScreen(new BetweenScreen4(this.game));
             }
             else if (this.game.getPreviousLevel == 5) {
-                this.game.showScreen(new GameScreen6(this.game));
+                this.game.showScreen(new BetweenScreen5(this.game));
             }
             else if (this.game.getPreviousLevel == 6) {
-                this.game.showScreen(new GameScreen7(this.game));
+                this.game.showScreen(new BetweenScreen6(this.game));
             }
             else if (this.game.getPreviousLevel == 7) {
-                this.game.showScreen(new GameScreen8(this.game));
+                this.game.showScreen(new BetweenScreen7(this.game));
             }
         }
         this.time++;

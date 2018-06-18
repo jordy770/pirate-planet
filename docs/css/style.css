@@ -180,7 +180,7 @@ textfield {
 }
 
 
-startmodal, restartmodal {
+startmodal, restartmodal, betweenmodal {
     position:absolute;
     top:30vh;
     left:400px;
@@ -191,7 +191,7 @@ startmodal, restartmodal {
 }
 
     /* STARTSCREEN STYLING */
-startbtn, restartbtn {
+startbtn, restartbtn, betweenbtn {
     margin-left: 140px;
     font-family:"Trebuchet MS", Helvetica, sans-serif;
     font-size:20px;
@@ -211,7 +211,7 @@ startbtn:hover, restartbtn:hover {
     color: #313131
 }
 
-starttext, restarttext {
+starttext, restarttext, betweentext {
     color: #313131;
     font-family:"Trebuchet MS", Helvetica, sans-serif;
     font-size:20px;

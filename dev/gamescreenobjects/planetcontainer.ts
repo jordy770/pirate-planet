@@ -11,63 +11,46 @@ class PlanetContainer {
     private scale : number
     private currentLevel : number
     private planets: Array<string> = ["", "Aarde", "Mars", "Jupiter", "Saturnus", "Uranus", "Neptunus", "Venus", "Mercurius"];
+    private planet:string
+    private index:number
+    private container:Element
 
-    constructor(currentLevel : number, planet : string, source : string) {
+    constructor(currentLevel : number, index : number) {
         this.currentLevel = currentLevel
-        let container = document.getElementsByTagName("planetscontainer")[0]
+        this.planet = this.planets[index]
+
+        this.container = document.getElementsByTagName("planetscontainer")[0]
 
         this.planetContainer = document.createElement("planetcontainer")
-        container.appendChild(this.planetContainer)   
+        this.container.appendChild(this.planetContainer)   
 
         this.image = document.createElement("planetimg")
+        let source =  "../docs/images/"+this.planet.toLowerCase()+".png"
         this.image.style.backgroundImage = "url("+ source +")";
 
         this.text = document.createElement("planetname")
-        this.text.innerHTML = planet
+        this.text.innerHTML = this.planets[index]
+
+        this.index = index
 
         this.planetContainer.appendChild(this.image)
         this.planetContainer.appendChild(this.text)
 
-        this.moveBind = (e: Event) => this.update(e)
 
         if(this.currentLevel == 8){
-            this.planetContainer.addEventListener("mousedown", (e) => this.initDrag(e))
-            this.planetContainer.addEventListener("mouseup"  , (e) => this.stopDrag(e))  
+            this.planetContainer.addEventListener("click", (e) => this.clickedPlanet(e))
         } else {
             this.planetContainer.style.border = "none"
             this.planetContainer.style.opacity = "0.5"
 
-            if(this.planets[this.currentLevel] == planet){
+            if(this.planets[this.currentLevel] == this.planet){
             this.planetContainer.style.opacity = "1.0"
             }          
         }
     }
 
-    private initDrag(e: Event) : void {
-        e.preventDefault()
-        
-        // HET ITEM HIER BOVENIN DE DOM ORDER ZETTEN, ANDERS KAN JE ONDER ANDERE ELEMENTEN SLEPEN - DAN WERKT DROP NIET
-        this.planetContainer.parentElement.appendChild(this.planetContainer)     
-    
-        // offset verandert na elke klik op dit object
-        this.offSetX = e.clientX - this.x
-        this.offSetY = e.clientY - this.y  
-        
-        window.addEventListener("mousemove", this.moveBind)
-    }
-
-    private stopDrag(e: Event) : void {
-        window.removeEventListener("mousemove", this.moveBind)
-        e.preventDefault()
-    }
-
-    private update(e: Event): void {
-            
-        e.preventDefault()
-    
-        this.x = e.clientX - this.offSetX
-        this.y = e.clientY - this.offSetY
-    
-        this.planetContainer.style.transform = "translate(" + this.x + "px, " + this.y + "px) scale(" + this.scale + ")"
+    private clickedPlanet(e:Event) {
+     
+        this.container.insertBefore(this.planetContainer, this.container.firstChild)
     }
 }

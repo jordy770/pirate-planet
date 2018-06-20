@@ -89,7 +89,7 @@ background {
 
 /* Backgrounds Game */
 .startbg {
-    background-image: url(../images/startbg.jpg);
+    background-image: url(../images/startscreenbg.png);
 }
 
 .earthbg {
@@ -186,7 +186,7 @@ startmodal, restartmodal, betweenmodal {
     left:400px;
     width:400px;
     height:300px;
-    background-color:#efefef;
+    background: rgba(239, 239, 239, .8);
     text-align:center;
 }
 
@@ -206,7 +206,7 @@ startbtn, restartbtn, betweenbtn {
 }
 
 startbtn:hover, restartbtn:hover, betweenbtn:hover {
-    background-color:#efefef;
+    background: rgba(239, 239, 239, .0);
     border:2px solid #313131;
     color: #313131
 }
@@ -216,6 +216,10 @@ starttext, restarttext, betweentext {
     font-family:"Trebuchet MS", Helvetica, sans-serif;
     font-size:20px;
     margin:40px;
+}
+
+.selectedplanet {
+    border:2px dashed greenyellow;
 }
 
 /* Endassignment styling */
@@ -255,6 +259,22 @@ assignmentmodal {
 
 assignmenttext, assignmenttext {
     margin-top: 10px;
+    width: 90%;
+    text-align: center;
+    margin-left: 34px;
+
+}
+
+assignmenttext#donetitle {
+    margin-top: 50px;
+    font-size: 80px;
+    width: 100%;
+    text-align: center;
+}
+
+assignmenttext#donetext {
+    margin-top: 50px;
+    font-size: 40px;
     width: 100%;
     text-align: center;
 }
@@ -277,20 +297,16 @@ planetscontainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("../images/boxes.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width:100%;
     height: 100px;
     margin-top: 80px;
+    margin-left: 17px;
 }
 
 planetcontainer {
     display: flex;
     justify-content: center;
     width: 80px;
-    height: 80px;
+    height: 100%;
     float:left;
     position: relative;
     border: 1px solid #837357;

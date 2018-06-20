@@ -1,3 +1,4 @@
 # Pirate Planet
 
-https://jordy770.github.io/game-master/ this tha link 
+this is the real games there games!!
+https://jordy770.github.io/pirate-planet/

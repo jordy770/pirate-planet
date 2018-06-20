@@ -89,7 +89,7 @@ background {
 
 /* Backgrounds Game */
 .startbg {
-    background-image: url(../images/startbg.jpg);
+    background-image: url(../images/startscreenbg.png);
 }
 
 .earthbg {
@@ -186,7 +186,7 @@ startmodal, restartmodal, betweenmodal {
     left:400px;
     width:400px;
     height:300px;
-    background-color:#efefef;
+    background: rgba(239, 239, 239, .8);
     text-align:center;
 }
 
@@ -206,7 +206,7 @@ startbtn, restartbtn, betweenbtn {
 }
 
 startbtn:hover, restartbtn:hover, betweenbtn:hover {
-    background-color:#efefef;
+    background: rgba(239, 239, 239, .0);
     border:2px solid #313131;
     color: #313131
 }

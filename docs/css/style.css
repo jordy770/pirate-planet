@@ -218,6 +218,10 @@ starttext, restarttext, betweentext {
     margin:40px;
 }
 
+.selectedplanet {
+    border:2px dashed greenyellow;
+}
+
 /* Endassignment styling */
 assignmentbtn {
     margin-left: 140px;
@@ -255,6 +259,22 @@ assignmentmodal {
 
 assignmenttext, assignmenttext {
     margin-top: 10px;
+    width: 90%;
+    text-align: center;
+    margin-left: 34px;
+
+}
+
+assignmenttext#donetitle {
+    margin-top: 50px;
+    font-size: 80px;
+    width: 100%;
+    text-align: center;
+}
+
+assignmenttext#donetext {
+    margin-top: 50px;
+    font-size: 40px;
     width: 100%;
     text-align: center;
 }
@@ -277,20 +297,16 @@ planetscontainer {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url("../images/boxes.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width:100%;
     height: 100px;
     margin-top: 80px;
+    margin-left: 17px;
 }
 
 planetcontainer {
     display: flex;
     justify-content: center;
     width: 80px;
-    height: 80px;
+    height: 100%;
     float:left;
     position: relative;
     border: 1px solid #837357;

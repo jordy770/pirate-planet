@@ -12,9 +12,6 @@ class SpaceGame {
     private afstand:number = 2452800
     private bgmusic : HTMLAudioElement
     
-
-    
-
     public get Time() : number {
         return this.time
     }
@@ -65,12 +62,10 @@ class SpaceGame {
                 if(this.levens > 0) {
                     this.levens--
                 }
-                console.log("ship hits asteroid")
             }
 
             for(let las of this.lasers) { // loop door alle asteroids in de array - roep update aan
                 if (this.checkCollision(las.getRectangle(), asteroid.getRectangle())) {
-                    console.log("asteroid hits one of the lasers")
                     asteroid.reset()
                     las.remove()
                 }
@@ -107,8 +102,6 @@ class SpaceGame {
 
         this.time++
         this.afstand = this.afstand - 1752
-        console.log(this.time)
-        console.log(this.afstand)
 
         this.background.loop()      
     }

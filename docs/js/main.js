@@ -150,7 +150,7 @@ var BetweenScreen6 = (function (_super) {
         var _this = _super.call(this, game) || this;
         var background = document.getElementsByTagName("background")[0];
         background.classList.replace("neptunebg", "venusbg");
-        _this.text = "Je merkte dat er geen planeten meer te zien waren, en besloot terug te vliegen om aan de andere kant van de aarde te kijken.<br><br> Je had gelijk! Je bent aangekomen op Venus. Pak alle zakjes op zodat je straks je buit kan verzamelen!";
+        _this.text = "Je merkte dat er geen planeten meer te zien waren, en besloot terug te vliegen om aan de andere kant van de aarde te kijken.<br> Je had gelijk! Je bent aangekomen op Venus. Pak alle zakjes op zodat je straks je buit kan verzamelen!";
         return _this;
     }
     return BetweenScreen6;
@@ -265,8 +265,11 @@ var End = (function () {
             this.assignmentbtn.remove();
             this.assignmenttext1.innerHTML = "GEWELDIG!";
             this.assignmenttext1.id = "donetitle";
+            this.assignmentmodal.style.backgroundImage = "url(../docs/images/finalbg.jpg)";
+            this.assignmentmodal.style.backgroundRepeat = "no-repeat";
+            this.assignmentmodal.style.backgroundSize = "cover";
+            this.assignmentmodal.style.backgroundPosition = "center";
             this.assignmenttext2.innerHTML = "Je hebt de schat gevonden en het slot gekraakt! Je hebt alle planeten goed geplaatst en kent het zonnestelsel nu van buiten! <br><br>Gefeliciteerd!";
-            this.assignmenttext1.id = "donetext";
         }
         else {
             this.planetscontainer.style.border = "2px solid red";
@@ -1100,12 +1103,10 @@ var SpaceGame = (function () {
                 if (this.levens > 0) {
                     this.levens--;
                 }
-                console.log("ship hits asteroid");
             }
             for (var _d = 0, _e = this.lasers; _d < _e.length; _d++) {
                 var las = _e[_d];
                 if (this.checkCollision(las.getRectangle(), asteroid.getRectangle())) {
-                    console.log("asteroid hits one of the lasers");
                     asteroid.reset();
                     las.remove();
                 }
@@ -1145,8 +1146,6 @@ var SpaceGame = (function () {
         }
         this.time++;
         this.afstand = this.afstand - 1752;
-        console.log(this.time);
-        console.log(this.afstand);
         this.background.loop();
     };
     SpaceGame.prototype.addLaser = function (l) {
@@ -1282,7 +1281,6 @@ var StartScreen = (function () {
         this.starttext.innerHTML = "Je bent een piraat die de hele wereld al heeft ontdekt. Je hebt gehoord dat er een schat verborgen is op de planeet Mercurius. Ga op reis om de schat te vinden!";
     };
     StartScreen.prototype.switchScreens = function () {
-        console.log('switch to gamescreen');
         this.bgmusic.pause();
         this.game.emptyScreen();
         this.game.showScreen(new GameScreen1(this.game));

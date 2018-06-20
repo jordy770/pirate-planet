@@ -72,9 +72,13 @@ class End {
             this.assignmentbtn.remove()
             this.assignmenttext1.innerHTML = "GEWELDIG!"
             this.assignmenttext1.id = "donetitle"
+            this.assignmentmodal.style.backgroundImage = "url(../docs/images/finalbg.jpg)" 
+            this.assignmentmodal.style.backgroundRepeat = "no-repeat" 
+            this.assignmentmodal.style.backgroundSize = "cover" 
+            this.assignmentmodal.style.backgroundPosition = "center" 
+
 
             this.assignmenttext2.innerHTML = "Je hebt de schat gevonden en het slot gekraakt! Je hebt alle planeten goed geplaatst en kent het zonnestelsel nu van buiten! <br><br>Gefeliciteerd!"
-            this.assignmenttext1.id = "donetext"
 
         }else{
             this.planetscontainer.style.border = "2px solid red"

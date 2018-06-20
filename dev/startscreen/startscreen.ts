@@ -56,11 +56,8 @@ class StartScreen {
     }
 
     private switchScreens(){
-        console.log('switch to gamescreen')
         this.bgmusic.pause()
         this.game.emptyScreen()
         this.game.showScreen(new GameScreen1(this.game))
     }
-    
-
 }

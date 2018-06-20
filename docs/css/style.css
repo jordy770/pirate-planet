@@ -251,7 +251,7 @@ assignmentmodal {
     text-align: center;
     margin-left: 300px;
     margin-top: 160px;
-    background-color: #baa684;
+    background-image: url("../images/finalbg.jpg");
     width: 680px;
     height: 400px;
     border: 1px solid black;
@@ -262,20 +262,18 @@ assignmenttext, assignmenttext {
     width: 90%;
     text-align: center;
     margin-left: 34px;
-
+    color:black;
 }
 
 assignmenttext#donetitle {
     margin-top: 50px;
     font-size: 80px;
-    width: 100%;
     text-align: center;
 }
 
 assignmenttext#donetext {
     margin-top: 50px;
     font-size: 40px;
-    width: 100%;
     text-align: center;
 }
 

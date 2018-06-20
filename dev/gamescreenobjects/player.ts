@@ -47,6 +47,7 @@ class Player  {
                 break
             case "ArrowUp":
             case "w":
+            case " ":
                 if(this.falling == false){
                     this.speedUp = 30
                     console.log("set speed up")
